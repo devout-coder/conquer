@@ -1,4 +1,19 @@
 body {
   margin: 0;
   box-sizing: border-box;
+  background-color: #1A1A2E;
+}
+*{
+  margin: 0;
+}
+button, input, textarea {
+  border:none;
+}
+
+button:focus, input:focus, textarea:focus {
+  outline: none;
+}
+
+button:hover {
+  transform: scale(1.02);
 }

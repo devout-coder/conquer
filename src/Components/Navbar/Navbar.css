@@ -1,0 +1,25 @@
+.navbar{
+    display: flex;
+    align-items: center;
+}
+
+.conquerText{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 60px;
+    color: #A981FF;
+}
+
+@media only screen and (max-width:600px){
+    .navbar{
+        justify-content:center;
+    }
+    .conquerText{
+        font-size: 12vw;
+    }
+    .conquerLogo{
+        width: 22vw;
+        height: 22vw;
+    }
+}

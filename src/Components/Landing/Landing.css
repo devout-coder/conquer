@@ -1,0 +1,63 @@
+.landing {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../images/conquerLanding.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.landingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 90%;
+  position: relative;
+  top: 100px;
+  text-align: center;
+}
+
+.landingPara {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  margin-bottom:20px;
+}
+
+.landingPara1 {
+  font-size: 45px;
+  color: #ffffff;
+}
+
+.landingPara2 {
+  font-size: 40px;
+  font-weight: 400;
+  color: #eada76;
+}
+
+.getStartedButt {
+  background: #a981ff;
+  border-radius: 15px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  height: 60px;
+  color: #000000;
+}
+
+@media only screen and (max-width:600px){
+    
+    .landingPara1{
+        font-size: 5.6vw;
+    }
+    .landingPara2{
+        font-size: 5vw;
+    }
+    .getStartedButt{
+        font-size: 5vw;
+        height: 11vw;
+    }
+}
