@@ -3,17 +3,32 @@ body {
   box-sizing: border-box;
   background-color: #1A1A2E;
 }
-*{
-  margin: 0;
-}
-button, input, textarea {
+
+button {
   border:none;
 }
 
-button:focus, input:focus, textarea:focus {
+button:focus {
   outline: none;
 }
 
+input,textarea {
+  border: none;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+}
+
+*{
+  margin:0px;
+}
+
+button {
+  transition: transform 0.1s;
+  cursor: pointer;
+}
+
 button:hover {
-  transform: scale(1.02);
+  transform: scale(1.025);
 }

@@ -7,8 +7,9 @@
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
-    font-size: 60px;
+    font-size: 55px;
     color: #A981FF;
+    text-decoration: none;
 }
 
 @media only screen and (max-width:600px){

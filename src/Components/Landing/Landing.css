@@ -23,7 +23,6 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: 500;
-  margin-bottom:20px;
 }
 
 .landingPara1 {
@@ -32,6 +31,7 @@
 }
 
 .landingPara2 {
+  margin-bottom:30px;
   font-size: 40px;
   font-weight: 400;
   color: #eada76;
@@ -43,8 +43,9 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: 600;
-  font-size: 30px;
+  font-size: 27px;
   height: 60px;
+  padding:10px;
   color: #000000;
 }
 

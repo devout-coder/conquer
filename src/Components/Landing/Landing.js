@@ -1,8 +1,10 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Landing.css";
 
 function Landing() {
+  let history = useHistory()
   return (
     <div className="landing">
       <Navbar />
@@ -13,7 +15,7 @@ function Landing() {
         <p className="landingPara landingPara2">
           Our mission is to provide you an awesome tool to plan your journey
         </p>
-        <button className="getStartedButt" >Get Started</button>
+        <button className="getStartedButt" onClick={()=>history.push('/signup')}  >Get Started</button>
       </div>
     </div>
   );
