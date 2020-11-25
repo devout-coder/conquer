@@ -8,6 +8,7 @@
   background-size: cover;
 }
 
+
 .landingContent {
   display: flex;
   flex-direction: column;
@@ -23,6 +24,8 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: 500;
+  animation-name: fadeIn;
+  animation-duration: 2s;
 }
 
 .landingPara1 {
@@ -44,13 +47,18 @@
   font-style: normal;
   font-weight: 600;
   font-size: 27px;
+  animation-name: buttonMove ;
+  animation-duration: 1.5s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
   height: 60px;
+  position: relative;
+  bottom: 100vh;
   padding:10px;
   color: #000000;
 }
 
 @media only screen and (max-width:600px){
-    
     .landingPara1{
         font-size: 5.6vw;
     }
@@ -62,3 +70,15 @@
         height: 11vw;
     }
 }
+
+@keyframes buttonMove {
+  from{bottom:100vh;
+  transform: rotate(360deg)}
+  to{bottom:0px;}
+}
+
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+} 
