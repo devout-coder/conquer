@@ -1,18 +1,43 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Login.css";
 import google_logo from "../../images/google_logo.png";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { IconButton } from "@material-ui/core";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import Loading from "../Loading/Loading";
+import firebaseApp from "../../firebase";
+import firebase from "firebase";
 
 function Login() {
+  const history = useHistory();
   const [wantsPassword, setWantsPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = () => {};
-  const loginGoogle = () => {};
+  const [loading, setLoading] = useState(null);
+  const login = async () => {
+    setLoading(true);
+    try {
+      await firebaseApp.auth().signInWithEmailAndPassword(email, password);
+      history.push("/daily");
+    } catch (error) {
+      setLoading(false);
+      alert(error.message);
+    }
+  };
+  const loginGoogle = async () => {
+    setLoading(true);
+    let provider = new firebase.auth.GoogleAuthProvider();
+    await firebaseApp
+      .auth()
+      .signInWithPopup(provider)
+      .catch((error) => {
+        setLoading(false);
+        alert(error.message);
+      });
+    history.push("/daily");
+  };
   const toggle = () => {
     setWantsPassword(!wantsPassword);
     if (wantsPassword) {
@@ -21,7 +46,7 @@ function Login() {
       return (document.getElementById("passwordField").type = "text");
     }
   };
-  return (
+  return !loading ? (
     <div className="login">
       <Navbar />
       <div className="loginPage">
@@ -40,7 +65,7 @@ function Login() {
             <input
               type="password"
               value={password}
-              id="passwordField"    
+              id="passwordField"
               spellCheck="false"
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -61,9 +86,11 @@ function Login() {
           <div className="signupText">
             Don't have an account?&nbsp;<Link to="/signup">Signup</Link>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
+  ) : (
+    <Loading />
   );
 }
 

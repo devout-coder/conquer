@@ -1,19 +1,48 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Signup.css";
 import google_logo from "../../images/google_logo.png";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import { IconButton } from "@material-ui/core";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import firebaseApp from "../../firebase";
+import Loading from "../Loading/Loading";
+import firebase from "firebase";
 
 function Signup() {
+  const history = useHistory();
+  const [loading, setLoading] = useState(null);
   const [username, setUsername] = useState("");
   const [wantsPassword, setWantsPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const signUp = () => {};
-  const signUpgoogle = () => {};
+
+  const signUp = async (e) => {
+    setLoading(true);
+    try {
+      await firebaseApp.auth().createUserWithEmailAndPassword(email, password);
+      firebaseApp.auth().currentUser.updateProfile({ displayName: username });
+      history.push("/daily");
+    } catch (error) {
+      setLoading(false);
+      alert(error.message);
+    }
+  };
+
+  const signUpgoogle = async () => {
+    setLoading(true);
+    let provider = new firebase.auth.GoogleAuthProvider();
+    await firebaseApp
+      .auth()
+      .signInWithPopup(provider)
+      .catch((error) => {
+        setLoading(false);
+        alert(error.message);
+      });
+    history.push("/daily");
+  };
+
   const toggle = () => {
     setWantsPassword(!wantsPassword);
     if (wantsPassword) {
@@ -22,7 +51,8 @@ function Signup() {
       return (document.getElementById("passwordField").type = "text");
     }
   };
-  return (
+
+  return !loading ? (
     <div className="signup">
       <Navbar />
       <div className="signupPage">
@@ -69,11 +99,13 @@ function Signup() {
             <img src={google_logo} alt="" />
           </button>
           <div className="loginText">
-            Have an account?&nbsp;<Link to="/Login">Login</Link>
+            Have an account?&nbsp;<Link to="/login">Login</Link>
           </div>
         </div>
       </div>
     </div>
+  ) : (
+    <Loading />
   );
 }
 
