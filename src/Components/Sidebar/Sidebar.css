@@ -1,0 +1,25 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  width: 100px;
+}
+
+.sidebarIcon {
+  margin: 10px;
+}
+
+.sidebarIcon:hover {
+  filter: invert(40%) sepia(0%) saturate(1257%) hue-rotate(162deg) brightness(102%) contrast(84%);
+}
+.sidebar a{
+    width: 60px;
+}
+
+.colorMe{
+    filter: invert(100%) sepia(66%) saturate(2%) hue-rotate(101deg) brightness(106%) contrast(101%);
+}
+.colorMe:hover{
+    filter: invert(100%) sepia(66%) saturate(2%) hue-rotate(101deg) brightness(106%) contrast(101%);
+}
+
