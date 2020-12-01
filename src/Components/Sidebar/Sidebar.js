@@ -21,7 +21,7 @@ function Sidebar() {
   }, [])
   return (
     <div className="sidebar">
-      <Link to="/notes">
+      <Link to="/notes" >
         <img src={notesIcon} className="notes sidebarIcon" />
       </Link>
       <Link to="/daily">

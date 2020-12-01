@@ -1,0 +1,16 @@
+button:hover {
+  transform: none;
+}
+
+.dailyPage {
+  display: flex;
+}
+
+.dailyPageEmpty {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 20px;
+}
+
