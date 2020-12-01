@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Calendar.css";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { IconButton } from "@material-ui/core";
+import { loadingContext } from "../../loadingContext";
 
 function Calendar() {
+  const isLoading = useContext(loadingContext);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const months = {
@@ -24,8 +26,8 @@ function Calendar() {
   const getDaysIn = (year, month) => {
     return new Date(year, month + 1, 0).getDate();
   };
-  const days = ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"];
-  const getReqCols = () => {
+  const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const getReqRows = () => {
     let noPrevDays = new Date(currentYear, currentMonth, 1).getDay() - 1;
     noPrevDays = noPrevDays === -1 ? 6 : noPrevDays;
     let noNextDays =
@@ -55,21 +57,34 @@ function Calendar() {
       horizontalList.push(allDays.slice(i, i + 7));
       i = i + 7;
     }
-    let megaArr = [];
-    for (let i = 0; i < 7; i++) {
-      let miniArr = [];
-      for (let each of horizontalList) {
-        miniArr.push(each[i]);
-      }
-      miniArr.unshift(days[i]);
-      megaArr.push(miniArr);
-    }
-    return megaArr;
+    // let megaArr = [];
+    // for (let i = 0; i < 7; i++) {
+    //   let miniArr = [];
+    //   for (let each of horizontalList) {
+    //     miniArr.push(each[i]);
+    //   }
+    //   miniArr.unshift(weekDays[i]);
+    //   megaArr.push(miniArr);
+    // }
+    // return megaArr;
+    return horizontalList;
   };
-
+  // useEffect(() => {
+  //   let allInds = document.getElementsByClassName("individual");
+  //   for (let each of allInds) {
+  //     for (let day of weekDays) {
+  //       if (day === each.innerHTML) {
+  //         each.classList.add("day");
+  //       }
+  //     }
+  //     if (!Array.from(each.classList).includes("day")) {
+  //       each.classList.add("date");
+  //     }
+  //   }
+  // }, [isLoading]);
   const increaseMonth = () => {
     if (currentMonth + 1 <= 11) {
-      setCurrentMonth(currentMonth + 1);
+      setCurrentMonth(currentMonth + 1);  
     } else {
       setCurrentYear(currentYear + 1);
       setCurrentMonth(0);
@@ -97,17 +112,22 @@ function Calendar() {
           <ArrowRightIcon />
         </IconButton>
       </div>
-      <table></table>
-      {/* <div className="monthbar">
-        <span className="day">Mon</span>
-        <span className="day">Tue</span>
-        <span className="day">Wed</span>
-        <span className="day">Thurs</span>
-        <span className="day">Fri</span>
-        <span className="day">Sat</span>
-        <span className="day">Sun</span>
-      </div> */}
-      <div className="allDates">
+      <table>
+        <tr>
+          {weekDays.map(day=>(
+            <th className="day">{day}</th>
+          ))}
+        </tr>
+        {getReqRows().map(row=>(
+          <tr className="row" >
+            {row.map(date=>(
+              <td><IconButton size="medium" color="primary" >{date}</IconButton></td>
+            ))}
+          </tr>
+        ))}
+            
+      </table>
+      {/* <div className="allDates">
         {getReqCols().map((col) => (
           <div className="datesColumn">
             {col.map((date) => (
@@ -115,7 +135,7 @@ function Calendar() {
             ))}
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

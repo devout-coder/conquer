@@ -16,7 +16,7 @@
   font-family: Poppins;
   font-weight: 500;
   font-size: 28px;
-  line-height: 67px;
+  line-height: 20px;
   color: #ffffff;
   margin: 0px 30px 0px 30px;
 }
@@ -26,28 +26,48 @@
   font-weight: normal;
   font-size: 26px;
   color: #eada76;
-  margin: 0px 23px 0px 23px;
-}
-.row {
-  display: flex;
-  flex-direction: row;
+  /* margin: 0px 23px 0px 23px; */
 }
 
-.individual {
+td{
+  padding: 4px 10px 4px 10px;
+  text-align: center;
+}
+th{
+  text-align: center;
+  padding: 10px;
+}
+
+
+td .MuiIconButton-label{
   font-family: Poppins;
-  margin: 0px 33px 0px 33px;
   font-weight: 500;
   font-size: 23px;
-  line-height: 67px;
   color: #ba9aff;
-} 
-
-.allDates{
-  display: flex;
 }
 
-.datesColumn{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+@media only screen and (max-width:640px){
+  /* td{
+    padding: 4px 0.2vw 4px 0.2vw;
+  }
+  th{
+    padding: 4px 0.2vw 4px 0.2vw;
+    
+  } */
+  .calendar table{
+    margin:5vw;
+  }
+  td{
+    padding: 2px 0vw 2px 0vw;
+  }
+  td .MuiIconButton-label{
+    font-size: 3.4vw;
+  }
+  .day{
+    font-size: 3.4vw;
+  }
+  .topbarMonth{
+    font-size: 4.3vw;
+    margin:0px 2.3vw 0px 2.3vw;
+  }
 }

@@ -10,7 +10,4 @@ button:hover {
   flex: 1;
   display: flex;
   justify-content: center;
-  position: relative;
-  top: 20px;
 }
-

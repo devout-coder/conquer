@@ -15,6 +15,7 @@ import Month from "./Components/Month/Month";
 import Year from "./Components/Year/Year";
 import LongTerm from "./Components/LongTerm/LongTerm";
 import VisionBoard from "./Components/VisionBoard/VisionBoard";
+import { loadingContext } from "./loadingContext";
 
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
@@ -26,19 +27,21 @@ function App() {
   return firebaseInitialized != false ? (
     <div className="App">
       <BrowserRouter>
-        <Switch>
-          <ClosedRoute exact path="/" component={Landing} />
-          <ClosedRoute exact path="/signup" component={Signup} />
-          <ClosedRoute exact path="/login" component={Login} />
-          <PrivateRoute exact path="/daily" component={Daily} />
-          <PrivateRoute exact path="/notes" component={Notes} />
-          <PrivateRoute exact path="/daily" component={Daily} />
-          <PrivateRoute exact path="/week" component={Week} />
-          <PrivateRoute exact path="/month" component={Month} />
-          <PrivateRoute exact path="/year" component={Year} />
-          <PrivateRoute exact path="/longTerm" component={LongTerm} />
-          <PrivateRoute exact path="/visionBoard" component={VisionBoard} />
-        </Switch>
+        <loadingContext.Provider value= {firebaseInitialized} >
+          <Switch>
+            <ClosedRoute exact path="/" component={Landing} />
+            <ClosedRoute exact path="/signup" component={Signup} />
+            <ClosedRoute exact path="/login" component={Login} />
+            <PrivateRoute exact path="/daily" component={Daily} />
+            <PrivateRoute exact path="/notes" component={Notes} />
+            <PrivateRoute exact path="/daily" component={Daily} />
+            <PrivateRoute exact path="/week" component={Week} />
+            <PrivateRoute exact path="/month" component={Month} />
+            <PrivateRoute exact path="/year" component={Year} />
+            <PrivateRoute exact path="/longTerm" component={LongTerm} />
+            <PrivateRoute exact path="/visionBoard" component={VisionBoard} />
+          </Switch>
+        </loadingContext.Provider>
       </BrowserRouter>
     </div>
   ) : (
