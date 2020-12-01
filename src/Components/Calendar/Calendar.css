@@ -4,12 +4,12 @@
 }
 .topbar .MuiSvgIcon-root {
   color: #fff;
-}   
+}
 
-.calendar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .topbarMonth {
@@ -27,4 +27,27 @@
   font-size: 26px;
   color: #eada76;
   margin: 0px 23px 0px 23px;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.individual {
+  font-family: Poppins;
+  margin: 0px 33px 0px 33px;
+  font-weight: 500;
+  font-size: 23px;
+  line-height: 67px;
+  color: #ba9aff;
+} 
+
+.allDates{
+  display: flex;
+}
+
+.datesColumn{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
