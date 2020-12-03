@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./Calendar.css";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { IconButton } from "@material-ui/core";
+import "./Calendar.css";
 import { loadingContext } from "../../loadingContext";
 
 function Calendar() {
@@ -26,6 +26,12 @@ function Calendar() {
   const getDaysIn = (year, month) => {
     return new Date(year, month + 1, 0).getDate();
   };
+  function formattedDate(date) {
+    let day = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+    return `${day}/${month+1}/${year}`;
+  }
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const getReqRows = () => {
     let noPrevDays = new Date(currentYear, currentMonth, 1).getDay() - 1;
@@ -43,13 +49,36 @@ function Calendar() {
     ].map((x) => x + 1);
     prevDays =
       noPrevDays != 0 ? prevDays.slice(-noPrevDays, prevDays.length + 1) : [];
+    prevDays.forEach((name, index) => {
+      if (currentMonth > 0) {
+        prevDays[index] = `${prevDays[index]}/${currentMonth}/${currentYear}`;
+      } else {
+        prevDays[index] = `${prevDays[index]}/12/${currentYear - 1}`;
+      }
+    });
     let nextDays = [
       ...Array(getDaysIn(currentYear, currentMonth + 1)).keys(),
     ].map((x) => x + 1);
     nextDays = nextDays.slice(0, noNextDays);
+    nextDays.forEach((name, index) => {
+      if (currentMonth + 1 <= 11) {
+        nextDays[index] = `${nextDays[index]}/${
+          currentMonth + 2
+        }/${currentYear}`;
+      } else {
+        nextDays[index] = `${nextDays[index]}/1/${currentYear + 1}`;
+      }
+    });
+
     let currentDays = [
       ...Array(getDaysIn(currentYear, currentMonth)).keys(),
     ].map((x) => x + 1);
+
+    currentDays.forEach((name, index) => {
+      currentDays[index] = `${currentDays[index]}/${
+        currentMonth + 1
+      }/${currentYear}`;
+    });
     let allDays = [...prevDays, ...currentDays, ...nextDays];
     let horizontalList = [];
     let i = 0;
@@ -82,9 +111,26 @@ function Calendar() {
   //     }
   //   }
   // }, [isLoading]);
+  useEffect(() => {
+    let allDates = document.getElementsByTagName("td");
+    let todayDate = formattedDate(new Date())
+    let today = document.getElementById(todayDate)
+    if (today != null){
+      today.id = 'today'
+    }else{
+
+    }
+    for (let each of allDates) {
+      if (each.id.split('/')[1] != currentMonth + 1 && each.id != 'today'){
+        console.log(each.id)
+        each.id = 'notThisMonth'
+        // each.classList.add('notThisMonth')
+      }
+    }
+  }, [isLoading, currentMonth]);
   const increaseMonth = () => {
     if (currentMonth + 1 <= 11) {
-      setCurrentMonth(currentMonth + 1);  
+      setCurrentMonth(currentMonth + 1);
     } else {
       setCurrentYear(currentYear + 1);
       setCurrentMonth(0);
@@ -114,18 +160,21 @@ function Calendar() {
       </div>
       <table>
         <tr>
-          {weekDays.map(day=>(
+          {weekDays.map((day) => (
             <th className="day">{day}</th>
           ))}
         </tr>
-        {getReqRows().map(row=>(
-          <tr className="row" >
-            {row.map(date=>(
-              <td><IconButton size="medium" color="primary" >{date}</IconButton></td>
+        {getReqRows().map((row) => (
+          <tr className="row">
+            {row.map((date) => (
+              <td id={date}>
+                <IconButton size="medium" color="primary" classes>
+                  {date.split("/")[0]}
+                </IconButton>
+              </td>
             ))}
           </tr>
         ))}
-            
       </table>
       {/* <div className="allDates">
         {getReqCols().map((col) => (
