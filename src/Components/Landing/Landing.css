@@ -8,14 +8,13 @@
   background-size: cover;
 }
 
-
 .landingContent {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: auto;
   width: 90%;
-  position: relative;
+  position: relative; 
   top: 100px;
   text-align: center;
 }
@@ -34,7 +33,7 @@
 }
 
 .landingPara2 {
-  margin-bottom:30px;
+  margin-bottom: 30px;
   font-size: 40px;
   font-weight: 400;
   color: #eada76;
@@ -47,38 +46,45 @@
   font-style: normal;
   font-weight: 600;
   font-size: 27px;
-  animation-name: buttonMove ;
+  animation-name: buttonMove;
   animation-duration: 1.5s;
   animation-delay: 1s;
   animation-fill-mode: forwards;
   height: 60px;
   position: relative;
   bottom: 100vh;
-  padding:10px;
+  padding: 10px;
   color: #000000;
 }
 
-@media only screen and (max-width:600px){
-    .landingPara1{
-        font-size: 5.6vw;
-    }
-    .landingPara2{
-        font-size: 5vw;
-    }
-    .getStartedButt{
-        font-size: 5vw;
-        height: 11vw;
-    }
+@media only screen and (max-width: 600px) {
+  .landingPara1 {
+    font-size: 5.6vw;
+  }
+  .landingPara2 {
+    font-size: 5vw;
+  }
+  .getStartedButt {
+    font-size: 5vw;
+    height: 11vw;
+  }
 }
 
 @keyframes buttonMove {
-  from{bottom:100vh;
-  transform: rotate(360deg)}
-  to{bottom:0px;}
+  from {
+    bottom: 100vh;
+    transform: rotate(360deg);
+  }
+  to {
+    bottom: 0px;
+  }
 }
 
-
 @keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-} 
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

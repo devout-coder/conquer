@@ -4,11 +4,13 @@ import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { IconButton } from "@material-ui/core";
 import "./Calendar.css";
 import { loadingContext } from "../../loadingContext";
+import { useHistory } from "react-router-dom";
 
 function Calendar() {
   const isLoading = useContext(loadingContext);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const history = useHistory();
   const months = {
     0: "January",
     1: "February",
@@ -30,7 +32,7 @@ function Calendar() {
     let day = date.getDate();
     let month = date.getMonth();
     let year = date.getFullYear();
-    return `${day}/${month+1}/${year}`;
+    return `${day}/${month + 1}/${year}`;
   }
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const getReqRows = () => {
@@ -86,45 +88,20 @@ function Calendar() {
       horizontalList.push(allDays.slice(i, i + 7));
       i = i + 7;
     }
-    // let megaArr = [];
-    // for (let i = 0; i < 7; i++) {
-    //   let miniArr = [];
-    //   for (let each of horizontalList) {
-    //     miniArr.push(each[i]);
-    //   }
-    //   miniArr.unshift(weekDays[i]);
-    //   megaArr.push(miniArr);
-    // }
-    // return megaArr;
     return horizontalList;
   };
-  // useEffect(() => {
-  //   let allInds = document.getElementsByClassName("individual");
-  //   for (let each of allInds) {
-  //     for (let day of weekDays) {
-  //       if (day === each.innerHTML) {
-  //         each.classList.add("day");
-  //       }
-  //     }
-  //     if (!Array.from(each.classList).includes("day")) {
-  //       each.classList.add("date");
-  //     }
-  //   }
-  // }, [isLoading]);
   useEffect(() => {
     let allDates = document.getElementsByTagName("td");
-    let todayDate = formattedDate(new Date())
-    let today = document.getElementById(todayDate)
-    if (today != null){
-      today.id = 'today'
-    }else{
-
+    let todayDate = formattedDate(new Date());
+    let today = document.getElementById(todayDate);
+    if (today != null) {
+      today.id = "today";
+    } else {
     }
     for (let each of allDates) {
-      if (each.id.split('/')[1] != currentMonth + 1 && each.id != 'today'){
-        console.log(each.id)
-        each.id = 'notThisMonth'
-        // each.classList.add('notThisMonth')
+      if (each.id.split("/")[1] != currentMonth + 1 && each.id != "today") {
+        console.log(each.id);
+        each.id = "notThisMonth";
       }
     }
   }, [isLoading, currentMonth]);
@@ -168,7 +145,16 @@ function Calendar() {
           <tr className="row">
             {row.map((date) => (
               <td id={date}>
-                <IconButton size="medium" color="primary" classes>
+                <IconButton
+                  size="medium"
+                  color="primary"
+                  onClick={() =>
+                    history.push({
+                      pathname: "daily/allTodos",
+                      state: { toDisplay: date, lastPage:'daily' },
+                    })
+                  }
+                >
                   {date.split("/")[0]}
                 </IconButton>
               </td>

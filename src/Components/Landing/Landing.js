@@ -4,7 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import "./Landing.css";
 
 function Landing() {
-  let history = useHistory()
+  let history = useHistory()  
   return (
     <div className="landing">
       <Navbar />

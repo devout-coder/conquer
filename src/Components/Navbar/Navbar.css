@@ -12,6 +12,17 @@
     text-decoration: none;
 }
 
+.logoutText{
+    font-family: Poppins;
+    font-weight: 400;
+    color:white;
+    position: absolute;
+    font-size: 25px;
+    right: 0;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
 @media only screen and (max-width:600px){
     .navbar{
         justify-content:center;
@@ -22,5 +33,8 @@
     .conquerLogo{
         width: 22vw;
         height: 22vw;
+    }
+    .logoutText{
+        bottom: 0;
     }
 }

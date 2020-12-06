@@ -16,6 +16,7 @@ import Year from "./Components/Year/Year";
 import LongTerm from "./Components/LongTerm/LongTerm";
 import VisionBoard from "./Components/VisionBoard/VisionBoard";
 import { loadingContext } from "./loadingContext";
+import AllTodos from "./Components/AllTodos/AllTodos";
 
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
@@ -40,6 +41,7 @@ function App() {
             <PrivateRoute exact path="/year" component={Year} />
             <PrivateRoute exact path="/longTerm" component={LongTerm} />
             <PrivateRoute exact path="/visionBoard" component={VisionBoard} />
+            <PrivateRoute exact path="/:time/allTodos" component={AllTodos} />
           </Switch>
         </loadingContext.Provider>
       </BrowserRouter>

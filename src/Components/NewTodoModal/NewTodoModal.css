@@ -1,0 +1,78 @@
+.modalBackground {
+  background-color: rgba(0, 0, 0, 0.692);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+}
+
+.modal {
+  background: #a7e498;
+  border-radius: 20px;
+  padding: 10px;
+  width: 63%;
+  height: 400px;
+  transition: opacity 0.5s;
+  opacity:0;
+}
+
+.modalTopbar {
+  padding: 20px;
+  display: flex;
+  /* align-items: flex-end; */
+}
+
+#modalTaskName {
+  font-family: Ubuntu;
+  font-weight: 500;
+  font-size: 32px;
+  color: black;
+  width: 70%;
+  background: #a7e498;
+  margin-left: 20px;
+  margin-right: 7%;
+}
+
+#modalTaskName::placeholder {
+  color: rgba(20, 20, 20, 0.39);
+}
+
+.modal hr {
+  background-color: #25252546;
+  border: 0.01px solid #25252546;
+  width: 93%;
+  margin: auto;
+}
+
+.modal .MuiSvgIcon-root {
+  color: rgba(0, 0, 0, 0.692);
+}
+
+#modalTaskDesc {
+  margin: 5%;
+  resize: none;
+  height: 40%;
+  width: 90%;
+  background: #a7e498;
+  font-family: Ubuntu;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 46px;
+  color: #5c3535;
+}
+
+#modalTaskDesc::placeholder {
+  color: rgba(20, 20, 20, 0.39);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

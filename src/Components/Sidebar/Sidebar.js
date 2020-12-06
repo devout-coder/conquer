@@ -11,17 +11,19 @@ import { IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
-  function changeColor(){
-    let currentLink = window.location.pathname.split('/')[1];
-    let reqElement = document.getElementsByClassName(`sidebarIcon ${currentLink}`)[0]
-    reqElement.classList.add('colorMe')
+  function changeColor() {
+    let currentLink = window.location.pathname.split("/")[1];
+    let reqElement = document.getElementsByClassName(
+      `sidebarIcon ${currentLink}`
+    )[0];
+    reqElement.classList.add("colorMe");
   }
   useEffect(() => {
     changeColor();
-  }, [])
+  }, []);
   return (
     <div className="sidebar">
-      <Link to="/notes" >
+      <Link to="/notes">
         <img src={notesIcon} className="notes sidebarIcon" />
       </Link>
       <Link to="/daily">

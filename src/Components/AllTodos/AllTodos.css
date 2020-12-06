@@ -1,0 +1,33 @@
+.allTodosPage {
+  display: flex;
+}
+
+.allTodosPageEmpty {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.toDisplay {
+  font-family: Poppins;
+  font-weight: 600;
+  font-size: 30px;
+  color: #fefefe;
+  margin: 0px 25px 0px 25px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+}
+
+.topbar .MuiSvgIcon-root {
+  width: 35px;
+  height: 35px;
+}
+.finishedTodos{
+  color: #fefefe;
+  position: absolute;
+  right: 0;
+}
