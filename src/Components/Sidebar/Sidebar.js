@@ -23,25 +23,25 @@ function Sidebar() {
   }, []);
   return (
     <div className="sidebar">
-      <Link to="/notes">
+      <Link to="/notes" title="Notes" >
         <img src={notesIcon} className="notes sidebarIcon" />
       </Link>
-      <Link to="/daily">
+      <Link to="/daily" title="Daily Goals" >
         <img src={dailyIcon} className="daily sidebarIcon" />
       </Link>
-      <Link to="/week">
+      <Link to="/week" title="Weekly Goals" >
         <img src={weekIcon} className="week sidebarIcon" />
       </Link>
-      <Link to="/month">
+      <Link to="/month" title="Monthly Goals" >
         <img src={monthIcon} className="month sidebarIcon" />
       </Link>
-      <Link to="/year">
+      <Link to="/year" title="Yearly Goals" >
         <img src={yearIcon} className="year sidebarIcon" />
       </Link>
-      <Link to="/longTerm">
+      <Link to="/longTerm" title="Long Term Goals" >
         <img src={longTermIcon} className="longTerm sidebarIcon" />
       </Link>
-      <Link to="/visionBoard">
+      <Link to="/visionBoard" title="Vision Board" >
         <img src={visionBoardIcon} className="visionBoard sidebarIcon" />
       </Link>
     </div>

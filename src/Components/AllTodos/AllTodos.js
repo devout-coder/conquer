@@ -26,11 +26,16 @@ function AllTodos(props) {
         <Sidebar />
         <div className="allTodosPageEmpty">
           <div className="topbar">
-            <IconButton onClick={() => history.push(`/${lastPage}`)}>
+            <IconButton
+              title="Back"
+              onClick={() => history.push(`/${lastPage}`)}
+            >
               <ArrowBackIcon />
             </IconButton>
-            <span className="toDisplay">{toDisplay}</span>
-            <IconButton onClick={() => openModal()}>
+            <span className="toDisplay">
+              {toDisplay}
+            </span>
+            <IconButton onClick={() => openModal()} title="New Todo" >
               <QueueIcon />
             </IconButton>
           </div>

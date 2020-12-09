@@ -4,7 +4,7 @@
 }
 .topbar .MuiSvgIcon-root {
   color: #fff;
-}
+} 
 
 .calendar {
   display: flex;
@@ -26,11 +26,10 @@
   font-weight: normal;
   font-size: 26px;
   color: #eada76;
-  /* margin: 0px 23px 0px 23px; */
 }
 
 td{
-  padding: 7px 10px 7px 10px;
+  padding:8px 5px 8px 5px;
   text-align: center;
 }
 th{
@@ -58,27 +57,20 @@ td .MuiIconButton-label{
 }
 
 @media only screen and (max-width:640px){
-  /* td{
-    padding: 4px 0.2vw 4px 0.2vw;
-  }
-  th{
-    padding: 4px 0.2vw 4px 0.2vw;
-    
-  } */
   .calendar table{
-    margin:5vw;
+    margin:0.2vw;
   }
   td{
-    padding: 2px 0.8vw 2px 0.8vw;
+    padding: 1vw 0vw 1vw 0vw;
   }
   td .MuiIconButton-label{
-    font-size: 3.4vw;
+    font-size: 3.5vw;
   }
   .day{
-    font-size: 3.4vw;
+    font-size: 3.6vw;
   }
   .topbarMonth{
-    font-size: 4.3vw;
+    font-size: 4.5vw;
     margin:0px 2.3vw 0px 2.3vw;
   }
 }

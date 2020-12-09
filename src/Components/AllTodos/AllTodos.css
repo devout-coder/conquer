@@ -31,3 +31,13 @@
   position: absolute;
   right: 0;
 }
+
+@media only screen and (max-width:450px){
+  .toDisplay{
+    font-size: 6vw;
+  }
+  .topbar .MuiSvgIcon-root {
+    width: 7vw;
+    height:7vw;
+  }
+}

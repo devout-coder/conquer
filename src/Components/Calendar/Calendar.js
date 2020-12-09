@@ -100,7 +100,6 @@ function Calendar() {
     }
     for (let each of allDates) {
       if (each.id.split("/")[1] != currentMonth + 1 && each.id != "today") {
-        console.log(each.id);
         each.id = "notThisMonth";
       }
     }
@@ -162,15 +161,6 @@ function Calendar() {
           </tr>
         ))}
       </table>
-      {/* <div className="allDates">
-        {getReqCols().map((col) => (
-          <div className="datesColumn">
-            {col.map((date) => (
-              <div className="individual">{date}</div>
-            ))}
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 }
