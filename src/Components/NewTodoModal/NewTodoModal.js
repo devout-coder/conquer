@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./NewTodoModal.css";
 import { makeStyles } from "@material-ui/core/styles";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import { ArrowBack, Save } from "@material-ui/icons";
@@ -12,9 +11,14 @@ import {
   NativeSelect,
   Select,
 } from "@material-ui/core";
+import "./NewTodoModal.css";
+import firebaseApp from "../../firebase";
 
-function NewTodoModal() {
+function NewTodoModal(props) {
   const [pri, setPri] = useState("none");
+  const [taskName, setTaskName] = useState("");
+  const [taskDesc, setTaskDesc] = useState("");
+
   function handleChange(event) {
     setPri(event.target.value);
   }
@@ -26,18 +30,31 @@ function NewTodoModal() {
   function togglePriorities() {
     document.getElementById("prioritiesDropdown").style.display = "flex";
   }
-  console.log(pri);
+  console.log(props.toDisplay);
   useEffect(() => {
     document.getElementsByClassName(
       "MuiSelect-root"
     )[0].lastChild.style.display = "none";
-    console.log(document.getElementsByClassName("MuiSelect-root")[0].lastChild);
     if (pri == "none") {
       document.getElementsByClassName(
         "MuiSelect-root"
       )[0].firstElementChild.style.display = "block";
     }
   }, [pri]);
+  function saveTodo() {
+    firebaseApp.firestore().collection("todos").add({
+      taskName: taskName,
+      taskDesc: taskDesc,
+      time: props.toDisplay,
+      priority: pri,
+      user: firebaseApp.auth().currentUser.uid
+    });
+    setTaskName("");
+    setTaskDesc("");
+    setPri("none");
+    closeModal();
+  }
+
   return (
     <div className="modalBackground">
       <div className="modal">
@@ -47,65 +64,40 @@ function NewTodoModal() {
             id="modalTaskName"
             placeholder="Task Name"
             spellCheck="false"
+            value={taskName}
+            onChange={(e) => setTaskName(e.target.value)}
           />
           <div className="modalButtons">
             <FormControl>
-              <Select
-                value={pri}
-                onChange={handleChange}
-                displayEmpty
-              >
-                <MenuItem value="high">
+              <Select value={pri} onChange={handleChange} displayEmpty>
+                <MenuItem value="high" className="eachPriority">
                   <PriorityHighIcon
                     id="highPriority"
                     style={{ color: "#FF3131" }}
                   ></PriorityHighIcon>
                   <span>High</span>
                 </MenuItem>
-                <MenuItem value="medium">
+                <MenuItem value="medium" className="eachPriority">
                   <PriorityHighIcon
                     id="mediumPriority"
-                    style={{ color: "#BBB411" }}
+                    style={{ color: "#464D8E" }}
                   ></PriorityHighIcon>
                   <span>Medium</span>
                 </MenuItem>
-                <MenuItem value="low">
+                <MenuItem value="low" className="eachPriority">
                   <PriorityHighIcon
                     id="lowPriority"
                     style={{ color: "#11B421" }}
                   ></PriorityHighIcon>
                   <span>Low</span>
                 </MenuItem>
-                <MenuItem value="none">
+                <MenuItem value="none" className="eachPriority">
                   <PriorityHighIcon></PriorityHighIcon>
                   <span>No priority</span>
                 </MenuItem>
               </Select>
               <FormHelperText>Priority</FormHelperText>
             </FormControl>
-            {/* <div id="prioritiesDropdown">
-              <div className="eachPriority">
-                <PriorityHighIcon
-                  id="highPriority"
-                  style={{ color: "#FF3131" }}
-                ></PriorityHighIcon>
-                <span>High</span>
-              </div>
-              <div className="eachPriority">
-                <PriorityHighIcon
-                  id="mediumPriority"
-                  style={{ color: "#BBB411" }}
-                ></PriorityHighIcon>
-                <span>Medium</span>
-              </div>
-              <div className="eachPriority">
-                <PriorityHighIcon
-                  id="lowPriority"
-                  style={{ color: "#11B421" }}
-                ></PriorityHighIcon>
-                <span>Low</span>
-              </div>
-            </div> */}
             <IconButton
               title="Back"
               id="modalBackButton"
@@ -113,7 +105,11 @@ function NewTodoModal() {
             >
               <ArrowBack />
             </IconButton>
-            <IconButton title="Save" id="modalSaveButton">
+            <IconButton
+              title="Save"
+              id="modalSaveButton"
+              onClick={() => saveTodo()}
+            >
               <Save />
             </IconButton>
           </div>
@@ -123,6 +119,8 @@ function NewTodoModal() {
           spellCheck="false"
           id="modalTaskDesc"
           placeholder="Task Description"
+          value={taskDesc}
+          onChange={(e) => setTaskDesc(e.target.value)}
         ></textarea>
       </div>
     </div>

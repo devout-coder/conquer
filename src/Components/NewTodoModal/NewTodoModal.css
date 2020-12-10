@@ -98,8 +98,14 @@
   z-index:4;
 }
 
-.eachPriority{
-  display: inline-block;
+.eachPriority span{
+  font-family: Ubuntu;
+  font-weight: 400;
+}
+
+.MuiFormHelperText-root{
+  font-family: Poppins;
+  font-weight: 500;
 }
 
 @keyframes fadeIn {

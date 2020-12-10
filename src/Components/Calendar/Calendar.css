@@ -4,7 +4,7 @@
 }
 .topbar .MuiSvgIcon-root {
   color: #fff;
-} 
+}
 
 .calendar {
   display: flex;
@@ -24,53 +24,61 @@
 .day {
   font-family: Poppins;
   font-weight: normal;
-  font-size: 26px;
+  font-size: 23px;
   color: #eada76;
+  width: 50px;
 }
 
-td{
-  padding:8px 5px 8px 5px;
+td {
+  padding: 4px 0px 4px 0px;
   text-align: center;
 }
-th{
+
+th {
   text-align: center;
   padding: 10px;
 }
 
-
-td .MuiIconButton-label{
+td .MuiIconButton-label {
   font-family: Poppins;
   font-weight: 500;
   font-size: 23px;
   color: #ba9aff;
 }
-#today{
-  background-color:rgba(253, 165, 255, 0.67);
+
+#today {
+  background-color: rgba(253, 165, 255, 0.67);
   border-radius: 50%;
 }
-#today span{
+#today span {
   color: black;
 }
 
-#notThisMonth span{
+#notThisMonth span {
   color: #404040;
 }
 
-@media only screen and (max-width:640px){
-  .calendar table{
-    margin:0.2vw;
+@media only screen and (max-width: 640px) {
+  .calendar table {
+    margin: 0.2vw;
   }
-  td{
+  td {
     padding: 1vw 0vw 1vw 0vw;
   }
-  td .MuiIconButton-label{
+  #today {
+    background-color: transparent;
+  }
+  #today span {
+    color: white;
+  }
+  td .MuiIconButton-label {
     font-size: 3.5vw;
   }
-  .day{
+  .day {
     font-size: 3.6vw;
   }
-  .topbarMonth{
+  .topbarMonth {
     font-size: 4.5vw;
-    margin:0px 2.3vw 0px 2.3vw;
+    margin: 0px 2.3vw 0px 2.3vw;
   }
 }

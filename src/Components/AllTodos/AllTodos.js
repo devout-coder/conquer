@@ -20,7 +20,7 @@ function AllTodos(props) {
   }
   return (
     <div className="allTodos">
-      <NewTodoModal />
+      <NewTodoModal toDisplay={toDisplay} />
       <Navbar />
       <div className="allTodosPage">
         <Sidebar />
