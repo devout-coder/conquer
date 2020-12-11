@@ -5,8 +5,8 @@
 .allTodosPageEmpty {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
 }
 
 .toDisplay {
@@ -26,18 +26,39 @@
   width: 35px;
   height: 35px;
 }
-.finishedTodos{
-  color: #fefefe;
-  position: absolute;
-  right: 0;
+
+.mainTodos {
+  display: flex;
+  margin-top: 20px;
+  /* background-color: white; */
+  width: 75vw;
 }
 
-@media only screen and (max-width:450px){
-  .toDisplay{
+.unfinishedTodos {
+  display: flex;
+  flex-direction: column;
+}
+
+.finishedTodos {
+  display: flex;
+  flex-direction: column;
+}
+
+.noTodos {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 67px;
+  color: #c6c4c4;
+}
+
+@media only screen and (max-width: 450px) {
+  .toDisplay {
     font-size: 6vw;
   }
   .topbar .MuiSvgIcon-root {
     width: 7vw;
-    height:7vw;
+    height: 7vw;
   }
 }

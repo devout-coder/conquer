@@ -15,14 +15,16 @@ import "./NewTodoModal.css";
 import firebaseApp from "../../firebase";
 
 function NewTodoModal(props) {
-  const [pri, setPri] = useState("none");
+  const [pri, setPri] = useState("0");
   const [taskName, setTaskName] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
-
   function handleChange(event) {
     setPri(event.target.value);
   }
   function closeModal() {
+    setTaskName("");
+    setTaskDesc("");
+    setPri("0");
     document.getElementsByClassName("modalBackground")[0].style.visibility =
       "hidden";
     document.getElementsByClassName("modal")[0].style.opacity = "0";
@@ -30,12 +32,11 @@ function NewTodoModal(props) {
   function togglePriorities() {
     document.getElementById("prioritiesDropdown").style.display = "flex";
   }
-  console.log(props.toDisplay);
   useEffect(() => {
     document.getElementsByClassName(
       "MuiSelect-root"
     )[0].lastChild.style.display = "none";
-    if (pri == "none") {
+    if (pri == "0") {
       document.getElementsByClassName(
         "MuiSelect-root"
       )[0].firstElementChild.style.display = "block";
@@ -47,11 +48,9 @@ function NewTodoModal(props) {
       taskDesc: taskDesc,
       time: props.toDisplay,
       priority: pri,
-      user: firebaseApp.auth().currentUser.uid
+      user: firebaseApp.auth().currentUser.uid,
+      finished: false,
     });
-    setTaskName("");
-    setTaskDesc("");
-    setPri("none");
     closeModal();
   }
 
@@ -65,33 +64,34 @@ function NewTodoModal(props) {
             placeholder="Task Name"
             spellCheck="false"
             value={taskName}
+            autoComplete="off"
             onChange={(e) => setTaskName(e.target.value)}
           />
           <div className="modalButtons">
             <FormControl>
               <Select value={pri} onChange={handleChange} displayEmpty>
-                <MenuItem value="high" className="eachPriority">
+                <MenuItem value="3" className="eachPriority">
                   <PriorityHighIcon
                     id="highPriority"
                     style={{ color: "#FF3131" }}
                   ></PriorityHighIcon>
                   <span>High</span>
                 </MenuItem>
-                <MenuItem value="medium" className="eachPriority">
+                <MenuItem value="2" className="eachPriority">
                   <PriorityHighIcon
                     id="mediumPriority"
                     style={{ color: "#464D8E" }}
                   ></PriorityHighIcon>
                   <span>Medium</span>
                 </MenuItem>
-                <MenuItem value="low" className="eachPriority">
+                <MenuItem value="1" className="eachPriority">
                   <PriorityHighIcon
                     id="lowPriority"
                     style={{ color: "#11B421" }}
                   ></PriorityHighIcon>
                   <span>Low</span>
                 </MenuItem>
-                <MenuItem value="none" className="eachPriority">
+                <MenuItem value="0" className="eachPriority">
                   <PriorityHighIcon></PriorityHighIcon>
                   <span>No priority</span>
                 </MenuItem>

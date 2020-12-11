@@ -130,7 +130,7 @@ function Calendar() {
         <span className="topbarMonth">
           {months[currentMonth]}&nbsp;{currentYear}
         </span>
-        <IconButton color="primary" onClick={() => increaseMonth()}>
+        <IconButton color="secondary" onClick={() => increaseMonth()}>
           <ArrowRightIcon />
         </IconButton>
       </div>
