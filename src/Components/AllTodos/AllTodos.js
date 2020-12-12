@@ -11,13 +11,12 @@ import firebaseApp from "../../firebase";
 import Loading from "../Loading/Loading";
 
 function AllTodos(props) {
+  const [reloadTodos, setReloadTodos] = useState(false)
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const location = useLocation();
   const toDisplay = location.state.toDisplay;
   const lastPage = location.state.lastPage;
-  const [reqTodos, setReqTodos] = useState([]);
-  const [allTodos, setAllTodos] = useState([]);
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
   function openModal() {
@@ -35,6 +34,8 @@ function AllTodos(props) {
       .orderBy("priority", "desc")
       .get()
       .then((snap) => {
+        let finished = [];
+        let unfinished = [];
         snap.docs.map((each) => {
           let eachdict = {
             id: each.id,
@@ -43,21 +44,23 @@ function AllTodos(props) {
             priority: each.get("priority"),
           };
           if (each.get("finished")) {
-            finishedTodos.push(eachdict);
+            finished.push(eachdict);
           } else {
-            unfinishedTodos.push(eachdict);
+            unfinished.push(eachdict);
           }
         });
-        setLoading(false);
+        setFinishedTodos(finished);
+        setUnfinishedTodos(unfinished);
       });
+    setLoading(false);
   }
   useEffect(() => {
     loadData();
-  }, []);
-  console.log(allTodos);
+    setReloadTodos(false)
+  }, [reloadTodos]);
   return !loading ? (
     <div className="allTodos">
-      <NewTodoModal toDisplay={toDisplay} />
+      <NewTodoModal toDisplay={toDisplay} shouldReload={reload=>setReloadTodos(reload)} />
       <Navbar />
       <div className="allTodosPage">
         <Sidebar />

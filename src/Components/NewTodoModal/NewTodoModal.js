@@ -51,6 +51,7 @@ function NewTodoModal(props) {
       user: firebaseApp.auth().currentUser.uid,
       finished: false,
     });
+    props.shouldReload(true)
     closeModal();
   }
 
