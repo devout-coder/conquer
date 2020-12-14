@@ -1,17 +1,18 @@
-import { IconButton } from "@material-ui/core";
+import { Checkbox, IconButton } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
-import "./AllTodos.css";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import QueueIcon from "@material-ui/icons/Queue";
 import NewTodoModal from "../NewTodoModal/NewTodoModal";
 import firebaseApp from "../../firebase";
 import Loading from "../Loading/Loading";
+import "./AllTodos.css";
+import EachTodo from "../EachTodo/EachTodo";
 
 function AllTodos(props) {
-  const [reloadTodos, setReloadTodos] = useState(false)
+  const [reloadTodos, setReloadTodos] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const location = useLocation();
@@ -56,11 +57,14 @@ function AllTodos(props) {
   }
   useEffect(() => {
     loadData();
-    setReloadTodos(false)
+    setReloadTodos(false);
   }, [reloadTodos]);
   return !loading ? (
     <div className="allTodos">
-      <NewTodoModal toDisplay={toDisplay} shouldReload={reload=>setReloadTodos(reload)} />
+      <NewTodoModal
+        toDisplay={toDisplay}
+        shouldReload={(reload) => setReloadTodos(reload)}
+      />
       <Navbar />
       <div className="allTodosPage">
         <Sidebar />
@@ -81,6 +85,11 @@ function AllTodos(props) {
             <div className="unfinishedTodos">
               <div className="noUnfinished noTodos">
                 {unfinishedTodos.length} unfinished
+              </div>
+              <div className="unfinishedTodosList">
+                {unfinishedTodos.map((each) => (
+                  <EachTodo priority={each.priority} taskName={each.taskName} />
+                ))}
               </div>
             </div>
             <div className="finishedTodos">

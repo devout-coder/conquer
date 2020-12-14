@@ -1,0 +1,27 @@
+.eachTodo {
+  display: flex;
+}
+
+.eachTodoTaskName {
+  font-family: Ubuntu;
+  font-weight: 400;
+  font-size: 26px;
+  font-style: italic;
+  line-height: 60px;
+  margin-left: 10px;
+}
+
+.highPriority {
+  color: #ff5151;
+}
+
+.mediumPriority {
+  color: #e6e958;
+}
+
+.lowPriority {
+  color: #20e734;
+}
+.noPriority {
+  color: rgba(198, 196, 196, 0.5);
+}

@@ -2,6 +2,10 @@
   display: flex;
 }
 
+body{
+  overflow-x: hidden;
+}
+
 .allTodosPageEmpty {
   flex: 1;
   display: flex;
@@ -30,18 +34,22 @@
 .mainTodos {
   display: flex;
   margin-top: 20px;
-  /* background-color: white; */
-  width: 75vw;
+  width: 74%;
+  justify-content: center;
 }
 
 .unfinishedTodos {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 50%;
 }
 
 .finishedTodos {
   display: flex;
+  width: 50%;
   flex-direction: column;
+  align-items: center;
 }
 
 .noTodos {
@@ -49,9 +57,11 @@
   font-style: normal;
   font-weight: 500;
   font-size: 28px;
-  line-height: 67px;
+  line-height: 60px;
   color: #c6c4c4;
 }
+
+
 
 @media only screen and (max-width: 450px) {
   .toDisplay {
@@ -61,4 +71,23 @@
     width: 7vw;
     height: 7vw;
   }
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px 10px transparent;
+  border: solid 3px transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  /* background-clip: content-box;
+      border: 5px solid transparent; */
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
 }

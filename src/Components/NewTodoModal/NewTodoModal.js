@@ -66,6 +66,7 @@ function NewTodoModal(props) {
             spellCheck="false"
             value={taskName}
             autoComplete="off"
+            maxLength="25"
             onChange={(e) => setTaskName(e.target.value)}
           />
           <div className="modalButtons">
