@@ -26,7 +26,6 @@ function AllTodos(props) {
   }
   function loadData() {
     setLoading(true);
-    console.log("loading...");
     firebaseApp
       .firestore()
       .collection("todos")
@@ -43,6 +42,7 @@ function AllTodos(props) {
             taskName: each.get("taskName"),
             taskDesc: each.get("taskDesc"),
             priority: each.get("priority"),
+            finished: each.get("finished"),
           };
           if (each.get("finished")) {
             finished.push(eachdict);
@@ -53,12 +53,13 @@ function AllTodos(props) {
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
       });
-    console.log("loading finished..");
     setLoading(false);
   }
   useEffect(() => {
     loadData();
   }, []);
+  console.log(unfinishedTodos);
+  console.log(finishedTodos);
   return !loading ? (
     <div className="allTodos">
       <NewTodoModal toDisplay={toDisplay} shouldReload={() => loadData()} />
@@ -89,8 +90,9 @@ function AllTodos(props) {
                     id={each.id}
                     priority={each.priority}
                     taskName={each.taskName}
-                    startLoading={()=>loadData()}
-                    activateLoader={(shouldLoad)=>setLoading(shouldLoad)}
+                    finished={each.finished}
+                    startLoading={() => loadData()}
+                    activateLoader={(shouldLoad) => setLoading(shouldLoad)}
                   />
                 ))}
               </div>
@@ -98,6 +100,18 @@ function AllTodos(props) {
             <div className="finishedTodos">
               <div className="noFinished noTodos">
                 {finishedTodos.length} finished
+              </div>
+              <div className="finishedTodosList">
+                {finishedTodos.map((each) => (
+                  <EachTodo
+                    id={each.id}
+                    priority={each.priority}
+                    taskName={each.taskName}
+                    finished={each.finished}
+                    startLoading={() => loadData()}
+                    activateLoader={(shouldLoad) => setLoading(shouldLoad)}
+                  />
+                ))}
               </div>
             </div>
           </div>

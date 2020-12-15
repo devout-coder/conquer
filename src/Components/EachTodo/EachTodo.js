@@ -4,19 +4,18 @@ import firebaseApp from "../../firebase";
 import "./EachTodo.css";
 
 function EachTodo(props) {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(props.finished);
+  // console.log(props.finished)
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    console.log("check loading started");
     props.activateLoader(true);
-    console.log(checked);
     firebaseApp
       .firestore()
       .collection("todos")
       .doc(props.id)
       .set(
         {
-          finished: true,
+          finished: !checked ? true : false,
         },
         { merge: true }
       )
@@ -30,14 +29,15 @@ function EachTodo(props) {
     <div className="eachTodo">
       <Checkbox
         style={{
-          color:
-            props.priority == 3
-              ? "#ff5151"
-              : props.priority == 2
-              ? "#e6e958"
-              : props.priority == 1
-              ? "#20e734"
-              : "rgba(198, 196, 196, 0.5)",
+          color: props.finished
+            ? "#474747"
+            : props.priority == 3
+            ? "#ff5151"
+            : props.priority == 2
+            ? "#e6e958"
+            : props.priority == 1
+            ? "#20e734"
+            : "rgba(198, 196, 196, 0.61)",
         }}
         checked={checked}
         onChange={handleChange}
@@ -45,7 +45,9 @@ function EachTodo(props) {
       />
       <div
         className={
-          props.priority == 3
+          props.finished
+            ? "finishedTodo eachTodoTaskName"
+            : props.priority == 3
             ? "highPriority eachTodoTaskName"
             : props.priority == 2
             ? "mediumPriority eachTodoTaskName"

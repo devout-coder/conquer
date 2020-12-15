@@ -24,5 +24,10 @@
   color: #20e734;
 }
 .noPriority {
-  color: rgba(198, 196, 196, 0.5);
+  color: rgba(198, 196, 196, 0.61);
+}
+
+.finishedTodo{
+  text-decoration: line-through;
+  color: #474747;
 }
