@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import firebaseApp from "../../firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "./EachTodo.css";
+import NewTodoModal from "../NewTodoModal/NewTodoModal";
 
 function EachTodo(props) {
   const [checked, setChecked] = useState(props.finished);
@@ -42,7 +43,7 @@ function EachTodo(props) {
       });
   };
   function deleteTodo() {
-    handleClickClose()
+    handleClickClose();
     // props.activateLoader(true);
     firebaseApp
       .firestore()

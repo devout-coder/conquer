@@ -49,3 +49,11 @@
 .MuiPaper-root{
   background-color: #b0c1ff;
 }
+
+.eachTodoTaskName + .MuiButtonBase-root{
+  visibility: hidden;
+}
+
+.eachTodo:hover .MuiButtonBase-root{
+  visibility: visible;
+} 

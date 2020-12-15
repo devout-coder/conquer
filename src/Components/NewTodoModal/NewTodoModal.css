@@ -6,7 +6,6 @@
   z-index: 2;
   display: grid;
   place-items: center;
-  visibility: hidden;
 }
 
 .modal {
@@ -16,7 +15,9 @@
   width: 63%;
   height: 400px;
   transition: opacity 0.5s;
-  opacity: 0;
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  /* opacity: 0; */
 }
 
 .modalTopbar {
@@ -40,7 +41,7 @@
   color: rgba(20, 20, 20, 0.39);
 }
 
-.MuiSelect-select{
+.MuiSelect-select {
   display: flex;
   align-items: center;
 }
@@ -95,15 +96,15 @@
   font-family: Ubuntu;
   font-weight: 500;
   font-size: 15px;
-  z-index:4;
+  z-index: 4;
 }
 
-.eachPriority span{
+.eachPriority span {
   font-family: Ubuntu;
   font-weight: 400;
 }
 
-.MuiFormHelperText-root{
+.MuiFormHelperText-root {
   font-family: Poppins;
   font-weight: 500;
 }
@@ -118,11 +119,11 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .modal{
+  .modal {
     position: relative;
     left: 15px;
   }
-  .modalTopbar{
+  .modalTopbar {
     padding: 10px;
   }
   .modalButtons {

@@ -18,17 +18,17 @@ function NewTodoModal(props) {
   const [pri, setPri] = useState("0");
   const [taskName, setTaskName] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
-  function handleChange(event) {
+  function changePriority(event) {
     setPri(event.target.value);
   }
-  function closeModal() {
-    setTaskName("");
-    setTaskDesc("");
-    setPri("0");
-    document.getElementsByClassName("modalBackground")[0].style.visibility =
-      "hidden";
-    document.getElementsByClassName("modal")[0].style.opacity = "0";
-  }
+  // function closeModal() {
+  //   setTaskName("");
+  //   setTaskDesc("");
+  //   setPri("0");
+  //   document.getElementsByClassName("modalBackground")[0].style.visibility =
+  //     "hidden";
+  //   document.getElementsByClassName("modal")[0].style.opacity = "0";
+  // }
   function togglePriorities() {
     document.getElementById("prioritiesDropdown").style.display = "flex";
   }
@@ -46,13 +46,13 @@ function NewTodoModal(props) {
     firebaseApp.firestore().collection("todos").add({
       taskName: taskName,
       taskDesc: taskDesc,
-      time: props.toDisplay,
+      time: props.time,
       priority: pri,
       user: firebaseApp.auth().currentUser.uid,
       finished: false,
     });
     props.shouldReload();
-    closeModal();
+    props.openTodoModal(false)
   }
 
   return (
@@ -71,7 +71,7 @@ function NewTodoModal(props) {
           />
           <div className="modalButtons">
             <FormControl>
-              <Select value={pri} onChange={handleChange} displayEmpty>
+              <Select value={pri} onChange={changePriority} displayEmpty>
                 <MenuItem value="3" className="eachPriority">
                   <PriorityHighIcon
                     id="highPriority"
@@ -103,7 +103,7 @@ function NewTodoModal(props) {
             <IconButton
               title="Back"
               id="modalBackButton"
-              onClick={() => closeModal()}
+              onClick={() => props.openTodoModal(false)}
             >
               <ArrowBack />
             </IconButton>

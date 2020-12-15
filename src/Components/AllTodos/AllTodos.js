@@ -15,22 +15,23 @@ function AllTodos(props) {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const location = useLocation();
-  const toDisplay = location.state.toDisplay;
+  const time = location.state.time;
   const lastPage = location.state.lastPage;
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
-  function openModal() {
-    document.getElementsByClassName("modalBackground")[0].style.visibility =
-      "visible";
-    document.getElementsByClassName("modal")[0].style.opacity = "100";
-  }
+  const [openTodoModal, setOpenTodoModal] = useState(false);
+  // function openModal() {
+  //   document.getElementsByClassName("modalBackground")[0].style.visibility =
+  //     "visible";
+  //   document.getElementsByClassName("modal")[0].style.opacity = "100";
+  // }
   function loadData() {
     setLoading(true);
     firebaseApp
       .firestore()
       .collection("todos")
       .where("user", "==", firebaseApp.auth().currentUser.uid)
-      .where("time", "==", toDisplay)
+      .where("time", "==", time)
       .orderBy("priority", "desc")
       .get()
       .then((snap) => {
@@ -43,6 +44,7 @@ function AllTodos(props) {
             taskDesc: each.get("taskDesc"),
             priority: each.get("priority"),
             finished: each.get("finished"),
+            time: each.get("time"),
           };
           if (each.get("finished")) {
             finished.push(eachdict);
@@ -52,17 +54,23 @@ function AllTodos(props) {
         });
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
-      }); 
+      });
     setLoading(false);
   }
   useEffect(() => {
     loadData();
   }, []);
-  console.log(unfinishedTodos);
-  console.log(finishedTodos);
   return !loading ? (
     <div className="allTodos">
-      <NewTodoModal toDisplay={toDisplay} shouldReload={() => loadData()} />
+      {openTodoModal ? (
+        <NewTodoModal
+          time={time}
+          shouldReload={() => loadData()}
+          openTodoModal={(shouldOpen) => setOpenTodoModal(shouldOpen)}
+        />
+      ) : (
+        <div></div>
+      )}
       <Navbar />
       <div className="allTodosPage">
         <Sidebar />
@@ -74,8 +82,8 @@ function AllTodos(props) {
             >
               <ArrowBackIcon />
             </IconButton>
-            <span className="toDisplay">{toDisplay}</span>
-            <IconButton onClick={() => openModal()} title="New Todo">
+            <span className="toDisplay">{time}</span>
+            <IconButton onClick={() => setOpenTodoModal(true)} title="New Todo">
               <QueueIcon />
             </IconButton>
           </div>

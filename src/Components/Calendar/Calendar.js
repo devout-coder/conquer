@@ -150,7 +150,7 @@ function Calendar() {
                   onClick={() =>
                     history.push({
                       pathname: "daily/allTodos",
-                      state: { toDisplay: date, lastPage: "daily" },
+                      state: { time: date, lastPage: "daily" },
                     })
                   }
                 >
