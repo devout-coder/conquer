@@ -58,14 +58,14 @@ body{
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  margin-right: 30px;
+  margin-right: 40px;
 }
 
 .finishedTodosList{
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  margin-left: 30px;
+  margin-left: 40px;
 }
 
 .noTodos {

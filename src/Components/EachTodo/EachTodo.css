@@ -1,6 +1,15 @@
 .eachTodo {
   display: flex;
-  padding-left: 40px;
+  /* padding-left: 55px; */
+  /* width: 85%; */
+  justify-content: flex-start;
+}
+
+.eachTodo:hover{
+  background-color: rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  border-radius: 10px;
+  flex:1;
 }
 
 .eachTodoTaskName {
@@ -30,4 +39,13 @@
 .finishedTodo{
   text-decoration: line-through;
   color: #474747;
+}
+
+.MuiButtonBase-root{
+  justify-self: center;
+  /* align-self: flex-end; */
+}
+
+.MuiPaper-root{
+  background-color: #b0c1ff;
 }

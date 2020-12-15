@@ -52,7 +52,7 @@ function AllTodos(props) {
         });
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
-      });
+      }); 
     setLoading(false);
   }
   useEffect(() => {
