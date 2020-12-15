@@ -12,7 +12,6 @@ import "./AllTodos.css";
 import EachTodo from "../EachTodo/EachTodo";
 
 function AllTodos(props) {
-  const [reloadTodos, setReloadTodos] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const location = useLocation();
@@ -27,6 +26,7 @@ function AllTodos(props) {
   }
   function loadData() {
     setLoading(true);
+    console.log("loading...");
     firebaseApp
       .firestore()
       .collection("todos")
@@ -53,18 +53,15 @@ function AllTodos(props) {
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
       });
+    console.log("loading finished..");
     setLoading(false);
   }
   useEffect(() => {
     loadData();
-    setReloadTodos(false);
-  }, [reloadTodos]);
+  }, []);
   return !loading ? (
     <div className="allTodos">
-      <NewTodoModal
-        toDisplay={toDisplay}
-        shouldReload={(reload) => setReloadTodos(reload)}
-      />
+      <NewTodoModal toDisplay={toDisplay} shouldReload={() => loadData()} />
       <Navbar />
       <div className="allTodosPage">
         <Sidebar />
@@ -88,7 +85,13 @@ function AllTodos(props) {
               </div>
               <div className="unfinishedTodosList">
                 {unfinishedTodos.map((each) => (
-                  <EachTodo priority={each.priority} taskName={each.taskName} />
+                  <EachTodo
+                    id={each.id}
+                    priority={each.priority}
+                    taskName={each.taskName}
+                    startLoading={()=>loadData()}
+                    activateLoader={(shouldLoad)=>setLoading(shouldLoad)}
+                  />
                 ))}
               </div>
             </div>

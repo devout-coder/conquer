@@ -1,5 +1,6 @@
 .eachTodo {
   display: flex;
+  padding-left: 40px;
 }
 
 .eachTodoTaskName {
