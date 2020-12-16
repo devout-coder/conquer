@@ -15,43 +15,50 @@ import "./NewTodoModal.css";
 import firebaseApp from "../../firebase";
 
 function NewTodoModal(props) {
-  const [pri, setPri] = useState("0");
-  const [taskName, setTaskName] = useState("");
-  const [taskDesc, setTaskDesc] = useState("");
+  const [taskPri, setTaskPri] = useState(props.taskPri);
+  const [taskName, setTaskName] = useState(props.taskName);
+  const [taskDesc, setTaskDesc] = useState(props.taskDesc);
+  const [taskId, settaskId] = useState(props.taskId)
   function changePriority(event) {
-    setPri(event.target.value);
+    setTaskPri(event.target.value);
   }
-  // function closeModal() {
-  //   setTaskName("");
-  //   setTaskDesc("");
-  //   setPri("0");
-  //   document.getElementsByClassName("modalBackground")[0].style.visibility =
-  //     "hidden";
-  //   document.getElementsByClassName("modal")[0].style.opacity = "0";
-  // }
   function togglePriorities() {
     document.getElementById("prioritiesDropdown").style.display = "flex";
   }
-  useEffect(() => {
+  function displayPriProperly(){
     document.getElementsByClassName(
       "MuiSelect-root"
     )[0].lastChild.style.display = "none";
-    if (pri == "0") {
+    if (taskPri == "0") {
       document.getElementsByClassName(
         "MuiSelect-root"
       )[0].firstElementChild.style.display = "block";
     }
-  }, [pri]);
+  }
+  useEffect(() => {
+    displayPriProperly()
+  }, [taskPri]);
   function saveTodo() {
-    firebaseApp.firestore().collection("todos").add({
-      taskName: taskName,
-      taskDesc: taskDesc,
-      time: props.time,
-      priority: pri,
-      user: firebaseApp.auth().currentUser.uid,
-      finished: false,
-    });
-    props.shouldReload();
+    if (props.taskId===""){
+      firebaseApp.firestore().collection("todos").add({
+        taskName: taskName,
+        taskDesc: taskDesc,
+        time: props.time,
+        priority: taskPri,
+        user: firebaseApp.auth().currentUser.uid,
+        finished: false,
+      });
+    }else{
+      // props.activateLoader(true)
+      firebaseApp.firestore().collection("todos").doc(taskId).set({
+        taskName:taskName,
+        taskDesc:taskDesc,
+        priority:taskPri,
+      },{merge:true}).then(()=>{
+        // props.activateLoader(false)
+        props.shouldReload();
+      })
+    }
     props.openTodoModal(false)
   }
 
@@ -71,7 +78,7 @@ function NewTodoModal(props) {
           />
           <div className="modalButtons">
             <FormControl>
-              <Select value={pri} onChange={changePriority} displayEmpty>
+              <Select value={taskPri} onChange={changePriority} displayEmpty>
                 <MenuItem value="3" className="eachPriority">
                   <PriorityHighIcon
                     id="highPriority"

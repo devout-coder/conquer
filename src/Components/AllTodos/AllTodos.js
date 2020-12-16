@@ -19,12 +19,11 @@ function AllTodos(props) {
   const lastPage = location.state.lastPage;
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
+  const [expandTaskId, setExpandTaskId] = useState("");
+  const [expandTaskName, setExpandTaskName] = useState("");
+  const [expandTaskDesc, setExpandTaskDesc] = useState("");
+  const [expandTaskPri, setExpandTaskPri] = useState("0");
   const [openTodoModal, setOpenTodoModal] = useState(false);
-  // function openModal() {
-  //   document.getElementsByClassName("modalBackground")[0].style.visibility =
-  //     "visible";
-  //   document.getElementsByClassName("modal")[0].style.opacity = "100";
-  // }
   function loadData() {
     setLoading(true);
     firebaseApp
@@ -57,6 +56,20 @@ function AllTodos(props) {
       });
     setLoading(false);
   }
+  function expandTodo(id, taskName, taskDesc, taskPri) {
+    setExpandTaskName(taskName);
+    setExpandTaskDesc(taskDesc);
+    setExpandTaskPri(taskPri);
+    setExpandTaskId(id);
+    setOpenTodoModal(true);
+  }
+  function expandBlankTodo(){
+    setExpandTaskName("");
+    setExpandTaskDesc("");
+    setExpandTaskPri("0");
+    setExpandTaskId("");
+    setOpenTodoModal(true)
+  }
   useEffect(() => {
     loadData();
   }, []);
@@ -67,6 +80,11 @@ function AllTodos(props) {
           time={time}
           shouldReload={() => loadData()}
           openTodoModal={(shouldOpen) => setOpenTodoModal(shouldOpen)}
+          taskId={expandTaskId}
+          activateLoader={(shouldLoad) => setLoading(shouldLoad)}
+          taskName={expandTaskName}
+          taskDesc={expandTaskDesc}
+          taskPri={expandTaskPri}
         />
       ) : (
         <div></div>
@@ -83,7 +101,7 @@ function AllTodos(props) {
               <ArrowBackIcon />
             </IconButton>
             <span className="toDisplay">{time}</span>
-            <IconButton onClick={() => setOpenTodoModal(true)} title="New Todo">
+            <IconButton onClick={() => expandBlankTodo()} title="New Todo">
               <QueueIcon />
             </IconButton>
           </div>
@@ -98,9 +116,13 @@ function AllTodos(props) {
                     id={each.id}
                     priority={each.priority}
                     taskName={each.taskName}
+                    taskDesc={each.taskDesc}
                     finished={each.finished}
                     startLoading={() => loadData()}
                     activateLoader={(shouldLoad) => setLoading(shouldLoad)}
+                    expandTodo={(id, taskName, taskDesc, taskPri) =>
+                      expandTodo(id, taskName, taskDesc, taskPri)
+                    }
                   />
                 ))}
               </div>
@@ -115,9 +137,13 @@ function AllTodos(props) {
                     id={each.id}
                     priority={each.priority}
                     taskName={each.taskName}
+                    taskDesc={each.taskDesc}
                     finished={each.finished}
                     startLoading={() => loadData()}
                     activateLoader={(shouldLoad) => setLoading(shouldLoad)}
+                    expandTodo={(id, taskName, taskDesc, taskPri) =>
+                      expandTodo(id, taskName, taskDesc, taskPri)
+                    }
                   />
                 ))}
               </div>
