@@ -91,7 +91,7 @@ function EachTodo(props) {
         onChange={checkUncheckfunc}
         inputProps={{ "aria-label": "primary checkbox" }}
       />
-      <div
+      <p
         className={
           props.finished
             ? "finishedTodo eachTodoTaskName"
@@ -107,7 +107,7 @@ function EachTodo(props) {
       }
       >
         {props.taskName}
-      </div>
+      </p>
       <IconButton onClick={handleClickOpen}>
         <DeleteIcon
           style={{

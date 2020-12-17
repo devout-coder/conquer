@@ -63,12 +63,12 @@ function AllTodos(props) {
     setExpandTaskId(id);
     setOpenTodoModal(true);
   }
-  function expandBlankTodo(){
+  function expandBlankTodo() {
     setExpandTaskName("");
     setExpandTaskDesc("");
     setExpandTaskPri("0");
     setExpandTaskId("");
-    setOpenTodoModal(true)
+    setOpenTodoModal(true);
   }
   useEffect(() => {
     loadData();
@@ -100,7 +100,7 @@ function AllTodos(props) {
             >
               <ArrowBackIcon />
             </IconButton>
-            <span className="toDisplay">{time}</span>
+            <span className="time">{time}</span>
             <IconButton onClick={() => expandBlankTodo()} title="New Todo">
               <QueueIcon />
             </IconButton>

@@ -13,7 +13,7 @@ body{
   align-items: center;
 }
 
-.toDisplay {
+.time {
   font-family: Poppins;
   font-weight: 600;
   font-size: 30px;
@@ -34,7 +34,7 @@ body{
 .mainTodos {
   display: flex;
   margin-top: 20px;
-  width: 64%;
+  width: 75%;
   justify-content: center;
 }
 
@@ -58,14 +58,16 @@ body{
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  margin-right: 40px;
+  /* margin-right: 40px; */
+  width: 100%;
 }
 
 .finishedTodosList{
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  margin-left: 40px;
+  /* margin-left: 40px; */
+  width: 100%;
 }
 
 .noTodos {
@@ -77,15 +79,37 @@ body{
   color: #c6c4c4;
 }
 
+@media only screen and (max-width: 900px){
+  .mainTodos{
+    width: 95%;
+  }
+}
 
+@media only screen and (max-width:600px){
+  .mainTodos{
+    flex-direction: column;
+    align-items: center;
+    /* background-color: white; */
+  }
+  .unfinishedTodos{
+    width: 97%;
+  }
+  .finishedTodos{
+    width: 97%;
+  }
+
+}
 
 @media only screen and (max-width: 450px) {
-  .toDisplay {
+  .time {
     font-size: 6vw;
   }
   .topbar .MuiSvgIcon-root {
     width: 7vw;
     height: 7vw;
+  }
+  .noTodos{
+    font-size: 5.8vw;
   }
 }
 ::-webkit-scrollbar {

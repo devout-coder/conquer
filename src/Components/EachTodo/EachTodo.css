@@ -3,6 +3,8 @@
   /* padding-left: 55px; */
   /* width: 85%; */
   justify-content: flex-start;
+  position: relative;
+  align-items: center;
 }
 
 .eachTodo:hover{
@@ -15,10 +17,11 @@
 .eachTodoTaskName {
   font-family: Ubuntu;
   font-weight: 400;
-  font-size: 26px;
+  font-size: 24px;
   font-style: italic;
-  line-height: 60px;
-  margin-left: 10px;
+  line-height: 40px;
+  margin: 10px 5px 10px 5px;
+  width: 70%;
 }
 
 .highPriority {
@@ -48,8 +51,17 @@
 
 .eachTodoTaskName + .MuiButtonBase-root{
   visibility: hidden;
+  position: absolute;
+  right: 0;
 }
 
 .eachTodo:hover .MuiButtonBase-root{
   visibility: visible;
 } 
+
+@media only screen and (max-width:600px){
+  .eachTodoTaskName{
+    font-size: 5vw;
+    line-height: 8vw;
+  }
+}
