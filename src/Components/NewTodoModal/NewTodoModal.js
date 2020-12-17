@@ -18,14 +18,14 @@ function NewTodoModal(props) {
   const [taskPri, setTaskPri] = useState(props.taskPri);
   const [taskName, setTaskName] = useState(props.taskName);
   const [taskDesc, setTaskDesc] = useState(props.taskDesc);
-  const [taskId, settaskId] = useState(props.taskId)
+  const [taskId, settaskId] = useState(props.taskId);
   function changePriority(event) {
     setTaskPri(event.target.value);
   }
   function togglePriorities() {
     document.getElementById("prioritiesDropdown").style.display = "flex";
   }
-  function displayPriProperly(){
+  function displayPriProperly() {
     document.getElementsByClassName(
       "MuiSelect-root"
     )[0].lastChild.style.display = "none";
@@ -36,30 +36,44 @@ function NewTodoModal(props) {
     }
   }
   useEffect(() => {
-    displayPriProperly()
+    displayPriProperly();
   }, [taskPri]);
   function saveTodo() {
-    if (props.taskId===""){
-      firebaseApp.firestore().collection("todos").add({
-        taskName: taskName,
-        taskDesc: taskDesc,
-        time: props.time,
-        priority: taskPri,
-        user: firebaseApp.auth().currentUser.uid,
-        finished: false,
-      });
-    }else{
+    if (props.taskId === "") {
+      firebaseApp
+        .firestore()
+        .collection("todos")
+        .add({
+          taskName: taskName,
+          taskDesc: taskDesc,
+          time: props.time,
+          priority: taskPri,
+          user: firebaseApp.auth().currentUser.uid,
+          finished: false,
+        })
+        .then(() => {
+          props.shouldReload();
+        });
+    } else {
       // props.activateLoader(true)
-      firebaseApp.firestore().collection("todos").doc(taskId).set({
-        taskName:taskName,
-        taskDesc:taskDesc,
-        priority:taskPri,
-      },{merge:true}).then(()=>{
-        // props.activateLoader(false)
-        props.shouldReload();
-      })
+      firebaseApp
+        .firestore()
+        .collection("todos")
+        .doc(taskId)
+        .set(
+          {
+            taskName: taskName,
+            taskDesc: taskDesc,
+            priority: taskPri,
+          },
+          { merge: true }
+        )
+        .then(() => {
+          // props.activateLoader(false)
+          props.shouldReload();
+        });
     }
-    props.openTodoModal(false)
+    props.openTodoModal(false);
   }
 
   return (
