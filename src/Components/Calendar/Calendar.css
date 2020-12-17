@@ -60,10 +60,12 @@ td .MuiIconButton-label {
 
 @media only screen and (max-width: 640px) {
   .calendar table {
-    margin: 0.2vw;
+    /* margin: 0vw; */
+    position: relative;
+    left: -8px;
   }
   td {
-    padding: 1vw 0vw 1vw 0vw;
+    padding: 0.5vw 0vw 0.5vw 0vw;
   }
   #today {
     background-color: transparent;
@@ -72,13 +74,13 @@ td .MuiIconButton-label {
     color: white;
   }
   td .MuiIconButton-label {
-    font-size: 3.5vw;
+    font-size: 4.1vw;
   }
   .day {
     font-size: 3.6vw;
   }
   .topbarMonth {
-    font-size: 4.5vw;
+    font-size: 4.8vw;
     margin: 0px 2.3vw 0px 2.3vw;
   }
 }

@@ -82,7 +82,7 @@ function EachTodo(props) {
             : props.priority == 3
             ? "#ff5151"
             : props.priority == 2
-            ? "#e6e958"
+            ? "#7885fb"
             : props.priority == 1
             ? "#20e734"
             : "rgba(198, 196, 196, 0.61)",
