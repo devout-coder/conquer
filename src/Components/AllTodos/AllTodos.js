@@ -105,50 +105,54 @@ function AllTodos(props) {
               <QueueIcon />
             </IconButton>
           </div>
-          <div className="mainTodos">
-            <div className="unfinishedTodos">
-              <div className="noUnfinished noTodos">
-                {unfinishedTodos.length} unfinished
+          {unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
+            <div className="mainTodos">
+              <div className="unfinishedTodos">
+                <div className="noUnfinished noTodos">
+                  {unfinishedTodos.length} unfinished
+                </div>
+                <div className="unfinishedTodosList">
+                  {unfinishedTodos.map((each) => (
+                    <EachTodo
+                      id={each.id}
+                      priority={each.priority}
+                      taskName={each.taskName}
+                      taskDesc={each.taskDesc}
+                      finished={each.finished}
+                      startLoading={() => loadData()}
+                      activateLoader={(shouldLoad) => setLoading(shouldLoad)}
+                      expandTodo={(id, taskName, taskDesc, taskPri) =>
+                        expandTodo(id, taskName, taskDesc, taskPri)
+                      }
+                    />
+                  ))}
+                </div>
               </div>
-              <div className="unfinishedTodosList">
-                {unfinishedTodos.map((each) => (
-                  <EachTodo
-                    id={each.id}
-                    priority={each.priority}
-                    taskName={each.taskName}
-                    taskDesc={each.taskDesc}
-                    finished={each.finished}
-                    startLoading={() => loadData()}
-                    activateLoader={(shouldLoad) => setLoading(shouldLoad)}
-                    expandTodo={(id, taskName, taskDesc, taskPri) =>
-                      expandTodo(id, taskName, taskDesc, taskPri)
-                    }
-                  />
-                ))}
+              <div className="finishedTodos">
+                <div className="noFinished noTodos">
+                  {finishedTodos.length} finished
+                </div>
+                <div className="finishedTodosList">
+                  {finishedTodos.map((each) => (
+                    <EachTodo
+                      id={each.id}
+                      priority={each.priority}
+                      taskName={each.taskName}
+                      taskDesc={each.taskDesc}
+                      finished={each.finished}
+                      startLoading={() => loadData()}
+                      activateLoader={(shouldLoad) => setLoading(shouldLoad)}
+                      expandTodo={(id, taskName, taskDesc, taskPri) =>
+                        expandTodo(id, taskName, taskDesc, taskPri)
+                      }
+                    />
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="finishedTodos">
-              <div className="noFinished noTodos">
-                {finishedTodos.length} finished
-              </div>
-              <div className="finishedTodosList">
-                {finishedTodos.map((each) => (
-                  <EachTodo
-                    id={each.id}
-                    priority={each.priority}
-                    taskName={each.taskName}
-                    taskDesc={each.taskDesc}
-                    finished={each.finished}
-                    startLoading={() => loadData()}
-                    activateLoader={(shouldLoad) => setLoading(shouldLoad)}
-                    expandTodo={(id, taskName, taskDesc, taskPri) =>
-                      expandTodo(id, taskName, taskDesc, taskPri)
-                    }
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
+          ) : (
+            <div className="noTodosMessage">Schedule seems clear...😎😎</div>
+          )}
         </div>
       </div>
     </div>

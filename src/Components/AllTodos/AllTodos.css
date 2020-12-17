@@ -6,6 +6,16 @@ body{
   overflow-x: hidden;
 }
 
+.noTodosMessage{
+  font-family: Poppins;
+  font-size: 30px;
+  font-weight: 600;
+  position: relative;
+  top: 70px;
+  text-align: center;
+  color: rgb(168, 227, 255);
+}
+
 .allTodosPageEmpty {
   flex: 1;
   display: flex;
@@ -91,8 +101,12 @@ body{
     align-items: center;
     /* background-color: white; */
   }
+  .topbar{
+    margin-top: 15px;
+  }
   .unfinishedTodos{
     width: 97%;
+
   }
   .finishedTodos{
     width: 97%;

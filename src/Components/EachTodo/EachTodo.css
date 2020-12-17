@@ -59,6 +59,16 @@
   visibility: visible;
 } 
 
+.MuiTypography-root{
+  font-family: "Poppins" !important;
+  font-weight: 400 !important;
+}
+
+.MuiButton-label{
+  font-family: "Poppins" !important;
+  font-weight: 600 !important;
+}
+
 @media only screen and (max-width:600px){
   .eachTodoTaskName{
     font-size: 5vw;

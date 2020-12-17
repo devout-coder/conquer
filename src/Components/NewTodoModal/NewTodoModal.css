@@ -105,8 +105,8 @@
 }
 
 .MuiFormHelperText-root {
-  font-family: Poppins;
-  font-weight: 500;
+  font-family: Poppins !important;
+  font-weight: 600 !important;
 }
 
 @keyframes fadeIn {

@@ -103,8 +103,14 @@ function EachTodo(props) {
             ? "lowPriority eachTodoTaskName"
             : "noPriority eachTodoTaskName"
         }
-        onClick={()=>{props.expandTodo(props.id, props.taskName, props.taskDesc, props.priority)}
-      }
+        onClick={() => {
+          props.expandTodo(
+            props.id,
+            props.taskName,
+            props.taskDesc,
+            props.priority
+          );
+        }}
       >
         {props.taskName}
       </p>
