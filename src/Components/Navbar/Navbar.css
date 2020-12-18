@@ -26,13 +26,14 @@
 @media only screen and (max-width:600px){
     .navbar{
         justify-content:center;
+        margin-bottom: 50px;
     }
     .conquerText{
-        font-size: 12vw;
+        font-size: 10.5vw;
     }
     .conquerLogo{
-        width: 22vw;
-        height: 22vw;
+        width: 18vw;
+        height: 18vw;
     }
     .logoutText{
         bottom: 0;
