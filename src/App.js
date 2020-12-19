@@ -18,17 +18,20 @@ import VisionBoard from "./Components/VisionBoard/VisionBoard";
 import { loadingContext } from "./loadingContext";
 import AllTodos from "./Components/AllTodos/AllTodos";
 
+//this component handles all the routes
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
   useEffect(() => {
     firebaseApp.auth().onAuthStateChanged((user) => {
-      setFirebaseInitialized(user);
+      //this function observes the state of authentication...returns none if user doesnt exist..returns true if the user exist..and returns false if the user is being created or loaded..
+      setFirebaseInitialized(user); //setting that user to predefined state
     });
   }, []);
   return firebaseInitialized != false ? (
     <div className="App">
       <BrowserRouter>
-        <loadingContext.Provider value= {firebaseInitialized} >
+        {/* passing the auth status in context provider */}
+        <loadingContext.Provider value={firebaseInitialized}>
           <Switch>
             <ClosedRoute exact path="/" component={Landing} />
             <ClosedRoute exact path="/signup" component={Signup} />

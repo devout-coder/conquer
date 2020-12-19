@@ -19,7 +19,7 @@ function Signup() {
   const [password, setPassword] = useState("");
 
   const signUp = async (e) => {
-    setLoading(true);
+    setLoading(true); //this prompts to render the custom Loading component which is a loading circle
     try {
       await firebaseApp.auth().createUserWithEmailAndPassword(email, password);
       firebaseApp.auth().currentUser.updateProfile({ displayName: username });
@@ -44,6 +44,7 @@ function Signup() {
   };
 
   const toggle = () => {
+    //this toggles the password field from password type(and enable visibilty button) and text type(and disable visibilty button)
     setWantsPassword(!wantsPassword);
     if (wantsPassword) {
       return (document.getElementById("passwordField").type = "password");

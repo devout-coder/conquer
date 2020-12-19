@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import { ArrowBack, Save } from "@material-ui/icons";
 import {
@@ -19,13 +18,11 @@ function NewTodoModal(props) {
   const [taskName, setTaskName] = useState(props.taskName);
   const [taskDesc, setTaskDesc] = useState(props.taskDesc);
   const [taskId, settaskId] = useState(props.taskId);
+
   function changePriority(event) {
     setTaskPri(event.target.value);
   }
-  function togglePriorities() {
-    document.getElementById("prioritiesDropdown").style.display = "flex";
-  }
-  function displayPriProperly() {
+  function displayPriProperly() {//this func basically hides the priority name and unhides the none priority(cause by default it is hidden..😒😒mui)
     document.getElementsByClassName(
       "MuiSelect-root"
     )[0].lastChild.style.display = "none";
@@ -39,7 +36,7 @@ function NewTodoModal(props) {
     displayPriProperly();
   }, [taskPri]);
   function saveTodo() {
-    if (props.taskId === "") {
+    if (props.taskId === "") {//makes a new todo if the id prop is empty str which means that no particular todo is opened
       firebaseApp
         .firestore()
         .collection("todos")
@@ -52,10 +49,9 @@ function NewTodoModal(props) {
           finished: false,
         })
         .then(() => {
-          props.shouldReload();
+          props.shouldReload();//triggers loadData() in allTodos which fetches all todos again from firestore
         });
-    } else {
-      // props.activateLoader(true)
+    } else {//modifies the properties of original todo if some exisiting todo is opened in modal
       firebaseApp
         .firestore()
         .collection("todos")
@@ -69,7 +65,6 @@ function NewTodoModal(props) {
           { merge: true }
         )
         .then(() => {
-          // props.activateLoader(false)
           props.shouldReload();
         });
     }

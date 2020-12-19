@@ -3,8 +3,6 @@ import {
   Checkbox,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogContentText,
   DialogTitle,
   IconButton,
 } from "@material-ui/core";
@@ -12,39 +10,31 @@ import React, { useState } from "react";
 import firebaseApp from "../../firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "./EachTodo.css";
-import NewTodoModal from "../NewTodoModal/NewTodoModal";
 
 function EachTodo(props) {
   const [checked, setChecked] = useState(props.finished);
-  const [modalOpen, setModalOpen] = useState(false);
-  const handleClickOpen = () => {
-    setModalOpen(true);
-  };
-  const handleClickClose = () => {
-    setModalOpen(false);
-  };
+  const [modalOpen, setModalOpen] = useState(false); //this state controls the delete modal
+
   const checkUncheckfunc = (event) => {
+    //this toggles check of todo checkbox and also toggles boolean value of finished property of that particular todo in firestore
     setChecked(event.target.checked);
-    // props.activateLoader(true);
     firebaseApp
       .firestore()
       .collection("todos")
       .doc(props.id)
       .set(
         {
-          finished: !checked ? true : false,
+          finished: !checked ? true : false, //this seems contradictory but due to some reason value of checked is false when i check it and true when i uncheck
         },
         { merge: true }
       )
       .then(() => {
-        // console.log("check loading ended");
-        props.startLoading();
-        // props.activateLoader(false);
+        props.startLoading(); //this triggers that loadData func in allTodos which fetches all todos again
       });
   };
   function deleteTodo() {
-    handleClickClose();
-    // props.activateLoader(true);
+    //this func deletes that particular todo
+    setModalOpen(false);
     firebaseApp
       .firestore()
       .collection("todos")
@@ -52,14 +42,13 @@ function EachTodo(props) {
       .delete()
       .then(() => {
         props.startLoading();
-        // props.activateLoader(false);
       });
   }
   return (
     <div className="eachTodo">
       <Dialog
         open={modalOpen}
-        onClose={handleClickClose}
+        onClose={() => setModalOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -67,7 +56,7 @@ function EachTodo(props) {
           {"Are you sure you want to delete this item from your list?"}
         </DialogTitle>
         <DialogActions>
-          <Button onClick={handleClickClose} color="secondary">
+          <Button onClick={() => setModalOpen(false)} color="secondary">
             No
           </Button>
           <Button onClick={deleteTodo} color="primary" autoFocus>
@@ -85,7 +74,7 @@ function EachTodo(props) {
             ? "#7885fb"
             : props.priority == 1
             ? "#20e734"
-            : "rgba(198, 196, 196, 0.61)",
+            : "rgba(198, 196, 196, 0.61)",//different color based on priority
         }}
         checked={checked}
         onChange={checkUncheckfunc}
@@ -104,7 +93,7 @@ function EachTodo(props) {
             : "noPriority eachTodoTaskName"
         }
         onClick={() => {
-          props.expandTodo(
+          props.expandTodo(//this triggers the func in all todos which renders the todo modal with all these parameters as props
             props.id,
             props.taskName,
             props.taskDesc,
@@ -114,7 +103,7 @@ function EachTodo(props) {
       >
         {props.taskName}
       </p>
-      <IconButton onClick={handleClickOpen}>
+      <IconButton onClick={() => setModalOpen(true)}>
         <DeleteIcon
           style={{
             color: "#FF3131",

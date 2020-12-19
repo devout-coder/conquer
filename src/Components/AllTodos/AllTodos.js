@@ -14,18 +14,22 @@ import EachTodo from "../EachTodo/EachTodo";
 function AllTodos(props) {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const location = useLocation();
-  const time = location.state.time;
-  const lastPage = location.state.lastPage;
+  const location = useLocation(); //holds props
+  const time = location.state.time; //this holds the date/month/week/year of which the user wants all todos
+  const lastPage = location.state.lastPage; //this holds daily/weekly/monthly/yearly basically the type of time wanted
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
   const [expandTaskId, setExpandTaskId] = useState("");
   const [expandTaskName, setExpandTaskName] = useState("");
   const [expandTaskDesc, setExpandTaskDesc] = useState("");
   const [expandTaskPri, setExpandTaskPri] = useState("0");
+  //if any specific todo is clicked, all these expandTask details will be passed as a prop to the modal
   const [openTodoModal, setOpenTodoModal] = useState(false);
+  //whenever this is true modal with required props is rendered
   function loadData() {
-    setLoading(true);
+    //this function fetches todos from firebase of the specific time, distinguishes them as finished and unfinished and stores them in state variables
+
+    setLoading(true); //this activates the Loading component with that damn loader
     firebaseApp
       .firestore()
       .collection("todos")
@@ -46,6 +50,7 @@ function AllTodos(props) {
             time: each.get("time"),
           };
           if (each.get("finished")) {
+            //each doc in todos collection of firebase is added to either finished or unfinished list based on its finished status
             finished.push(eachdict);
           } else {
             unfinished.push(eachdict);
@@ -54,9 +59,10 @@ function AllTodos(props) {
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
       });
-    setLoading(false);
+    setLoading(false); //when all the data is fetched and finished and unfinished todos are set the Loading component is stopped from rendering
   }
   function expandTodo(id, taskName, taskDesc, taskPri) {
+    //this function uses the parameters given by the particular todo triggering this function and sets those parameters equal to the state..then the modal is opened with these states as props
     setExpandTaskName(taskName);
     setExpandTaskDesc(taskDesc);
     setExpandTaskPri(taskPri);
@@ -64,6 +70,7 @@ function AllTodos(props) {
     setOpenTodoModal(true);
   }
   function expandBlankTodo() {
+    //this opens a blank todo with no props regarding details of any todo
     setExpandTaskName("");
     setExpandTaskDesc("");
     setExpandTaskPri("0");
@@ -78,10 +85,11 @@ function AllTodos(props) {
       {openTodoModal ? (
         <NewTodoModal
           time={time}
-          shouldReload={() => loadData()}
+          shouldReload={() => loadData()} //when this function is triggered data is fetched and saved in finished and unfinished todos state
           openTodoModal={(shouldOpen) => setOpenTodoModal(shouldOpen)}
+          //this function can change the state which controls opening and closing of modal
+          activateLoader={(shouldLoad) => setLoading(shouldLoad)} //this func triggers rendering of Loading component...
           taskId={expandTaskId}
-          activateLoader={(shouldLoad) => setLoading(shouldLoad)}
           taskName={expandTaskName}
           taskDesc={expandTaskDesc}
           taskPri={expandTaskPri}
@@ -151,6 +159,7 @@ function AllTodos(props) {
               </div>
             </div>
           ) : (
+            //this is rendered if the length of both finished and unfinished todos is 0
             <div className="noTodosMessage">Schedule seems clear...😎😎</div>
           )}
         </div>

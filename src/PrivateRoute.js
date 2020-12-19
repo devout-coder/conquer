@@ -7,9 +7,9 @@ function PrivateRoute(props) {
     <Route
       path={props.path}
       render={(data) =>
-        firebaseApp.auth().currentUser ? (
+        firebaseApp.auth().currentUser ? ( //if the user exists the componetn is rendered...
           <props.component {...data}></props.component>
-        ) : (
+        ) : ( //else the user is redirected to login page
           <Redirect to={{ pathname: "/login" }}></Redirect>
         )
       }
