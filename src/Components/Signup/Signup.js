@@ -4,7 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import "./Signup.css";
 import google_logo from "../../images/google_logo.png";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import { IconButton } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogTitle, IconButton } from "@material-ui/core";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import firebaseApp from "../../firebase";
 import Loading from "../Loading/Loading";
@@ -17,16 +17,21 @@ function Signup() {
   const [wantsPassword, setWantsPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [openAlertModal, setOpenAlertModal] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(false);
 
   const signUp = async (e) => {
     setLoading(true); //this prompts to render the custom Loading component which is a loading circle
     try {
       await firebaseApp.auth().createUserWithEmailAndPassword(email, password);
-      firebaseApp.auth().currentUser.updateProfile({ displayName: username });
+      await firebaseApp
+        .auth()
+        .currentUser.updateProfile({ displayName: username });
       history.push("/daily");
     } catch (error) {
       setLoading(false);
-      alert(error.message);
+      setAlertMessage(error.message);
+      setOpenAlertModal(true);
     }
   };
 
@@ -38,7 +43,8 @@ function Signup() {
       .signInWithPopup(provider)
       .catch((error) => {
         setLoading(false);
-        alert(error.message);
+        setAlertMessage(error.message);
+        setOpenAlertModal(true);
       });
     history.push("/daily");
   };
@@ -55,6 +61,19 @@ function Signup() {
 
   return !loading ? (
     <div className="signup">
+      <Dialog
+        open={openAlertModal}
+        onClose={() => setOpenAlertModal(false)}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{alertMessage}</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => setOpenAlertModal(false)} color="primary">
+            Fine..
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Navbar />
       <div className="signupPage">
         <div className="signupForm">

@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import "./Login.css";
 import google_logo from "../../images/google_logo.png";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import { IconButton } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Slide,
+} from "@material-ui/core";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import Loading from "../Loading/Loading";
 import firebaseApp from "../../firebase";
@@ -16,6 +25,9 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(null);
+  const [openAlertModal, setOpenAlertModal] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(false);
+
   const login = async () => {
     setLoading(true); //this prompts to render the custom Loading component which is a loading circle
     try {
@@ -23,9 +35,11 @@ function Login() {
       history.push("/daily");
     } catch (error) {
       setLoading(false);
-      alert(error.message);
+      setAlertMessage(error.message);
+      setOpenAlertModal(true);
     }
   };
+
   const loginGoogle = async () => {
     setLoading(true);
     let provider = new firebase.auth.GoogleAuthProvider();
@@ -34,10 +48,12 @@ function Login() {
       .signInWithPopup(provider)
       .catch((error) => {
         setLoading(false);
-        alert(error.message);
+        setAlertMessage(error.message);
+        setOpenAlertModal(true);
       });
     history.push("/daily");
   };
+
   const toggle = () => {
     //this toggles the password field from password type(and enable visibilty button) and text type(and disable visibilty button)
     setWantsPassword(!wantsPassword);
@@ -47,8 +63,22 @@ function Login() {
       return (document.getElementById("passwordField").type = "text");
     }
   };
+
   return !loading ? (
     <div className="login">
+      <Dialog
+        open={openAlertModal}
+        onClose={() => setOpenAlertModal(false)}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{alertMessage}</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => setOpenAlertModal(false)} color="primary">
+            Fine..
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Navbar />
       <div className="loginPage">
         <div className="loginForm">
