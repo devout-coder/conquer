@@ -119,7 +119,8 @@
 @media only screen and (max-width: 600px) {
   .modal {
     position: relative;
-    left: 15px;
+    /* left: 15px; */
+    width: 85%;
   }
   .modalTopbar {
     padding: 10px;
@@ -127,10 +128,11 @@
   .modalButtons {
     position: relative;
     top: 330px;
-    right: 120px;
+    left: 10px;
   }
   #modalTaskName {
-    width: 45vw;
+    position: absolute;
+    width: 80%;
     font-size: 7vw;
   }
   #modalTaskDesc {
