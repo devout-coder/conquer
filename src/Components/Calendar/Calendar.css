@@ -49,13 +49,25 @@ td .MuiIconButton-label {
 #today {
   background-color: rgba(253, 165, 255, 0.67);
   border-radius: 50%;
+  animation-name: fadeIn;
+  animation-duration: 1.5s;
 }
+
 #today span {
   color: black;
 }
 
 #notThisMonth span {
   color: #404040;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media only screen and (max-width: 640px) {

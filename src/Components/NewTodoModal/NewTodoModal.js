@@ -22,7 +22,8 @@ function NewTodoModal(props) {
   function changePriority(event) {
     setTaskPri(event.target.value);
   }
-  function displayPriProperly() {//this func basically hides the priority name and unhides the none priority(cause by default it is hidden..😒😒mui)
+  function displayPriProperly() {
+    //this func basically hides the priority name and unhides the none priority(cause by default it is hidden..😒😒mui)
     document.getElementsByClassName(
       "MuiSelect-root"
     )[0].lastChild.style.display = "none";
@@ -36,7 +37,8 @@ function NewTodoModal(props) {
     displayPriProperly();
   }, [taskPri]);
   function saveTodo() {
-    if (props.taskId === "") {//makes a new todo if the id prop is empty str which means that no particular todo is opened
+    if (props.taskId === "") {
+      //makes a new todo if the id prop is empty str which means that no particular todo is opened
       firebaseApp
         .firestore()
         .collection("todos")
@@ -49,9 +51,10 @@ function NewTodoModal(props) {
           finished: false,
         })
         .then(() => {
-          props.shouldReload();//triggers loadData() in allTodos which fetches all todos again from firestore
+          props.shouldReload(); //triggers loadData() in allTodos which fetches all todos again from firestore
         });
-    } else {//modifies the properties of original todo if some exisiting todo is opened in modal
+    } else {
+      //modifies the properties of original todo if some exisiting todo is opened in modal
       firebaseApp
         .firestore()
         .collection("todos")
@@ -72,7 +75,30 @@ function NewTodoModal(props) {
   }
 
   return (
-    <div className="modalBackground">
+    <div
+      className="modalBackground"
+      onClick={(e) => {
+        try {
+          if (!document.getElementsByClassName("modal")[0].contains(e.target)) {
+            //this if statement checks if the click is inside the modal of not
+            props.openTodoModal(false);
+          }
+        } catch (error) {} //ve added a try catch statement cause it gives error when i open the priority list
+      }}
+      onKeyDown={(evt) => {
+        //this function checks for press of escape key and if its pressed then it closes the modal
+        evt = evt || window.event;
+        var isEscape = false;
+        if ("key" in evt) {
+          isEscape = evt.key === "Escape" || evt.key === "Esc";
+        } else {
+          isEscape = evt.keyCode === 27;
+        }
+        if (isEscape) {
+          props.openTodoModal(false);
+        }
+      }}
+    >
       <div className="modal">
         <div className="modalTopbar">
           <input

@@ -14,10 +14,8 @@
   padding: 10px;
   width: 63%;
   height: 400px;
-  transition: opacity 0.5s;
   animation-name: fadeIn;
   animation-duration: 0.5s;
-  /* opacity: 0; */
 }
 
 .modalTopbar {
