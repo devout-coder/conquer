@@ -50,7 +50,7 @@ td .MuiIconButton-label {
   background-color: rgba(253, 165, 255, 0.67);
   border-radius: 50%;
   animation-name: fadeIn;
-  animation-duration: 1.5s;
+  animation-duration: 1s;
 }
 
 #today span {
