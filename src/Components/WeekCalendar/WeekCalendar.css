@@ -14,35 +14,48 @@
   align-items: center;
 }
 
-.eachWeek {
+.weekCalendar .MuiButton-label {
   color: #eada76;
   font-family: Poppins;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 500 !important;
   font-size: 26px;
   line-height: 60px;
+  text-transform: none;
 }
 
-.currentWeek {
+.weekCalendar .MuiTouchRipple-root {
+  color: #eada76;
+}
+
+.currentWeek .MuiButton-label {
   color: white;
   animation-name: fadeIn;
   animation-duration: 1s;
 }
 
+.currentWeek .MuiTouchRipple-root{
+    color: white;
+}
+
 @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
 
 @media only screen and (max-width: 600px) {
   .topbar {
     margin-bottom: 1vw;
   }
-  .eachWeek {
+  .weekCalendar .MuiButton-label {
     font-size: 4.6vw;
+    margin: 0;
+  }
+  .MuiButtonBase-root {
+    height: 14vw;
   }
 }

@@ -1,4 +1,4 @@
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import React, { useState } from "react";
 import "./WeekCalendar.css";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
@@ -168,7 +168,7 @@ function WeekCalendar() {
       </div>
       <div className="allWeeks">
         {getWeeks().map((week) => (
-          <div
+          <Button
             className={
               week.split("#")[1] == "currentWeek"
                 ? "eachWeek currentWeek"
@@ -176,7 +176,7 @@ function WeekCalendar() {
             }
           >
             {week.split("#")[0]}
-          </div>
+          </Button>
         ))}
       </div>
     </div>
