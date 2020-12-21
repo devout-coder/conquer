@@ -10,7 +10,12 @@ button:hover {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
   position: relative;
-  top: -5px;
+  top: 10px;
+}
+
+@media only screen and (max-width: 640px){
+  .dailyPageEmpty{
+    top: -15px;
+  }
 }

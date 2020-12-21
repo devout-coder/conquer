@@ -18,6 +18,7 @@ function NewTodoModal(props) {
   const [taskName, setTaskName] = useState(props.taskName);
   const [taskDesc, setTaskDesc] = useState(props.taskDesc);
   const [taskId, settaskId] = useState(props.taskId);
+  const [ctrlPressed, setCtrlPressed] = useState(false)
 
   function changePriority(event) {
     setTaskPri(event.target.value);
@@ -86,16 +87,16 @@ function NewTodoModal(props) {
         } catch (error) {} //ve added a try catch statement cause it gives error when i open the priority list
       }}
       onKeyDown={(evt) => {
-        //this function checks for press of escape key and if its pressed then it closes the modal
-        evt = evt || window.event;
-        var isEscape = false;
-        if ("key" in evt) {
-          isEscape = evt.key === "Escape" || evt.key === "Esc";
-        } else {
-          isEscape = evt.keyCode === 27;
-        }
-        if (isEscape) {
+        //this function checks for keypresses..in case esc button is pressed modal is closed..if ctrl+s is pressed its saved
+        console.log(evt.key)
+        if (evt.key=="Escape"){
           props.openTodoModal(false);
+        }else if(evt.key=="Control"){
+          setCtrlPressed(true)
+        }else if(evt.key=="s" && ctrlPressed){
+          setCtrlPressed(false)
+          evt.preventDefault()
+          saveTodo()
         }
       }}
     >
@@ -108,7 +109,7 @@ function NewTodoModal(props) {
             spellCheck="false"
             value={taskName}
             autoComplete="off"
-            maxLength="37"
+            maxLength="42"
             onChange={(e) => setTaskName(e.target.value)}
           />
           <div className="modalButtons">

@@ -18,7 +18,8 @@
   font-size: 28px;
   line-height: 20px;
   color: #ffffff;
-  margin: 0px 30px 0px 30px;
+  width: 250px;
+  text-align: center;
 }
 
 .day {
@@ -75,6 +76,9 @@ td .MuiIconButton-label {
     /* margin: 0vw; */
     position: relative;
     left: -8px;
+  }
+  .topbarMonth{
+    width: 40vw;
   }
   td {
     padding: 0.5vw 0vw 0.5vw 0vw;

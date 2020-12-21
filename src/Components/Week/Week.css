@@ -1,0 +1,10 @@
+.weekPage{
+    display: flex;
+}
+
+.weekPageEmpty{
+    flex: 1;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
