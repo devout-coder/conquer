@@ -77,8 +77,10 @@ td .MuiIconButton-label {
     position: relative;
     left: -8px;
   }
-  .topbarMonth{
+  .topbarMonth {
     width: 40vw;
+    font-size: 5vw;
+    margin: 0px 2.3vw 0px 2.3vw;
   }
   td {
     padding: 0.5vw 0vw 0.5vw 0vw;
@@ -94,9 +96,5 @@ td .MuiIconButton-label {
   }
   .day {
     font-size: 3.6vw;
-  }
-  .topbarMonth {
-    font-size: 5vw;
-    margin: 0px 2.3vw 0px 2.3vw;
   }
 }

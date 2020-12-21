@@ -4,7 +4,14 @@
 
 .weekPageEmpty{
     flex: 1;
-    margin: 10px;
-    display: flex;
+    display: flex; 
     justify-content: center;
+    position: relative;
+    top: 10px;
 }
+
+@media only screen and (max-width: 640px){
+    .weekPageEmpty{
+      top: -15px;
+    }
+  }

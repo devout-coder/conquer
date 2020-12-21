@@ -1,0 +1,48 @@
+.weekCalendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topbar {
+  margin-bottom: 20px;
+}
+
+.allWeeks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eachWeek {
+  color: #eada76;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 60px;
+}
+
+.currentWeek {
+  color: white;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+@media only screen and (max-width: 600px) {
+  .topbar {
+    margin-bottom: 1vw;
+  }
+  .eachWeek {
+    font-size: 4.6vw;
+  }
+}
