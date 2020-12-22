@@ -1,0 +1,25 @@
+.yearPicker .MuiSelect-root {
+  font-family: Poppins !important;
+  font-weight: 500 !important;
+  font-size: 26px !important;
+  color: #ffffff !important;
+  position: relative !important;
+  top: 7px !important;
+}
+
+.yearPicker .MuiSvgIcon-root {
+  color: white;
+}
+
+.yearPicker .MuiInput-underline::before,
+.yearPicker .MuiInput-underline::after {
+  border-bottom: none !important;
+}
+
+.MuiMenu-paper {
+  max-height: 400px !important;
+}
+
+::-webkit-scrollbar {
+  width: 0px !important;
+}
