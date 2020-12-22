@@ -28,10 +28,13 @@
   color: rgba(255, 255, 255, 0.308);
 }
 
-.currentWeek .MuiButton-label {
-  color: #FDA5FF;
+.currentWeek{
   animation-name: fadeIn;
   animation-duration: 1s;
+}
+
+.currentWeek .MuiButton-label {
+  color: #FDA5FF;
 }
 
 @keyframes fadeIn {
@@ -50,6 +53,10 @@
   .weekCalendar .MuiButton-label {
     font-size: 4.6vw;
     margin: 0;
+  }
+  .allWeeks{
+    position: relative;
+    left: -13px;
   }
   .MuiButtonBase-root {
     height: 14vw;

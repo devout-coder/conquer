@@ -4,6 +4,8 @@
   margin-left: 10px;
   width: 50px;
   align-items: flex-start;
+  /* height: 300px;
+  background-color: teal; */
 }
 
 .sidebarIcon {
@@ -26,7 +28,7 @@
 
 @media only screen and (max-width:600px){
   .sidebarIcon{
-    width: 8kvw;
+    width: 7vw;
     height: 8vw;
   }
 }

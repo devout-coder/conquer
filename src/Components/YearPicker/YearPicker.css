@@ -23,3 +23,15 @@
 ::-webkit-scrollbar {
   width: 0px !important;
 }
+
+@media only screen and (max-width: 600px) {
+  .yearPicker .MuiSelect-root {
+    top: 1vw !important;
+  }
+  .yearPicker .MuiSelect-root {
+    font-size: 5vw !important;
+  }
+  .MuiMenu-paper{
+      max-height: 300px !important;
+  }
+}

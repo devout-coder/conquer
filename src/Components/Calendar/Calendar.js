@@ -6,25 +6,26 @@ import "./Calendar.css";
 import { loadingContext } from "../../loadingContext";
 import { useHistory } from "react-router-dom";
 
+export const months = {
+  0: "January",
+  1: "February",
+  2: "March",
+  3: "April",
+  4: "May",
+  5: "June",
+  6: "July",
+  7: "August",
+  8: "September",
+  9: "October",
+  10: "November",
+  11: "December",
+};
+
 function Calendar() {
   const isLoading = useContext(loadingContext);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const history = useHistory();
-  const months = {
-    0: "January",
-    1: "February",
-    2: "March",
-    3: "April",
-    4: "May",
-    5: "June",
-    6: "July",
-    7: "August",
-    8: "September",
-    9: "October",
-    10: "November",
-    11: "December",
-  };
   const getDaysIn = (year, month) => {
     //this function returns the no of days in a particular month
     return new Date(year, month + 1, 0).getDate();

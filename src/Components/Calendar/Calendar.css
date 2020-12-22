@@ -75,7 +75,12 @@ td .MuiIconButton-label {
   .calendar table {
     /* margin: 0vw; */
     position: relative;
-    left: -8px;
+    left: -13px;
+    width: 90%;
+  }
+  .topbar{
+    position: relative;
+    left: -13px;
   }
   .topbarMonth {
     width: 40vw;

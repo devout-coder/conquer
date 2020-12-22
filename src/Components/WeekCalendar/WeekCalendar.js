@@ -4,6 +4,7 @@ import "./WeekCalendar.css";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { useHistory } from "react-router-dom";
+import {months} from '../Calendar/Calendar';
 
 function WeekCalendar() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -22,21 +23,6 @@ function WeekCalendar() {
     9: "Oct",
     10: "Nov",
     11: "Dec",
-  }; //these r the months for the week calendar section
-
-  const months = {
-    0: "January",
-    1: "February",
-    2: "March",
-    3: "April",
-    4: "May",
-    5: "June",
-    6: "July",
-    7: "August",
-    8: "September",
-    9: "October",
-    10: "November",
-    11: "December",
   }; //these r the months for the topbar
 
   const getWeekFormattedDate = (date) => {
