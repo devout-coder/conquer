@@ -29,7 +29,7 @@
 }
 
 .currentWeek .MuiButton-label {
-  color: white;
+  color: #FDA5FF;
   animation-name: fadeIn;
   animation-duration: 1s;
 }

@@ -22,7 +22,8 @@ function WeekCalendar() {
     9: "Oct",
     10: "Nov",
     11: "Dec",
-  };
+  }; //these r the months for the week calendar section
+
   const months = {
     0: "January",
     1: "February",
@@ -36,19 +37,25 @@ function WeekCalendar() {
     9: "October",
     10: "November",
     11: "December",
-  };
+  }; //these r the months for the topbar
+
   const getWeekFormattedDate = (date) => {
+    //this converts the date to the format dd M
     return `${date.getDate()} ${
       weekMonths[date.getMonth()]
     } ${date.getFullYear()}`;
   };
+
   function replaceDate(date) {
+    //this function removes space and year from the date
     return date.replace(/\s\d{4}/g, "");
   }
+
   const getDaysIn = (year, month) => {
     //this function returns the no of days in a particular month
     return new Date(year, month + 1, 0).getDate();
   };
+
   const increaseMonth = () => {
     //this function increases the month and changes the month to jan of next year if the existing month is december
     if (currentMonth + 1 <= 11) {
@@ -71,6 +78,7 @@ function WeekCalendar() {
 
   const getWeeks = () => {
     //this function returns all the weeks in the current month
+
     let noPrevDays = new Date(currentYear, currentMonth, 1).getDay() - 1;
     noPrevDays = noPrevDays === -1 ? 6 : noPrevDays;
     //this var holds the value of no of days in previous month which appear in the first week of this month
@@ -128,15 +136,17 @@ function WeekCalendar() {
 
     let allDays = [...prevDays, ...currentDays, ...nextDays];
     //allDays holds all dates in all weeks of current month
+
     let weeksList = [];
     let i = 0;
     let today = getWeekFormattedDate(new Date());
     while (i < allDays.length) {
-      //every 7 elements in allDays r pushed as a separate list(which represents a week) in horizontalList
-
+      //this while loop loops through a week(in layman's terms)
       let foundToday = false;
       for (let each of allDays.slice(i, i + 7)) {
+        //this loops through all days in this particular week
         if (each == today) {
+          //when any day matches with today's date then the foundToday switch is turned true for this week
           foundToday = true;
         }
       }
@@ -144,8 +154,9 @@ function WeekCalendar() {
         foundToday
           ? `${allDays[i]}-${allDays[i + 6]}#currentWeek`
           : `${allDays[i]}-${allDays[i + 6]}`
+        //if today's date lies in this week then foundToday ll be true and then the week ll be labelled as #currentWeek
       );
-      foundToday = false;
+      foundToday = false; //foundToday is turned false before running the while loop for next week
       i = i + 7;
     }
     return weeksList;
@@ -174,7 +185,7 @@ function WeekCalendar() {
             }
             onClick={() =>
               history.push({
-                pathname: "week/allTodos",
+                pathname: "week/allTodos",  
                 state: { time: week.split("#")[0], lastPage: "week" },
               })
             }
