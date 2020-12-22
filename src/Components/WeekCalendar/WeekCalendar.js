@@ -42,6 +42,9 @@ function WeekCalendar() {
       weekMonths[date.getMonth()]
     } ${date.getFullYear()}`;
   };
+  function replaceDate(date) {
+    return date.replace(/\s\d{4}/g, "");
+  }
   const getDaysIn = (year, month) => {
     //this function returns the no of days in a particular month
     return new Date(year, month + 1, 0).getDate();
@@ -128,9 +131,6 @@ function WeekCalendar() {
     let weeksList = [];
     let i = 0;
     let today = getWeekFormattedDate(new Date());
-    function replaceDate(date) {
-      return date.replace(/\s\d{4}/, "");
-    }
     while (i < allDays.length) {
       //every 7 elements in allDays r pushed as a separate list(which represents a week) in horizontalList
 
@@ -142,17 +142,15 @@ function WeekCalendar() {
       }
       weeksList.push(
         foundToday
-          ? `${replaceDate(allDays[i])}-${replaceDate(
-              allDays[i + 6]
-            )}#currentWeek`
-          : `${replaceDate(allDays[i])}-${replaceDate(allDays[i + 6])}`
+          ? `${allDays[i]}-${allDays[i + 6]}#currentWeek`
+          : `${allDays[i]}-${allDays[i + 6]}`
       );
       foundToday = false;
       i = i + 7;
     }
     return weeksList;
   };
-  
+
   return (
     <div className="weekCalendar">
       <div className="topbar">
@@ -174,8 +172,14 @@ function WeekCalendar() {
                 ? "eachWeek currentWeek"
                 : "eachWeek"
             }
+            onClick={() =>
+              history.push({
+                pathname: "week/allTodos",
+                state: { time: week.split("#")[0], lastPage: "week" },
+              })
+            }
           >
-            {week.split("#")[0]}
+            {replaceDate(week.split("#")[0])}
           </Button>
         ))}
       </div>

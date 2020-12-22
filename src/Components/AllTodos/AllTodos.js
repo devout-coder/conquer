@@ -61,6 +61,9 @@ function AllTodos(props) {
       });
     setLoading(false); //when all the data is fetched and finished and unfinished todos are set the Loading component is stopped from rendering
   }
+  function replaceDate(date) {
+    return date.replace(/\s\d{4}/g, "");
+  }
   function expandTodo(id, taskName, taskDesc, taskPri) {
     //this function uses the parameters given by the particular todo triggering this function and sets those parameters equal to the state..then the modal is opened with these states as props
     setExpandTaskName(taskName);
@@ -108,7 +111,7 @@ function AllTodos(props) {
             >
               <ArrowBackIcon />
             </IconButton>
-            <span className="time">{time}</span>
+            <span className="time">{replaceDate(time)}</span>
             <IconButton onClick={() => expandBlankTodo()} title="New Todo">
               <QueueIcon />
             </IconButton>
