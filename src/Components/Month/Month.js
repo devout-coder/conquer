@@ -5,8 +5,10 @@ import Sidebar from "../Sidebar/Sidebar";
 import YearPicker from "../YearPicker/YearPicker";
 import "./Month.css";
 import { months as singleListMonths } from "../Calendar/Calendar";
+import { useHistory } from "react-router-dom";
 
 function Month() {
+  let history = useHistory();
   const [year, setYear] = useState(new Date().getFullYear());
   const months = [
     ["January", "February", "March", "April", "May", "June"],
@@ -19,18 +21,6 @@ function Month() {
         <Sidebar />
         <div className="monthPageEmpty">
           <YearPicker year={year} changeYear={(year) => setYear(year)} />
-          {/* <div className="allMonths">
-            <div className="monthsColumn">
-              {firstMonths.map((month) => (
-                <Button className="displayMonth">{month}</Button>
-              ))}
-            </div>
-            <div className="monthsColumn">
-              {lastMonths.map((month) => (
-                <Button className="displayMonth">{month}</Button>
-              ))}
-            </div>
-          </div> */}
           <div className="allMonths">
             {months.map((monthset) => (
               <div className="monthsColumn">
@@ -41,6 +31,12 @@ function Month() {
                       singleListMonths[new Date().getMonth()] == month
                         ? "displayMonth currentMonth"
                         : "displayMonth"
+                    }
+                    onClick={() =>
+                      history.push({
+                        pathname: "month/allTodos",
+                        state: { time: `${month.split("#")[0]} ${year.toString()}`, lastPage: "month" },
+                      })
                     }
                   >
                     {month}

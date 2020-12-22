@@ -88,7 +88,6 @@ function NewTodoModal(props) {
       }}
       onKeyDown={(evt) => {
         //this function checks for keypresses..in case esc button is pressed modal is closed..if ctrl+s is pressed its saved
-        console.log(evt.key)
         if (evt.key=="Escape"){
           props.openTodoModal(false);
         }else if(evt.key=="Control"){
