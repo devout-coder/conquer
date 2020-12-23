@@ -9,7 +9,7 @@ function LongTerm() {
   let history = useHistory()
   history.push({
     pathname: "/longTerm/allTodos",
-    state: { time: "Long Term Goals🎯🎯", lastPage: "daily" },
+    state: { time: "Long Term Goals🎯", lastPage: "longTerm" },
   })
   return(
     <div></div>

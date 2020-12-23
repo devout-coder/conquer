@@ -29,7 +29,7 @@ function AllTodos(props) {
   function loadData() {
     //this function fetches todos from firebase of the specific time, distinguishes them as finished and unfinished and stores them in state variables
 
-    setLoading(true); //this activates the Loading component with that damn loader
+    // setLoading(true); //this activates the Loading component with that damn loader
     firebaseApp
       .firestore()
       .collection("todos")
@@ -59,7 +59,7 @@ function AllTodos(props) {
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
       });
-    setLoading(false); //when all the data is fetched and finished and unfinished todos are set the Loading component is stopped from rendering
+    // setLoading(false); //when all the data is fetched and finished and unfinished todos are set the Loading component is stopped from rendering
   }
   function replaceDate(date) {
     return date.replace(/\s\d{4}/g, "");
@@ -105,12 +105,16 @@ function AllTodos(props) {
         <Sidebar />
         <div className="allTodosPageEmpty">
           <div className="topbar">
-            <IconButton
-              title="Back"
-              onClick={() => history.push(`/${lastPage}`)}
-            >
-              <ArrowBackIcon />
-            </IconButton>
+            {lastPage != "longTerm" && lastPage != "year" ? (
+              <IconButton
+                title="Back"
+                onClick={() => history.push(`/${lastPage}`)}
+              >
+                <ArrowBackIcon />
+              </IconButton>
+            ) : (
+              <div></div>
+            )}
             <span className="time">{replaceDate(time)}</span>
             <IconButton onClick={() => expandBlankTodo()} title="New Todo">
               <QueueIcon />

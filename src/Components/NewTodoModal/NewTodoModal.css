@@ -2,7 +2,7 @@
   background-color: rgba(0, 0, 0, 0.692);
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   z-index: 2;
   display: grid;
   place-items: center;
@@ -133,7 +133,7 @@
   #modalTaskName {
     position: absolute;
     width: 80%;
-    font-size: 7vw;
+    font-size: 6.8vw;
   }
   #modalTaskDesc {
     font-size: 5vw;

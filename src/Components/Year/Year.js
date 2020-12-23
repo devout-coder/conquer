@@ -1,14 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import "./Year.css";
 function Year() {
-  return (
-    <div className="year">
-      <Navbar />
-      <Sidebar />
-    </div>
-  );
+  let history = useHistory();
+  history.push({
+    pathname: "/year/allTodos",
+    state: { time: new Date().getFullYear().toString(), lastPage: "year" },
+  });
+  return <div></div>;
 }
 
 export default Year;

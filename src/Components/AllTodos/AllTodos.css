@@ -21,6 +21,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* background-color: burlywood; */
 }
 
 .time {
@@ -44,8 +45,9 @@ body{
 .mainTodos {
   display: flex;
   margin-top: 20px;
-  width: 75%;
+  width: 70%;
   justify-content: center;
+  /* background-color: darkcyan; */
 }
 
 .unfinishedTodos {
@@ -58,26 +60,22 @@ body{
 
 .finishedTodos {
   display: flex;
-  width: 50%;
   flex-direction: column;
   align-items: center;
+  width: 50%;
   /* background-color: white; */
 }
 
 .unfinishedTodosList{
   display: flex;
   flex-direction: column;
-  align-self: flex-start;
-  /* margin-right: 40px; */
-  width: 100%;
+  width: 75%;
 }
 
 .finishedTodosList{
   display: flex;
   flex-direction: column;
-  align-self: flex-start;
-  /* margin-left: 40px; */
-  width: 100%;
+  width: 75%;
 }
 
 .noTodos {
@@ -100,24 +98,38 @@ body{
     flex-direction: column;
     align-items: center;
     /* background-color: white; */
+    margin-top: 5px;
+  }
+  .time {
+    font-size: 5.3vw;
+    margin: 0px 5px 0px 5px;
   }
   .topbar{
     margin-top: 15px;
   }
+  .mainTodos{
+    width: 100%;
+  }
   .unfinishedTodos{
-    width: 97%;
+    width: 100%;
 
   }
   .finishedTodos{
-    width: 97%;
+    width: 100%;
+  }
+  .unfinishedTodosList{
+    width: 80%;
+  }
+  .finishedTodosList{
+    width: 80%;
+  }
+  .noTodosMessage{
+    font-size: 6vw;
   }
 
 }
 
 @media only screen and (max-width: 450px) {
-  .time {
-    font-size: 6vw;
-  }
   .topbar .MuiSvgIcon-root {
     width: 7vw;
     height: 7vw;
@@ -125,6 +137,7 @@ body{
   .noTodos{
     font-size: 5.8vw;
   }
+
 }
 ::-webkit-scrollbar {
   width: 6px;
