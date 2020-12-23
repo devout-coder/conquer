@@ -10,12 +10,13 @@ import firebaseApp from "../../firebase";
 import Loading from "../Loading/Loading";
 import "./AllTodos.css";
 import EachTodo from "../EachTodo/EachTodo";
+import YearPicker from "../YearPicker/YearPicker";
 
 function AllTodos(props) {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const location = useLocation(); //holds props
-  const time = location.state.time; //this holds the date/month/week/year of which the user wants all todos
+  const [time, setTime] = useState(location.state.time); //this holds the date/month/week/year of which the user wants all todos
   const lastPage = location.state.lastPage; //this holds daily/weekly/monthly/yearly basically the type of time wanted
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
@@ -115,10 +116,23 @@ function AllTodos(props) {
             ) : (
               <div></div>
             )}
-            <span className="time">{replaceDate(time)}</span>
+            {lastPage != "year" ? (
+              <span className="time">{replaceDate(time)}</span>
+            ) : (
+              <div className="modifiedYearPicker">
+                <YearPicker year={time} changeYear={(year) => setTime(year)} />
+              </div>
+            )}
             <IconButton onClick={() => expandBlankTodo()} title="New Todo">
               <QueueIcon />
             </IconButton>
+            {/* {lastPage == "year" ? (
+              <div className="modifiedYearPicker">
+                <YearPicker year={time} changeYear={(year) => setTime(year)} />
+              </div>
+            ) : (
+              <div></div>
+            )} */}
           </div>
           {unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
             <div className="mainTodos">

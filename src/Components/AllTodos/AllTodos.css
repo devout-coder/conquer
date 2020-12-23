@@ -21,6 +21,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   /* background-color: burlywood; */
 }
 
@@ -87,6 +88,21 @@ body{
   color: #c6c4c4;
 }
 
+.modifiedYearPicker{
+  /* position: relative;
+  left: 25px; */
+  width: 90px;
+}
+
+.modifiedYearPicker .MuiSvgIcon-root{
+  position: relative;
+  right:30px;
+}
+
+.modifiedYearPicker .MuiSelect-root{
+  font-weight: 600 !important;
+}
+
 @media only screen and (max-width: 900px){
   .mainTodos{
     width: 95%;
@@ -99,6 +115,9 @@ body{
     align-items: center;
     /* background-color: white; */
     margin-top: 5px;
+  }
+  .modifiedYearPicker{
+    width:17vw;
   }
   .time {
     font-size: 5.3vw;
