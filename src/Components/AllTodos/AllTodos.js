@@ -163,7 +163,7 @@ function AllTodos(props) {
             </div>
           ) : (
             //this is rendered if the length of both finished and unfinished todos is 0
-            <div className="noTodosMessage">Schedule seems clear...😎😎</div>
+            <div className="noTodosMessage">No tasks added yet!</div>
           )}
         </div>
       </div>

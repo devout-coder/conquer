@@ -69,16 +69,16 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .monthPageEmpty{
+    top: 10px;
+  }
   .allMonths{
-      left: 2vw;
+      left: 1.2vw;
   }
   .allMonths .MuiButton-label{
-      font-size: 4vw;
+      font-size: 4.7vw;
   }
   .monthsColumn{
       margin-right: 2vw;
-  }
-  .MuiButtonBase-root {
-    /* height: 14vw; */
   }
 }
