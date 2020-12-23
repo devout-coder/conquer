@@ -7,7 +7,7 @@ function Year() {
   let history = useHistory();
   history.push({
     pathname: "/year/allTodos",
-    state: { time: new Date().getFullYear().toString(), lastPage: "year" },
+    state: { time: new Date().getFullYear(), lastPage: "year" },
   });
   return <div></div>;
 }

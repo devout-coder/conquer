@@ -39,6 +39,7 @@ function AllTodos(props) {
       .orderBy("priority", "desc")
       .get()
       .then((snap) => {
+        // console.log("got data");
         let finished = [];
         let unfinished = [];
         snap.docs.map((each) => {
@@ -59,6 +60,7 @@ function AllTodos(props) {
         });
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
+        // console.log("set data");
       });
     // setLoading(false); //when all the data is fetched and finished and unfinished todos are set the Loading component is stopped from rendering
   }
@@ -83,7 +85,7 @@ function AllTodos(props) {
   }
   useEffect(() => {
     loadData();
-  }, []);
+  }, [time]);
   return !loading ? (
     <div className="allTodos">
       {openTodoModal ? (

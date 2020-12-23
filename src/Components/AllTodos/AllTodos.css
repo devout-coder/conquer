@@ -89,14 +89,13 @@ body{
 }
 
 .modifiedYearPicker{
-  /* position: relative;
-  left: 25px; */
+  position: relative;
   width: 90px;
 }
 
 .modifiedYearPicker .MuiSvgIcon-root{
   position: relative;
-  right:30px;
+  right:28px;
 }
 
 .modifiedYearPicker .MuiSelect-root{
@@ -118,6 +117,9 @@ body{
   }
   .modifiedYearPicker{
     width:17vw;
+  }
+  .modifiedYearPicker{
+    top: 0.05vw;
   }
   .time {
     font-size: 5.3vw;
