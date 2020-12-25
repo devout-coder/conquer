@@ -10,8 +10,8 @@ function Daily() {
     title: "Conquer",
     subtitle: "This is a subtitle",
     message: "This is a very long message",
-    theme: "darkblue",
-    native: true, // when using native, your OS will handle theming.
+    // theme: "darkblue",
+    // native: true, // when using native, your OS will handle theming.
   });
   return (
     <div className="daily">
