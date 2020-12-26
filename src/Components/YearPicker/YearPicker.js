@@ -4,6 +4,7 @@ import { FormControl, MenuItem, Select } from "@material-ui/core";
 
 function YearPicker(props) {
   function getYears() {
+    //returns an array which has years from 2020 to 2100
     let allYears = [];
     let initialYear = 2020;
     while (initialYear <= 2100) {

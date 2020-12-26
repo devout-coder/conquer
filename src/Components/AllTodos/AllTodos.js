@@ -20,6 +20,7 @@ function AllTodos(props) {
   const lastPage = location.state.lastPage; //this holds daily/weekly/monthly/yearly basically the type of time wanted
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
+  //finished and unfinished todos get updated when i use loadData func
   const [expandTaskId, setExpandTaskId] = useState("");
   const [expandTaskName, setExpandTaskName] = useState("");
   const [expandTaskDesc, setExpandTaskDesc] = useState("");
@@ -27,10 +28,10 @@ function AllTodos(props) {
   //if any specific todo is clicked, all these expandTask details will be passed as a prop to the modal
   const [openTodoModal, setOpenTodoModal] = useState(false);
   //whenever this is true modal with required props is rendered
+
   function loadData() {
     //this function fetches todos from firebase of the specific time, distinguishes them as finished and unfinished and stores them in state variables
 
-    // setLoading(true); //this activates the Loading component with that damn loader
     firebaseApp
       .firestore()
       .collection("todos")
@@ -62,9 +63,9 @@ function AllTodos(props) {
         setUnfinishedTodos(unfinished);
         // console.log("set data");
       });
-    // setLoading(false); //when all the data is fetched and finished and unfinished todos are set the Loading component is stopped from rendering
   }
   function replaceDate(date) {
+    //this func takes date and removes the space and year from it...
     return date.replace(/\s\d{4}/g, "");
   }
   function expandTodo(id, taskName, taskDesc, taskPri) {
@@ -85,16 +86,16 @@ function AllTodos(props) {
   }
   useEffect(() => {
     loadData();
-  }, [time]);
+  }, [time]); //passed time here so that in yearly todos when i update the year data gets loaded again..
+
   return !loading ? (
     <div className="allTodos">
       {openTodoModal ? (
         <NewTodoModal
           time={time}
-          shouldReload={() => loadData()} //when this function is triggered data is fetched and saved in finished and unfinished todos state
+          shouldReload={() => loadData()}
           openTodoModal={(shouldOpen) => setOpenTodoModal(shouldOpen)}
           //this function can change the state which controls opening and closing of modal
-          activateLoader={(shouldLoad) => setLoading(shouldLoad)} //this func triggers rendering of Loading component...
           taskId={expandTaskId}
           taskName={expandTaskName}
           taskDesc={expandTaskDesc}
@@ -128,13 +129,6 @@ function AllTodos(props) {
             <IconButton onClick={() => expandBlankTodo()} title="New Todo">
               <QueueIcon />
             </IconButton>
-            {/* {lastPage == "year" ? (
-              <div className="modifiedYearPicker">
-                <YearPicker year={time} changeYear={(year) => setTime(year)} />
-              </div>
-            ) : (
-              <div></div>
-            )} */}
           </div>
           {unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
             <div className="mainTodos">

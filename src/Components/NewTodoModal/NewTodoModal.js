@@ -18,11 +18,8 @@ function NewTodoModal(props) {
   const [taskName, setTaskName] = useState(props.taskName);
   const [taskDesc, setTaskDesc] = useState(props.taskDesc);
   const [taskId, settaskId] = useState(props.taskId);
-  const [ctrlPressed, setCtrlPressed] = useState(false)
+  const [ctrlPressed, setCtrlPressed] = useState(false);
 
-  function changePriority(event) {
-    setTaskPri(event.target.value);
-  }
   function displayPriProperly() {
     //this func basically hides the priority name and unhides the none priority(cause by default it is hidden..😒😒mui)
     document.getElementsByClassName(
@@ -88,14 +85,14 @@ function NewTodoModal(props) {
       }}
       onKeyDown={(evt) => {
         //this function checks for keypresses..in case esc button is pressed modal is closed..if ctrl+s is pressed its saved
-        if (evt.key=="Escape"){
+        if (evt.key == "Escape") {
           props.openTodoModal(false);
-        }else if(evt.key=="Control"){
-          setCtrlPressed(true)
-        }else if(evt.key=="s" && ctrlPressed){
-          setCtrlPressed(false)
-          evt.preventDefault()
-          saveTodo()
+        } else if (evt.key == "Control") {
+          setCtrlPressed(true);
+        } else if (evt.key == "s" && ctrlPressed) {
+          setCtrlPressed(false);
+          evt.preventDefault();
+          saveTodo();
         }
       }}
     >
@@ -113,7 +110,11 @@ function NewTodoModal(props) {
           />
           <div className="modalButtons">
             <FormControl>
-              <Select value={taskPri} onChange={changePriority} displayEmpty>
+              <Select
+                value={taskPri}
+                onChange={(e) => setTaskPri(e.target.value)}
+                displayEmpty
+              >
                 <MenuItem value="3" className="eachPriority">
                   <PriorityHighIcon
                     id="highPriority"

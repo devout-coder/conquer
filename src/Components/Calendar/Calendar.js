@@ -126,7 +126,7 @@ function Calendar() {
   useEffect(() => {
     changeId();
   }, [isLoading, currentMonth]);
-  const increaseMonth = () => { 
+  const increaseMonth = () => {
     //this function increases the month and changes the month to jan of next year if the existing month is december
     if (currentMonth + 1 <= 11) {
       setCurrentMonth(currentMonth + 1);

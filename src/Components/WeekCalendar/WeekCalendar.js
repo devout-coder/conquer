@@ -4,7 +4,7 @@ import "./WeekCalendar.css";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { useHistory } from "react-router-dom";
-import {months} from '../Calendar/Calendar';
+import { months } from "../Calendar/Calendar";
 
 function WeekCalendar() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -26,7 +26,7 @@ function WeekCalendar() {
   }; //these r the months for the topbar
 
   const getWeekFormattedDate = (date) => {
-    //this converts the date to the format dd M
+    //this converts the date to the format dd M yyyy
     return `${date.getDate()} ${
       weekMonths[date.getMonth()]
     } ${date.getFullYear()}`;
@@ -124,10 +124,9 @@ function WeekCalendar() {
     //allDays holds all dates in all weeks of current month
 
     let weeksList = [];
-    let i = 0;
     let today = getWeekFormattedDate(new Date());
-    while (i < allDays.length) {
-      //this while loop loops through a week(in layman's terms)
+    for (let i; i < allDays.length; i = i + 7) {
+      //loops through a week
       let foundToday = false;
       for (let each of allDays.slice(i, i + 7)) {
         //this loops through all days in this particular week
@@ -143,7 +142,6 @@ function WeekCalendar() {
         //if today's date lies in this week then foundToday ll be true and then the week ll be labelled as #currentWeek
       );
       foundToday = false; //foundToday is turned false before running the while loop for next week
-      i = i + 7;
     }
     return weeksList;
   };
@@ -171,7 +169,7 @@ function WeekCalendar() {
             }
             onClick={() =>
               history.push({
-                pathname: "week/allTodos",  
+                pathname: "week/allTodos",
                 state: { time: week.split("#")[0], lastPage: "week" },
               })
             }

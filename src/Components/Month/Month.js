@@ -13,7 +13,8 @@ function Month() {
   const months = [
     ["January", "February", "March", "April", "May", "June"],
     ["July", "August", "September", "October", "November", "December"],
-  ];
+  ]; //since i want to want to make 2 columns of months and css grids suck😣😣so i have made 2 separate lists of months into a mega list...so i put both of them in 2 separate divs(which obviously have flex-direction column) and give their parent flex direction row...
+
   return (
     <div className="month">
       <Navbar />
@@ -35,7 +36,10 @@ function Month() {
                     onClick={() =>
                       history.push({
                         pathname: "month/allTodos",
-                        state: { time: `${month.split("#")[0]} ${year.toString()}`, lastPage: "month" },
+                        state: {
+                          time: `${month} ${year.toString()}`,
+                          lastPage: "month",
+                        },
                       })
                     }
                   >
