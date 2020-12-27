@@ -125,7 +125,7 @@ function WeekCalendar() {
 
     let weeksList = [];
     let today = getWeekFormattedDate(new Date());
-    for (let i; i < allDays.length; i = i + 7) {
+    for (let i=0; i < allDays.length; i = i + 7) {
       //loops through a week
       let foundToday = false;
       for (let each of allDays.slice(i, i + 7)) {

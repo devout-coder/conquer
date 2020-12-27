@@ -12,6 +12,11 @@
   text-decoration: none;
 }
 
+.conquerLogo{
+  width: 95px;
+  height: 95px;
+}
+
 .navbar .MuiButtonBase-root {
   font-family: Poppins;
   font-weight: 400;

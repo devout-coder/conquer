@@ -45,7 +45,6 @@ body{
 
 .mainTodos {
   display: flex;
-  margin-top: 20px;
   width: 70%;
   justify-content: center;
   /* background-color: darkcyan; */
