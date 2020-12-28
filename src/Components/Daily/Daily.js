@@ -4,6 +4,7 @@ import "./Daily.css";
 import Sidebar from "../Sidebar/Sidebar";
 import Calendar from "../Calendar/Calendar";
 import addNotification from "react-push-notification";
+import IncompleteTodosSidebar from "../IncompleteTodosSidebar/IncompleteTodosSidebar";
 
 function Daily() {
   return (
@@ -16,6 +17,7 @@ function Daily() {
         <div className="dailyPageEmpty">
           {/* this  dailyPageEmpty class encloses the part of the page below the navbar and to the right of the sidebar */}
           <Calendar />
+          <IncompleteTodosSidebar timeType="daily" />
         </div>
       </div>
     </div>

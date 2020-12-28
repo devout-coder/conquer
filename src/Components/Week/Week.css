@@ -7,12 +7,15 @@
     display: flex; 
     justify-content: center;
     position: relative;
-    top: 10px;
+    top: 30px;
 }
 
 @media only screen and (max-width: 640px){
     .topbar{
       position: relative;
       left: -13px;
+    }
+    .weekPageEmpty{
+      top: 0px;
     }
   }

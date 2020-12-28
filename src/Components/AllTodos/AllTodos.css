@@ -22,7 +22,7 @@ body{
   flex-direction: column;
   align-items: center;
   position: relative;
-  /* background-color: burlywood; */
+  top: 50px;
 }
 
 .time {
@@ -108,6 +108,9 @@ body{
 }
 
 @media only screen and (max-width:600px){
+  .allTodosPageEmpty{
+    top: 10px;
+  }
   .mainTodos{
     flex-direction: column;
     align-items: center;

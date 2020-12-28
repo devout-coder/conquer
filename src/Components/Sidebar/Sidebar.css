@@ -26,6 +26,14 @@
     filter: invert(100%) sepia(66%) saturate(2%) hue-rotate(101deg) brightness(106%) contrast(101%);
 }
 
+@media only screen and (min-width:600px) and (max-width:1500px){
+  .sidebar{
+    position: relative;
+    top: 30px;
+  }
+}
+
+
 @media only screen and (max-width:600px){
   .sidebarIcon{
     width: 7vw;

@@ -5,80 +5,13 @@
 .monthPageEmpty {
   flex: 1;
   margin-left: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
-  top: 20px;
+  top: 25px;
 }
 
-.allMonths {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  left: 45px;
-}
-
-.monthsColumn {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 60px;
-}
-
-.displayMonth {
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 26px;
-  /* line-height: 67px; */
-  color: #eada76;
-  /* background-color: whitesmoke; */
-}
-
-.allMonths .MuiButton-label {
-  color: #eada76;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500 !important;
-  font-size: 24px;
-  line-height: 60px;
-  text-transform: none;
-}
-
-.currentMonth .MuiButton-label {
-  color: #fda5ff;
-}
-
-.currentMonth {
-  animation-name: fadeIn;
-  animation-duration: 1s;
-}
-
-.allMonths .MuiTouchRipple-root {
-  color: rgba(255, 255, 255, 0.308);
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
 @media only screen and (max-width: 600px) {
   .monthPageEmpty{
-    top: 10px;
-  }
-  .allMonths{
-      left: 1.2vw;
-  }
-  .allMonths .MuiButton-label{
-      font-size: 4.7vw;
-  }
-  .monthsColumn{
-      margin-right: 2vw;
+    top: -5px;
   }
 }

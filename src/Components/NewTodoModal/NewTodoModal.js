@@ -44,6 +44,7 @@ function NewTodoModal(props) {
           taskName: taskName,
           taskDesc: taskDesc,
           time: props.time,
+          timeType:props.lastPage,
           priority: taskPri,
           user: firebaseApp.auth().currentUser.uid,
           finished: false,

@@ -11,6 +11,7 @@ import Loading from "../Loading/Loading";
 import "./AllTodos.css";
 import EachTodo from "../EachTodo/EachTodo";
 import YearPicker from "../YearPicker/YearPicker";
+import IncompleteTodosSidebar from "../IncompleteTodosSidebar/IncompleteTodosSidebar";
 
 function AllTodos(props) {
   const [loading, setLoading] = useState(false);
@@ -100,6 +101,7 @@ function AllTodos(props) {
           taskName={expandTaskName}
           taskDesc={expandTaskDesc}
           taskPri={expandTaskPri}
+          lastPage={lastPage}
         />
       ) : (
         <div></div>
@@ -178,6 +180,11 @@ function AllTodos(props) {
           ) : (
             //this is rendered if the length of both finished and unfinished todos is 0
             <div className="noTodosMessage">No tasks added yet!</div>
+          )}
+          {lastPage == "year" ? (
+            <IncompleteTodosSidebar timeType="year" />
+          ) : (
+            <div></div>
           )}
         </div>
       </div>
