@@ -97,7 +97,9 @@ function EachTodo(props) {
             props.id,
             props.taskName,
             props.taskDesc,
-            props.priority
+            props.priority,
+            props.time,
+            props.timeType
           );
         }}
       >

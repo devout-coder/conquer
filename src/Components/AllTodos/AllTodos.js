@@ -40,8 +40,8 @@ function AllTodos(props) {
       .orderBy("priority", "desc")
       .get()
       .then((snap) => {
-        setLoading(true)
-        setLoading(false)
+        setLoading(true);
+        setLoading(false);
         let finished = [];
         let unfinished = [];
         snap.docs.map((each) => {
@@ -52,6 +52,7 @@ function AllTodos(props) {
             priority: each.get("priority"),
             finished: each.get("finished"),
             time: each.get("time"),
+            timeType: each.get("timeType"),
           };
           if (each.get("finished")) {
             //each doc in todos collection of firebase is added to either finished or unfinished list based on its finished status
@@ -115,7 +116,7 @@ function AllTodos(props) {
               : "allTodosPageEmpty"
           }
         >
-          <div className="allTodosCont">  
+          <div className="allTodosCont">
             <div className="topbar">
               {lastPage != "longTerm" && lastPage != "year" ? (
                 <IconButton
@@ -155,6 +156,8 @@ function AllTodos(props) {
                         taskName={each.taskName}
                         taskDesc={each.taskDesc}
                         finished={each.finished}
+                        time={each.time}
+                        timeType={each.timeType}
                         startLoading={() => loadData()}
                         activateLoader={(shouldLoad) => setLoading(shouldLoad)}
                         expandTodo={(id, taskName, taskDesc, taskPri) =>
@@ -176,6 +179,8 @@ function AllTodos(props) {
                         taskName={each.taskName}
                         taskDesc={each.taskDesc}
                         finished={each.finished}
+                        time={each.time}
+                        timeType={each.timeType}
                         startLoading={() => loadData()}
                         activateLoader={(shouldLoad) => setLoading(shouldLoad)}
                         expandTodo={(id, taskName, taskDesc, taskPri) =>

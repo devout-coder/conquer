@@ -22,14 +22,15 @@ function NewTodoModal(props) {
 
   function displayPriProperly() {
     //this func basically hides the priority name and unhides the none priority(cause by default it is hidden..😒😒mui)
-    document.getElementsByClassName(
-      "MuiSelect-root"
-    )[0].lastChild.style.display = "none";
-    if (taskPri == "0") {
-      document.getElementsByClassName(
-        "MuiSelect-root"
-      )[0].firstElementChild.style.display = "block";
-    }
+
+    // document.getElementsByClassName(
+    //   "MuiSelect-root"
+    // )[0].lastChild.style.display = "none";
+    // if (taskPri == "0") {
+    //   document.getElementsByClassName(
+    //     "MuiSelect-root"
+    //   )[0].firstElementChild.style.display = "block";
+    // }
   }
   useEffect(() => {
     displayPriProperly();

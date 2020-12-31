@@ -6,6 +6,12 @@
   z-index: 2;
   display: grid;
   place-items: center;
+  top: 0;
+  left: 0;
+}
+
+.MuiSelect-root span{
+  display: none;
 }
 
 .modal {

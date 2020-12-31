@@ -3,6 +3,7 @@
   background-color: black;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
+  /* border-radius: 30px; */
   height: 470px;
   display: flex;
   flex-direction: column;
@@ -18,4 +19,12 @@
   top: 10px;
   font-size: 25px;
   color: #ffffff;
+}
+
+.incompleteTodosSidebar .noTodosMessage{
+  position: relative;
+  top: 45%;
+  left: 23px;
+  font-size: 27px;
+  color: #86FF7B;
 }

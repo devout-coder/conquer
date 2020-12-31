@@ -1,7 +1,7 @@
 .eachTodo {
   display: flex;
   /* padding-left: 55px; */
-  /* width: 85%; */
+  /* width: 100%; */
   justify-content: flex-start;
   position: relative;
   align-items: center;
