@@ -44,6 +44,7 @@ function EachTodo(props) {
         props.startLoading();
       });
   }
+  console.log(props.time)
   return (
     <div className="eachTodo">
       <Dialog
@@ -105,6 +106,11 @@ function EachTodo(props) {
       >
         {props.taskName}
       </p>
+      {props.sidebarTodo?(
+        <span className="todoTime" >{props.time}</span>
+      ):(
+        <div></div>
+      )}
       <IconButton onClick={() => setModalOpen(true)}>
         <DeleteIcon
           style={{

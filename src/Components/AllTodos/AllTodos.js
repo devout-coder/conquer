@@ -163,6 +163,7 @@ function AllTodos(props) {
                         expandTodo={(id, taskName, taskDesc, taskPri) =>
                           expandTodo(id, taskName, taskDesc, taskPri)
                         }
+                        sidebarTodo={false}
                       />
                     ))}
                   </div>
@@ -186,6 +187,7 @@ function AllTodos(props) {
                         expandTodo={(id, taskName, taskDesc, taskPri) =>
                           expandTodo(id, taskName, taskDesc, taskPri)
                         }
+                        sidebarTodo={false}
                       />
                     ))}
                   </div>

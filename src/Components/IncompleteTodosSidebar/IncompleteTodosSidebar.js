@@ -104,6 +104,8 @@ function IncompleteTodosSidebar(props) {
                 taskName={each.taskName}
                 taskDesc={each.taskDesc}
                 finished={each.finished}
+                time={each.time}
+                timeType={each.timeType}
                 startLoading={() => loadReqTodos()}
                 // activateLoader={(shouldLoad) => setLoading(shouldLoad)}
                 expandTodo={(
@@ -123,6 +125,7 @@ function IncompleteTodosSidebar(props) {
                     taskTimeType
                   )
                 }
+                sidebarTodo={true}
               />
             ))}
           </div>
