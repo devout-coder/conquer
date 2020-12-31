@@ -145,7 +145,7 @@
     font-size: 5vw;
   }
 }
-.modal ::-webkit-scrollbar {
+/* .modal ::-webkit-scrollbar {
   width: 6px;
 }
 
@@ -155,12 +155,12 @@
 }
 
 .modal ::-webkit-scrollbar-thumb {
-  /* background-clip: content-box;
-      border: 5px solid transparent; */
+  background-clip: content-box;
+      border: 5px solid transparent;
   background-color: rgba(0, 0, 0, 0.562);
   border-radius: 20px;
 }
 
 .modal ::-webkit-scrollbar-button {
   display: none;
-}
+} */

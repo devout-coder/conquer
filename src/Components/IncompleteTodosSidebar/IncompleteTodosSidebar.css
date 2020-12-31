@@ -8,6 +8,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.allTodosPage .incompleteTodosSidebar{
+  width: 41%;
+}
+
+.incompleteTodosCont{
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .noIncompleteTodos {
@@ -16,7 +29,7 @@
   font-weight: 600;
   position: relative;
   left: 26px;
-  top: 10px;
+  top: 15px;
   font-size: 25px;
   color: #ffffff;
 }
@@ -28,3 +41,15 @@
   font-size: 27px;
   color: #86FF7B;
 }
+
+.inCompleteTodos{
+  margin-top: 30px;
+  width: 97%;
+}
+
+.inCompleteTodos .eachTodo:hover{
+  background-color: rgba(255, 255, 255, 0.096);
+}
+
+
+

@@ -181,7 +181,7 @@ body{
   }
 
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 6px;
 }
 
@@ -191,12 +191,12 @@ body{
 }
 
 ::-webkit-scrollbar-thumb {
-  /* background-clip: content-box;
-      border: 5px solid transparent; */
+  background-clip: content-box;
+      border: 5px solid transparent;
   background-color: rgb(255, 255, 255);
   border-radius: 20px;
 }
 
 ::-webkit-scrollbar-button {
   display: none;
-}
+} */
