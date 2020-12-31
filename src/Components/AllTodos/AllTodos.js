@@ -32,7 +32,6 @@ function AllTodos(props) {
 
   function loadData() {
     //this function fetches todos from firebase of the specific time, distinguishes them as finished and unfinished and stores them in state variables
-
     firebaseApp
       .firestore()
       .collection("todos")
@@ -41,7 +40,8 @@ function AllTodos(props) {
       .orderBy("priority", "desc")
       .get()
       .then((snap) => {
-        // console.log("got data");
+        setLoading(true)
+        setLoading(false)
         let finished = [];
         let unfinished = [];
         snap.docs.map((each) => {
@@ -62,7 +62,6 @@ function AllTodos(props) {
         });
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
-        // console.log("set data");
       });
   }
   function replaceDate(date) {
