@@ -109,78 +109,89 @@ function AllTodos(props) {
       <Navbar />
       <div className="allTodosPage">
         <Sidebar />
-        <div className="allTodosPageEmpty">
-          <div className="topbar">
-            {lastPage != "longTerm" && lastPage != "year" ? (
-              <IconButton
-                title="Back"
-                onClick={() => history.push(`/${lastPage}`)}
-              >
-                <ArrowBackIcon />
+        <div
+          className={
+            lastPage == "year"
+              ? "allTodosPageEmpty thisIsYear"
+              : "allTodosPageEmpty"
+          }
+        >
+          <div className="allTodosCont">  
+            <div className="topbar">
+              {lastPage != "longTerm" && lastPage != "year" ? (
+                <IconButton
+                  title="Back"
+                  onClick={() => history.push(`/${lastPage}`)}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+              ) : (
+                <div></div>
+              )}
+              {lastPage != "year" ? (
+                <span className="time">{replaceDate(time)}</span>
+              ) : (
+                <div className="modifiedYearPicker">
+                  <YearPicker
+                    year={time}
+                    changeYear={(year) => setTime(year)}
+                  />
+                </div>
+              )}
+              <IconButton onClick={() => expandBlankTodo()} title="New Todo">
+                <QueueIcon />
               </IconButton>
-            ) : (
-              <div></div>
-            )}
-            {lastPage != "year" ? (
-              <span className="time">{replaceDate(time)}</span>
-            ) : (
-              <div className="modifiedYearPicker">
-                <YearPicker year={time} changeYear={(year) => setTime(year)} />
-              </div>
-            )}
-            <IconButton onClick={() => expandBlankTodo()} title="New Todo">
-              <QueueIcon />
-            </IconButton>
-          </div>
-          {unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
-            <div className="mainTodos">
-              <div className="unfinishedTodos">
-                <div className="noUnfinished noTodos">
-                  {unfinishedTodos.length} unfinished
-                </div>
-                <div className="unfinishedTodosList">
-                  {unfinishedTodos.map((each) => (
-                    <EachTodo
-                      id={each.id}
-                      priority={each.priority}
-                      taskName={each.taskName}
-                      taskDesc={each.taskDesc}
-                      finished={each.finished}
-                      startLoading={() => loadData()}
-                      activateLoader={(shouldLoad) => setLoading(shouldLoad)}
-                      expandTodo={(id, taskName, taskDesc, taskPri) =>
-                        expandTodo(id, taskName, taskDesc, taskPri)
-                      }
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="finishedTodos">
-                <div className="noFinished noTodos">
-                  {finishedTodos.length} finished
-                </div>
-                <div className="finishedTodosList">
-                  {finishedTodos.map((each) => (
-                    <EachTodo
-                      id={each.id}
-                      priority={each.priority}
-                      taskName={each.taskName}
-                      taskDesc={each.taskDesc}
-                      finished={each.finished}
-                      startLoading={() => loadData()}
-                      activateLoader={(shouldLoad) => setLoading(shouldLoad)}
-                      expandTodo={(id, taskName, taskDesc, taskPri) =>
-                        expandTodo(id, taskName, taskDesc, taskPri)
-                      }
-                    />
-                  ))}
-                </div>
-              </div>
             </div>
-          ) : (
-            //this is rendered if the length of both finished and unfinished todos is 0
-            <div className="noTodosMessage">No tasks added yet!</div>
-          )}
+            {unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
+              <div className="mainTodos">
+                <div className="unfinishedTodos">
+                  <div className="noUnfinished noTodos">
+                    {unfinishedTodos.length} unfinished
+                  </div>
+                  <div className="unfinishedTodosList">
+                    {unfinishedTodos.map((each) => (
+                      <EachTodo
+                        id={each.id}
+                        priority={each.priority}
+                        taskName={each.taskName}
+                        taskDesc={each.taskDesc}
+                        finished={each.finished}
+                        startLoading={() => loadData()}
+                        activateLoader={(shouldLoad) => setLoading(shouldLoad)}
+                        expandTodo={(id, taskName, taskDesc, taskPri) =>
+                          expandTodo(id, taskName, taskDesc, taskPri)
+                        }
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="finishedTodos">
+                  <div className="noFinished noTodos">
+                    {finishedTodos.length} finished
+                  </div>
+                  <div className="finishedTodosList">
+                    {finishedTodos.map((each) => (
+                      <EachTodo
+                        id={each.id}
+                        priority={each.priority}
+                        taskName={each.taskName}
+                        taskDesc={each.taskDesc}
+                        finished={each.finished}
+                        startLoading={() => loadData()}
+                        activateLoader={(shouldLoad) => setLoading(shouldLoad)}
+                        expandTodo={(id, taskName, taskDesc, taskPri) =>
+                          expandTodo(id, taskName, taskDesc, taskPri)
+                        }
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              //this is rendered if the length of both finished and unfinished todos is 0
+              <div className="noTodosMessage">No tasks added yet!</div>
+            )}
+          </div>
           {lastPage == "year" ? (
             <IncompleteTodosSidebar timeType="year" />
           ) : (

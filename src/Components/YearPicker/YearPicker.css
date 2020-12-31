@@ -4,7 +4,7 @@
   font-size: 26px !important;
   color: #ffffff !important;
   position: relative !important;
-  top: 7px !important;
+  /* top: 7px !important; */
 }
 
 .yearPicker .MuiSvgIcon-root {

@@ -9,7 +9,7 @@ button:hover {
 .dailyPageEmpty {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
   top: 30px;
 }

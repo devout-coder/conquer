@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import firebaseApp from "../../firebase";
-
+import "./IncompleteTodosSidebar.css";
+import Loading from "../Loading/Loading";
+ 
 function IncompleteTodosSidebar(props) {
   const [reqTodos, setReqTodos] = useState([]);
-  
+  const [loading, setLoading] = useState(false);
+
   function loadReqTodos() {
+    setLoading(true);
     firebaseApp
       .firestore()
       .collection("todos")
@@ -28,13 +32,25 @@ function IncompleteTodosSidebar(props) {
           }
         });
         setReqTodos(tparray);
+        setLoading(false);
       });
   }
   useEffect(() => {
     loadReqTodos();
   }, []);
   console.log(reqTodos);
-  return <div></div>;
+  return (
+    <div className="incompleteTodosSidebar">
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="noIncompleteTodos">
+          {" "}
+          {reqTodos.length} incomplete tasks{" "}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default IncompleteTodosSidebar;
