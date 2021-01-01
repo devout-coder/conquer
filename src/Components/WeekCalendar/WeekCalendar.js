@@ -23,7 +23,7 @@ function WeekCalendar() {
     9: "Oct",
     10: "Nov",
     11: "Dec",
-  }; //these r the months for the topbar
+  }; //these r the months for the week in mainTodos
 
   const getWeekFormattedDate = (date) => {
     //this converts the date to the format dd M yyyy
