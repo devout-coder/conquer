@@ -12,6 +12,14 @@ button:hover {
   justify-content: space-between;
   position: relative;
   top: 30px;
+  align-items: center;
+}
+
+
+@media only screen and (max-width:1200px){
+  .dailyPageEmpty{
+    flex-direction: column;
+  }
 }
 
 @media only screen and (max-width: 640px){

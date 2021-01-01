@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  margin-top: 20px;
   overflow-y: scroll;
 }
 
@@ -37,7 +38,7 @@
 .incompleteTodosSidebar .noTodosMessage{
   position: relative;
   top: 45%;
-  left: 23px;
+  /* left: 23px;  */
   font-size: 27px;
   color: #86FF7B;
 }
@@ -52,4 +53,63 @@
 }
 
 
+@media only screen and (max-width:1200px){
+  .incompleteTodosSidebar{
+    width: 80%;
+    border-radius: 20px;
+    height: 35vh;
+    margin-top: 20px;
+    position: absolute;
+    top: 60vh;
+  }
+  .allTodosPage .incompleteTodosSidebar{
+    width: 80%;
+    margin-top: 25px;
+  }
+  .inCompleteTodos{
+    width: 80%;
+  }
+  .noIncompleteTodos{
+    left: 0;
+  }
+}
 
+@media only screen and (max-width:800px){
+  .incompleteTodosSidebar{
+    width: 90%;
+  }
+  .inCompleteTodos{
+    width: 100%;
+  } 
+}
+
+@media only screen and (max-width:600px){
+  .incompleteTodosSidebar{
+    top: 60vh;
+    width: 100%;
+    right: 20px;
+  }
+  .inCompleteTodos .eachTodoTaskName{
+    font-size: 4vw;
+  }
+  .allTodosPage .incompleteTodosSidebar{
+    width: 100%;
+  }
+  .calendar + .incompleteTodosSidebar{
+    right: 25px;
+  }
+}
+
+@media only screen and (max-width:450px){
+  .incompleteTodosSidebar{
+    top: 55vh;
+    height: 30vh;
+    z-index: 4;
+  }
+  .noIncompleteTodos{
+    font-size: 20px;
+  }
+  .incompleteTodosSidebar .noTodosMessage{
+    font-size: 5.3vw;
+  }
+}

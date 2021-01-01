@@ -10,6 +10,13 @@
     top: 30px;
 }
 
+@media only screen and (max-width:1200px){
+  .weekPageEmpty{
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 @media only screen and (max-width: 640px){
     .topbar{
       position: relative;

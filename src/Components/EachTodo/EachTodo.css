@@ -5,6 +5,7 @@
   justify-content: flex-start;
   position: relative;
   align-items: center;
+
 }
 
 .eachTodo:hover{
@@ -21,7 +22,10 @@
   font-style: italic;
   line-height: 40px;
   margin: 10px 5px 10px 5px;
-  width: 70%;
+  width: 45%;
+  display: inline-block;
+  word-break: break-word;
+  height: auto;
 }
 
 .highPriority {
@@ -48,7 +52,7 @@
   font-family: Ubuntu;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(115, 110, 110, 0.68);
   margin-left: 13px;
   width: 130px;
@@ -60,15 +64,15 @@
   /* align-self: flex-end; */
 }
 
-.eachTodoTaskName + .MuiButtonBase-root{
+.todoTime + .MuiButtonBase-root{
   visibility: hidden;
   position: absolute;
   right: 0;
 }
 
-.eachTodo:hover .MuiButtonBase-root{
+.eachTodo:hover .todoTime+.MuiButtonBase-root{
   visibility: visible;
-} 
+}
 
 .MuiTypography-root{
   font-family: "Poppins" !important;
@@ -84,5 +88,18 @@
   .eachTodoTaskName{
     font-size: 5vw;
     line-height: 8vw;
+  }
+}
+
+@media only screen and (max-width:450px){
+  .todoTime{
+    font-size: 12px;
+    width: 60px;
+  }
+}
+
+@media only screen and (hover: none) and (pointer: coarse){
+  .todoTime + .MuiButtonBase-root{
+    visibility: visible;
   }
 }

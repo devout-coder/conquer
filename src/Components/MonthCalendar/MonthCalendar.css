@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  top: 20px;
+  /* top: 20px; */
   margin-left: 10%;
 }
 
@@ -63,6 +63,12 @@
   }
 }
 
+@media only screen and (max-width:1200px){
+  .monthCalendar{
+    margin: 0;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .allMonths {
     left: 1.2vw;
@@ -72,5 +78,11 @@
   }
   .monthsColumn {
     margin-right: 2vw;
+  }
+}
+
+@media only screen and (max-width: 400px){
+  .monthCalendar{
+    top: 25px;
   }
 }

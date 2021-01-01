@@ -8,7 +8,7 @@
 }
 
 .topbar {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .allWeeks {
@@ -46,6 +46,12 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media only screen and (max-width:1200px){
+  .weekCalendar{
+    margin: 0;
   }
 }
 

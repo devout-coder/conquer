@@ -7,9 +7,15 @@
   position: relative;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   top: 30px;
 }
 
+@media only screen and (max-width:1200px){
+  .monthPageEmpty{
+    flex-direction: column;
+  }
+}
 
 @media only screen and (max-width: 600px) {
   .monthPageEmpty{

@@ -44,7 +44,6 @@ function EachTodo(props) {
         props.startLoading();
       });
   }
-  console.log(props.time)
   return (
     <div className="eachTodo">
       <Dialog
@@ -81,7 +80,7 @@ function EachTodo(props) {
         onChange={checkUncheckfunc}
         inputProps={{ "aria-label": "primary checkbox" }}
       />
-      <p
+      <div  
         className={
           props.finished
             ? "finishedTodo eachTodoTaskName"
@@ -105,11 +104,11 @@ function EachTodo(props) {
         }}
       >
         {props.taskName}
-      </p>
+      </div>
       {props.sidebarTodo?(
         <span className="todoTime" >{props.time}</span>
       ):(
-        <div></div>
+        <span className="todoTime" ></span>
       )}
       <IconButton onClick={() => setModalOpen(true)}>
         <DeleteIcon
