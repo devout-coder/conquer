@@ -97,6 +97,11 @@ function NewTodoModal(props) {
           saveTodo();
         }
       }}
+      onKeyUp={(evt) => {
+        if (evt.key == "Control") {
+          setCtrlPressed(false);
+        }
+      }}
     >
       <div className="modal">
         <div className="modalTopbar">
