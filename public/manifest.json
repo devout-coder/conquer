@@ -3,9 +3,9 @@
   "name": "Conquer",
   "icons": [
     {
-      "src": "conquerLogo.svg",
-      "sizes": "185x185",
-      "type": "image/svg+xml"
+      "src": "conquerLogo.png",
+      "sizes": "200x200",
+      "type": "image/png"
     }
   ],
   "scope": "/",
