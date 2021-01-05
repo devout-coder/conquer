@@ -114,17 +114,16 @@ function IncompleteTodosSidebar(props) {
     return sortedTodos;
   }
   function loadReqTodos() {
-    setLoading(true);
     firebaseApp
-      .firestore()
-      .collection("todos")
-      .where("user", "==", firebaseApp.auth().currentUser.uid)
-      .where("timeType", "==", props.timeType)
-      .orderBy("priority", "desc")
-      .get()
-      .then((snap) => {
-        let tparray = [];
-        snap.docs.map((each) => {
+    .firestore()
+    .collection("todos")
+    .where("user", "==", firebaseApp.auth().currentUser.uid)
+    .where("timeType", "==", props.timeType)
+    .orderBy("priority", "desc")
+    .onSnapshot((snap) => {
+      setLoading(true);
+      let tparray = [];
+      snap.docs.map((each) => {
           let eachdict = {
             id: each.id,
             taskName: each.get("taskName"),

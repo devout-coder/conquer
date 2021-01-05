@@ -13,7 +13,7 @@ import EachTodo from "../EachTodo/EachTodo";
 import YearPicker from "../YearPicker/YearPicker";
 import IncompleteTodosSidebar from "../IncompleteTodosSidebar/IncompleteTodosSidebar";
 
-function AllTodos(props) {
+function AllTodos() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const location = useLocation(); //holds props
@@ -38,10 +38,10 @@ function AllTodos(props) {
       .where("user", "==", firebaseApp.auth().currentUser.uid)
       .where("time", "==", time)
       .orderBy("priority", "desc")
-      .get()
-      .then((snap) => {
+      .onSnapshot((snap) => {
         setLoading(true);
         setLoading(false);
+        //i know it seems silly to setLoading true and false one after another... i don't why but if i don't do that then unwanted tasks get ticked...
         let finished = [];
         let unfinished = [];
         snap.docs.map((each) => {

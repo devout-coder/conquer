@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import { ArrowBack, Save } from "@material-ui/icons";
 import {
   FormControl,
   FormHelperText,
   IconButton,
-  InputLabel,
   MenuItem,
-  NativeSelect,
   Select,
 } from "@material-ui/core";
 import "./NewTodoModal.css";
@@ -20,56 +18,28 @@ function NewTodoModal(props) {
   const [taskId, settaskId] = useState(props.taskId);
   const [ctrlPressed, setCtrlPressed] = useState(false);
 
-  function displayPriProperly() {
-    //this func basically hides the priority name and unhides the none priority(cause by default it is hidden..😒😒mui)
-
-    // document.getElementsByClassName(
-    //   "MuiSelect-root"
-    // )[0].lastChild.style.display = "none";
-    // if (taskPri == "0") {
-    //   document.getElementsByClassName(
-    //     "MuiSelect-root"
-    //   )[0].firstElementChild.style.display = "block";
-    // }
-  }
-  useEffect(() => {
-    displayPriProperly();
-  }, [taskPri]);
   function saveTodo() {
     if (props.taskId === "") {
       //makes a new todo if the id prop is empty str which means that no particular todo is opened
-      firebaseApp
-        .firestore()
-        .collection("todos")
-        .add({
-          taskName: taskName,
-          taskDesc: taskDesc,
-          time: props.time,
-          timeType:props.lastPage,
-          priority: taskPri,
-          user: firebaseApp.auth().currentUser.uid,
-          finished: false,
-        })
-        .then(() => {
-          props.shouldReload(); //triggers loadData() in allTodos which fetches all todos again from firestore
-        });
+      firebaseApp.firestore().collection("todos").add({
+        taskName: taskName,
+        taskDesc: taskDesc,
+        time: props.time,
+        timeType: props.lastPage,
+        priority: taskPri,
+        user: firebaseApp.auth().currentUser.uid,
+        finished: false,
+      });
     } else {
       //modifies the properties of original todo if some exisiting todo is opened in modal
-      firebaseApp
-        .firestore()
-        .collection("todos")
-        .doc(taskId)
-        .set(
-          {
-            taskName: taskName,
-            taskDesc: taskDesc,
-            priority: taskPri,
-          },
-          { merge: true }
-        )
-        .then(() => {
-          props.shouldReload();
-        });
+      firebaseApp.firestore().collection("todos").doc(taskId).set(
+        {
+          taskName: taskName,
+          taskDesc: taskDesc,
+          priority: taskPri,
+        },
+        { merge: true }
+      );
     }
     props.openTodoModal(false);
   }
