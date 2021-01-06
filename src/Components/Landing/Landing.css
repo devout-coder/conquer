@@ -67,6 +67,8 @@
   .getStartedButt {
     font-size: 5vw;
     height: 11vw;
+    display: flex;
+    align-items: center;
   }
 }
 
