@@ -1,0 +1,12 @@
+.visionBoardPage {
+  display: flex;
+}
+
+.visionBoardPageEmpty {
+  flex: 1;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+

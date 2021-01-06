@@ -1,0 +1,26 @@
+.notesPage {
+  display: flex;
+}
+
+.notesPageEmpty {
+  flex: 1;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+#notYetCompleteMessage {
+    color: rgb(170, 255, 167);
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+}
+
+@media only screen and (max-width:600px){
+    #notYetCompleteMessage{
+        font-size: 5.3vw;
+        width: 90%;
+    }
+}

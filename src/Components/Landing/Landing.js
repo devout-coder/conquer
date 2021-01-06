@@ -13,7 +13,7 @@ function Landing() {
           We believe you can conquer all your goals..
         </p>
         <p className="landingPara landingPara2">
-          Our mission is to provide you an awesome tool to plan your journey
+          Our mission is to provide you an awesome tool to help you plan your journey
         </p>
         <button className="getStartedButt" onClick={()=>history.push('/signup')}  >Get Started</button>
       </div>
