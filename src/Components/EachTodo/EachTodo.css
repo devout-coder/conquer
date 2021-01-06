@@ -22,11 +22,12 @@
   font-style: italic;
   line-height: 40px;
   margin: 10px 5px 10px 5px;
-  width: 40%;
+  width: 100%;
   display: inline-block;
   word-break: break-word;
   height: auto;
 }
+
 
 .highPriority {
   color: #ff5151;
@@ -54,9 +55,11 @@
   font-weight: 500;
   font-size: 15px;
   color: rgba(115, 110, 110, 0.68);
-  margin-left: 13px;
-  width: 130px;
-  margin-right: 15px;
+  margin-left: 15px;
+  width: 90px;
+  position: absolute;
+  right: 32px;
+  /* margin-right: 15px; */
 }
 
 .MuiButtonBase-root{
@@ -70,7 +73,14 @@
   right: 0;
 }
 
+.noTodoTime + .MuiButtonBase-root{
+  visibility: hidden;
+}
+
 .eachTodo:hover .todoTime+.MuiButtonBase-root{
+  visibility: visible;
+}
+.eachTodo:hover .noTodoTime+.MuiButtonBase-root{
   visibility: visible;
 }
 

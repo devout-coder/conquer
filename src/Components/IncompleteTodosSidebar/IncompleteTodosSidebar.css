@@ -57,6 +57,10 @@
   background-color: rgba(255, 255, 255, 0.096);
 }
 
+.incompleteTodosSidebar .eachTodoTaskName{
+  width: 45%;
+}
+
 
 @media only screen and (max-width:1200px){
   .incompleteTodosSidebar{

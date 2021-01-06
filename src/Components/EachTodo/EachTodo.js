@@ -108,7 +108,7 @@ function EachTodo(props) {
       {props.sidebarTodo?(
         <span className="todoTime" >{props.time}</span>
       ):(
-        <span className="todoTime" ></span>
+        <span className="noTodoTime"></span>
       )}
       <IconButton onClick={() => setModalOpen(true)}>
         <DeleteIcon

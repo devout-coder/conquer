@@ -86,13 +86,13 @@
 .unfinishedTodosList{
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 85%;
 }
 
 .finishedTodosList{
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 85%;
 }
 
 .noTodos {
