@@ -19,11 +19,13 @@ button:hover {
 @media only screen and (max-width:1200px){
   .dailyPageEmpty{
     flex-direction: column;
+    height: 84vh;
+    justify-content: space-between;
   }
 }
 
 @media only screen and (max-width: 640px){
   .dailyPageEmpty{
-    top: -15px;
+    /* top: -15px; */
   }
 }

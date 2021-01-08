@@ -144,54 +144,66 @@ function AllTodos() {
             </div>
             {unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
               <div className="mainTodos">
-                <div className="unfinishedTodos">
-                  <div className="noUnfinished noTodos">
-                    {unfinishedTodos.length} unfinished
+                {unfinishedTodos.length != 0 ? (
+                  <div className="unfinishedTodos">
+                    <div className="noUnfinished noTodos">
+                      {unfinishedTodos.length} unfinished
+                    </div>
+                    <div className="unfinishedTodosList">
+                      {unfinishedTodos.map((each) => (
+                        <EachTodo
+                          id={each.id}
+                          priority={each.priority}
+                          taskName={each.taskName}
+                          taskDesc={each.taskDesc}
+                          finished={each.finished}
+                          time={each.time}
+                          timeType={each.timeType}
+                          startLoading={() => loadData()}
+                          activateLoader={(shouldLoad) =>
+                            setLoading(shouldLoad)
+                          }
+                          expandTodo={(id, taskName, taskDesc, taskPri) =>
+                            expandTodo(id, taskName, taskDesc, taskPri)
+                          }
+                          sidebarTodo={false}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <div className="unfinishedTodosList">
-                    {unfinishedTodos.map((each) => (
-                      <EachTodo
-                        id={each.id}
-                        priority={each.priority}
-                        taskName={each.taskName}
-                        taskDesc={each.taskDesc}
-                        finished={each.finished}
-                        time={each.time}
-                        timeType={each.timeType}
-                        startLoading={() => loadData()}
-                        activateLoader={(shouldLoad) => setLoading(shouldLoad)}
-                        expandTodo={(id, taskName, taskDesc, taskPri) =>
-                          expandTodo(id, taskName, taskDesc, taskPri)
-                        }
-                        sidebarTodo={false}
-                      />
-                    ))}
+                ) : (
+                  <div></div>
+                )}
+                {finishedTodos.length != 0 ? (
+                  <div className="finishedTodos">
+                    <div className="noFinished noTodos">
+                      {finishedTodos.length} finished
+                    </div>
+                    <div className="finishedTodosList">
+                      {finishedTodos.map((each) => (
+                        <EachTodo
+                          id={each.id}
+                          priority={each.priority}
+                          taskName={each.taskName}
+                          taskDesc={each.taskDesc}
+                          finished={each.finished}
+                          time={each.time}
+                          timeType={each.timeType}
+                          startLoading={() => loadData()}
+                          activateLoader={(shouldLoad) =>
+                            setLoading(shouldLoad)
+                          }
+                          expandTodo={(id, taskName, taskDesc, taskPri) =>
+                            expandTodo(id, taskName, taskDesc, taskPri)
+                          }
+                          sidebarTodo={false}
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div className="finishedTodos">
-                  <div className="noFinished noTodos">
-                    {finishedTodos.length} finished
-                  </div>
-                  <div className="finishedTodosList">
-                    {finishedTodos.map((each) => (
-                      <EachTodo
-                        id={each.id}
-                        priority={each.priority}
-                        taskName={each.taskName}
-                        taskDesc={each.taskDesc}
-                        finished={each.finished}
-                        time={each.time}
-                        timeType={each.timeType}
-                        startLoading={() => loadData()}
-                        activateLoader={(shouldLoad) => setLoading(shouldLoad)}
-                        expandTodo={(id, taskName, taskDesc, taskPri) =>
-                          expandTodo(id, taskName, taskDesc, taskPri)
-                        }
-                        sidebarTodo={false}
-                      />
-                    ))}
-                  </div>
-                </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             ) : (
               //this is rendered if the length of both finished and unfinished todos is 0

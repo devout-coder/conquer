@@ -14,6 +14,8 @@
 @media only screen and (max-width:1200px){
   .monthPageEmpty{
     flex-direction: column;
+    height: 88.4vh;
+    justify-content: space-between;
   }
 }
 

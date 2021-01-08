@@ -79,6 +79,10 @@ td .MuiIconButton-label {
 }
 
 @media only screen and (max-width: 640px) {
+  .calendar{
+    position: relative;
+    top: -30px;
+  }
   .calendar table {
     position: relative;
     left: -13px;

@@ -122,6 +122,12 @@
   }
 }
 
+@media only screen and (max-height: 550px){
+  .modal{
+    height: 80vh;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .modal {
     position: relative;

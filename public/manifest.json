@@ -3,8 +3,13 @@
   "name": "Conquer",
   "icons": [
     {
-      "src": "conquerLogo.png",
-      "sizes": "300x300",
+      "src": "conquerLogoSmall.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "conquerLogoLarge.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],

@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 10px;
   margin-top: 20px;
   /* overflow-y: scroll; */
@@ -31,7 +32,7 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: 600;
-  position: relative;
+  /* position: relative; */
   left: 26px;
   top: 10px;
   font-size: 25px;
@@ -40,7 +41,7 @@
 
 .incompleteTodosSidebar .noTodosMessage {
   position: relative;
-  top: 45%;
+  top: 0;
   /* left: 23px;  */
   font-size: 27px;
   color: #86ff7b;
@@ -64,17 +65,22 @@
   width: 60%;
 }
 .thisIsYear .incompleteTodosSidebar .eachTodoTaskName {
-  width: 74%;
+  width: 68%;
 }
 
 @media only screen and (max-width: 1200px) {
+  .dailyPageEmpty .incompleteTodosSidebar{
+    position: relative;
+    left: -34px;
+  }
   .incompleteTodosSidebar {
     width: 80%;
     border-radius: 20px;
-    height: 35vh;
-    margin-top: 20px;
-    position: absolute;
-    top: 60vh;
+    max-height: 300px;
+    height: auto;
+    position: relative;
+    right: 28px;
+    margin-top: 15px;
   }
   .allTodosPage .incompleteTodosSidebar {
     width: 80%;
@@ -100,9 +106,9 @@
 
 @media only screen and (max-width: 600px) {
   .incompleteTodosSidebar {
-    top: 60vh;
+    /* top: 60vh; */
     width: 100%;
-    right: 20px;
+    /* right: 20px; */
   }
   .inCompleteTodos .eachTodoTaskName {
     font-size: 4vw;
@@ -127,8 +133,9 @@
 
 @media only screen and (max-width: 450px) {
   .incompleteTodosSidebar {
-    top: 55vh;
-    height: 30vh;
+    /* top: 55vh; */
+    max-height: 300px;
+    height: auto;
     z-index: 4;
   }
   .noIncompleteTodos {
