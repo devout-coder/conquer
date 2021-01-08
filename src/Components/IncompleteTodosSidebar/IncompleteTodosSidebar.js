@@ -115,15 +115,15 @@ function IncompleteTodosSidebar(props) {
   }
   function loadReqTodos() {
     firebaseApp
-    .firestore()
-    .collection("todos")
-    .where("user", "==", firebaseApp.auth().currentUser.uid)
-    .where("timeType", "==", props.timeType)
-    .orderBy("priority", "desc")
-    .onSnapshot((snap) => {
-      setLoading(true);
-      let tparray = [];
-      snap.docs.map((each) => {
+      .firestore()
+      .collection("todos")
+      .where("user", "==", firebaseApp.auth().currentUser.uid)
+      .where("timeType", "==", props.timeType)
+      .orderBy("priority", "desc")
+      .onSnapshot((snap) => {
+        setLoading(true);
+        let tparray = [];
+        snap.docs.map((each) => {
           let eachdict = {
             id: each.id,
             taskName: each.get("taskName"),
@@ -185,7 +185,13 @@ function IncompleteTodosSidebar(props) {
       ) : reqTodos.length == 0 ? (
         <div className="noTodosMessage">No incomplete tasks!</div>
       ) : (
-        <div className="incompleteTodosCont">
+        <div
+          className={
+            props.timeType == "year"
+              ? "thisIsYear incompleteTodosCont"
+              : "incompleteTodosCont"
+          }
+        >
           <div className="noIncompleteTodos">
             {reqTodos.length != 1
               ? `${reqTodos.length} incomplete tasks`

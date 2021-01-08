@@ -13,11 +13,11 @@
   /* overflow-y: scroll; */
 }
 
-.allTodosPage .incompleteTodosSidebar{
+.allTodosPage .incompleteTodosSidebar {
   width: 41%;
 }
 
-.incompleteTodosCont{
+.incompleteTodosCont {
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -38,32 +38,37 @@
   color: #ffffff;
 }
 
-.incompleteTodosSidebar .noTodosMessage{
+.incompleteTodosSidebar .noTodosMessage {
   position: relative;
   top: 45%;
   /* left: 23px;  */
   font-size: 27px;
-  color: #86FF7B;
+  color: #86ff7b;
 }
 
-.inCompleteTodos{
+.inCompleteTodos {
   margin-top: 20px;
   width: 97%;
   height: 90%;
   overflow-y: scroll;
 }
 
-.inCompleteTodos .eachTodo:hover{
+.inCompleteTodos .eachTodo:hover {
   background-color: rgba(255, 255, 255, 0.096);
 }
 
-.incompleteTodosSidebar .eachTodoTaskName{
-  width: 45%;
+.incompleteTodosSidebar .eachTodoTaskName {
+  width: 65%;
+}
+.weekPageEmpty .incompleteTodosSidebar .eachTodoTaskName {
+  width: 60%;
+}
+.thisIsYear .incompleteTodosSidebar .eachTodoTaskName {
+  width: 74%;
 }
 
-
-@media only screen and (max-width:1200px){
-  .incompleteTodosSidebar{
+@media only screen and (max-width: 1200px) {
+  .incompleteTodosSidebar {
     width: 80%;
     border-radius: 20px;
     height: 35vh;
@@ -71,55 +76,65 @@
     position: absolute;
     top: 60vh;
   }
-  .allTodosPage .incompleteTodosSidebar{
+  .allTodosPage .incompleteTodosSidebar {
     width: 80%;
     margin-top: 25px;
   }
-  .inCompleteTodos{
+  .inCompleteTodos {
     width: 80%;
     /* height: 90%; */
   }
-  .noIncompleteTodos{
+  .noIncompleteTodos {
     left: 0;
   }
 }
 
-@media only screen and (max-width:800px){
-  .incompleteTodosSidebar{
+@media only screen and (max-width: 800px) {
+  .incompleteTodosSidebar {
     width: 90%;
   }
-  .inCompleteTodos{
+  .inCompleteTodos {
     width: 100%;
-  } 
+  }
 }
 
-@media only screen and (max-width:600px){
-  .incompleteTodosSidebar{
+@media only screen and (max-width: 600px) {
+  .incompleteTodosSidebar {
     top: 60vh;
     width: 100%;
     right: 20px;
   }
-  .inCompleteTodos .eachTodoTaskName{
+  .inCompleteTodos .eachTodoTaskName {
     font-size: 4vw;
+    width: 56%;
   }
-  .allTodosPage .incompleteTodosSidebar{
+  .weekPageEmpty .incompleteTodosSidebar .eachTodoTaskName{
+    width: 48%;
+  }
+  .monthPageEmpty .incompleteTodosSidebar .eachTodoTaskName{
+    width: 50%;
+  } 
+  .thisIsYear .incompleteTodosSidebar .eachTodoTaskName{
+    width: 56%;
+  } 
+  .allTodosPage .incompleteTodosSidebar {
     width: 100%;
   }
-  .calendar + .incompleteTodosSidebar{
+  .calendar + .incompleteTodosSidebar {
     right: 25px;
   }
 }
 
-@media only screen and (max-width:450px){
-  .incompleteTodosSidebar{
+@media only screen and (max-width: 450px) {
+  .incompleteTodosSidebar {
     top: 55vh;
     height: 30vh;
     z-index: 4;
   }
-  .noIncompleteTodos{
+  .noIncompleteTodos {
     font-size: 20px;
   }
-  .incompleteTodosSidebar .noTodosMessage{
+  .incompleteTodosSidebar .noTodosMessage {
     font-size: 5.3vw;
   }
 }
