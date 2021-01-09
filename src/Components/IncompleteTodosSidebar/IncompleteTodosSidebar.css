@@ -133,10 +133,13 @@
 
 @media only screen and (max-width: 450px) {
   .incompleteTodosSidebar {
-    /* top: 55vh; */
     max-height: 300px;
     height: auto;
     z-index: 4;
+  }
+  .thisIsYear .incompleteTodosSidebar{
+    position: relative;
+    top: 7px;
   }
   .noIncompleteTodos {
     font-size: 20px;
