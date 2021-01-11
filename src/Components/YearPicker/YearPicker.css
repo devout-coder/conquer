@@ -20,9 +20,6 @@
   max-height: 400px !important;
 }
 
-::-webkit-scrollbar {
-  width: 0px !important;
-}
 
 @media only screen and (max-width: 600px) {
   .yearPicker .MuiSelect-root {
