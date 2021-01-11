@@ -178,7 +178,7 @@
   }
   .unfinishedTodosList {
     width: 80%;
-    max-height: 300px;
+    max-height: 450px;
     height: auto;
     /* background-color: blue; */
   }
