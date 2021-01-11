@@ -159,7 +159,10 @@
   }
   .time {
     font-size: 5.3vw;
-    margin: 0px;
+    /* margin: 0px 10px 0 10px; */
+  }
+  .thisIsLongTerm .time{
+    margin: 0;
   }
   .topbar {
     margin-top: 15px;

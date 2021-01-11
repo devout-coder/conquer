@@ -61,6 +61,9 @@
 .incompleteTodosSidebar .eachTodoTaskName {
   width: 65%;
 }
+.dailyPageEmpty .incompleteTodosSidebar .eachTodoTaskName{
+  width: 60%;
+}
 .weekPageEmpty .incompleteTodosSidebar .eachTodoTaskName {
   width: 60%;
 }
@@ -113,6 +116,9 @@
   .inCompleteTodos .eachTodoTaskName {
     font-size: 4vw;
     width: 56%;
+  }
+  .dailyPageEmpty .incompleteTodosSidebar .eachTodoTaskName{
+    width: 55%;
   }
   .weekPageEmpty .incompleteTodosSidebar .eachTodoTaskName{
     width: 48%;

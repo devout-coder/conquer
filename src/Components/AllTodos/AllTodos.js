@@ -112,7 +112,8 @@ function AllTodos() {
         <div
           className={
             lastPage == "year"
-              ? "allTodosPageEmpty thisIsYear"
+              ? "allTodosPageEmpty thisIsYear":
+              lastPage == "longTerm"? "allTodosPageEmpty thisIsLongTerm"
               : "allTodosPageEmpty"
           }
         >
