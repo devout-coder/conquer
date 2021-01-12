@@ -144,7 +144,7 @@
 
 @media only screen and (max-width: 600px) {
   .allTodosPageEmpty {
-    top: -20px;
+    top: -35px;
   }
   .mainTodos {
     flex-direction: column;
@@ -191,7 +191,7 @@
     -webkit-appearance: scrollbartrack-vertical;
 }    
   .thisIsYear .unfinishedTodosList{
-    max-height: 200px;
+    max-height: 300px;
   }
   .noTodosMessage {
     font-size: 6vw;

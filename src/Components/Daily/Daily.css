@@ -26,6 +26,6 @@ button:hover {
 
 @media only screen and (max-width: 640px){
   .dailyPageEmpty{
-    /* top: -15px; */
+    top: 15px;
   }
 }

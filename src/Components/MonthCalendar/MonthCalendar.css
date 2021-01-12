@@ -70,6 +70,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .monthCalendar{
+    margin-bottom: 35px;
+  }
   .allMonths {
     left: 1.2vw;
   }

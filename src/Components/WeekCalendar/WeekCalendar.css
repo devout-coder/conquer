@@ -56,6 +56,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .weekCalendar{
+    margin-bottom: 40px;
+  }
   .topbar {
     margin-bottom: 1vw;
   }
