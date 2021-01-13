@@ -17,7 +17,7 @@ import LongTerm from "./Components/LongTerm/LongTerm";
 import VisionBoard from "./Components/VisionBoard/VisionBoard";
 import { loadingContext } from "./loadingContext";
 import AllTodos from "./Components/AllTodos/AllTodos";
-import { Notifications } from 'react-push-notification';
+import { Notifications } from "react-push-notification";
 
 //this component handles all the routes
 function App() {
@@ -28,9 +28,30 @@ function App() {
       setFirebaseInitialized(user); //setting that user to predefined state
     });
   }, []);
+  const msg = firebaseApp.messaging();
+  msg
+    .getToken({
+      vapidKey:
+        "BNjCFwXvfRTjtVvevkpIaDytiBELWFCu7uu2ZvG2ND2jf0C45Zipf1_XsPgdJQMFZz4gUlUVeIDCUMNPFQaQFq8"
+    })
+    .then((currentToken) => {
+      if (currentToken) {
+        console.log(currentToken);
+      } else {
+        // Show permission request.
+        console.log(
+          "No registration token available. Request permission to generate one."
+        );
+        // Show permission UI.
+      }
+    })
+    .catch((err) => {
+      console.log("An error occurred while retrieving token. ", err);
+    });
+
   return firebaseInitialized != false ? (
     <div className="App">
-      <Notifications/>
+      <Notifications />
       <BrowserRouter>
         {/* passing the auth status in context provider */}
         <loadingContext.Provider value={firebaseInitialized}>
