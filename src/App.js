@@ -28,26 +28,6 @@ function App() {
       setFirebaseInitialized(user); //setting that user to predefined state
     });
   }, []);
-  const msg = firebaseApp.messaging();
-  msg
-    .getToken({
-      vapidKey:
-        "BNjCFwXvfRTjtVvevkpIaDytiBELWFCu7uu2ZvG2ND2jf0C45Zipf1_XsPgdJQMFZz4gUlUVeIDCUMNPFQaQFq8"
-    })
-    .then((currentToken) => {
-      if (currentToken) {
-        console.log(currentToken);
-      } else {
-        // Show permission request.
-        console.log(
-          "No registration token available. Request permission to generate one."
-        );
-        // Show permission UI.
-      }
-    })
-    .catch((err) => {
-      console.log("An error occurred while retrieving token. ", err);
-    });
 
   return firebaseInitialized != false ? (
     <div className="App">
