@@ -19,7 +19,7 @@ button:hover {
 @media only screen and (max-width:1200px){
   .dailyPageEmpty{
     flex-direction: column;
-    height: 84vh;
+    height: 86vh;
     justify-content: space-between;
   }
 }

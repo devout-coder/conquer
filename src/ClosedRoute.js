@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
-import firebaseApp from "./firebase";
+import Loading from "./Components/Loading/Loading";
+import { loadingContext } from "./loadingContext";
 
 function ClosedRoute(props) {
+  const user = useContext(loadingContext);
+  console.log(user)
   return (
     <Route
       path={props.path}
       render={(data) =>
-        firebaseApp.auth().currentUser ? ( //if the user is logged in he is redirected to daily page...
-          <Redirect to={{ pathname: "/daily" }}></Redirect>
+        user == null ? ( //if the user is logged in he is redirected to daily page...
+          <props.component {...data}></props.component>
+        ) : user == false ? (
+          <Loading />
         ) : (
           //else he remains on that route
-          <props.component {...data}></props.component>
+          <Redirect to={{ pathname: "/daily" }}></Redirect>
         )
       }
     ></Route>
