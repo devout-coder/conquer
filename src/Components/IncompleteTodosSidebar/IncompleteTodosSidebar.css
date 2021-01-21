@@ -80,6 +80,7 @@
     border-radius: 20px;
     max-height: 300px;
     height: auto;
+    min-height: 80px;
     position: relative;
     right: 28px;
     margin-top: 15px;

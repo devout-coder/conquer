@@ -29,7 +29,7 @@ function App() {
     });
   }, []);
 
-  return firebaseInitialized != false ? (
+  return (
     <div className="App">
       <Notifications />
       <BrowserRouter>
@@ -52,9 +52,7 @@ function App() {
         </loadingContext.Provider>
       </BrowserRouter>
     </div>
-  ) : (
-    <Loading />
-  );
+  )
 }
 
 export default App;

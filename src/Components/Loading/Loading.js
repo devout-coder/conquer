@@ -6,8 +6,8 @@ function Loading() {
   return (
     <div className="loading">
       <div className="actualLoading">
-        <CircularProgress />
-        <div className="loadingText">Loading...</div>
+        <CircularProgress color="primary" />
+        {/* <div className="loadingText">Loading...</div> */}
       </div>
     </div>
   );

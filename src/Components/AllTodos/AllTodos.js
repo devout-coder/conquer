@@ -1,5 +1,5 @@
 import { Checkbox, IconButton } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
@@ -12,12 +12,14 @@ import "./AllTodos.css";
 import EachTodo from "../EachTodo/EachTodo";
 import YearPicker from "../YearPicker/YearPicker";
 import IncompleteTodosSidebar from "../IncompleteTodosSidebar/IncompleteTodosSidebar";
+import { loadingContext } from "../../loadingContext";
 
 function AllTodos() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const history = useHistory();
   const location = useLocation(); //holds props
   const [time, setTime] = useState(location.state.time); //this holds the date/month/week/year of which the user wants all todos
+  const user = useContext(loadingContext);
   const lastPage = location.state.lastPage; //this holds daily/weekly/monthly/yearly basically the type of time wanted
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
@@ -39,8 +41,7 @@ function AllTodos() {
       .where("time", "==", time)
       .orderBy("priority", "desc")
       .onSnapshot((snap) => {
-        setLoading(true);
-        setLoading(false);
+        setLoading(true)
         //i know it seems silly to setLoading true and false one after another... i don't why but if i don't do that then unwanted tasks get ticked...
         let finished = [];
         let unfinished = [];
@@ -63,6 +64,7 @@ function AllTodos() {
         });
         setFinishedTodos(finished);
         setUnfinishedTodos(unfinished);
+        setLoading(false);
       });
   }
   function replaceDate(date) {
@@ -86,10 +88,14 @@ function AllTodos() {
     setOpenTodoModal(true);
   }
   useEffect(() => {
-    loadData();
-  }, [time]); //passed time here so that in yearly todos when i update the year data gets loaded again..
+    if (user) {
+      loadData();
+    } else {
+      setLoading(true);
+    }
+  }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
 
-  return !loading ? (
+  return (
     <div className="allTodos">
       {openTodoModal ? (
         <NewTodoModal
@@ -112,8 +118,9 @@ function AllTodos() {
         <div
           className={
             lastPage == "year"
-              ? "allTodosPageEmpty thisIsYear":
-              lastPage == "longTerm"? "allTodosPageEmpty thisIsLongTerm"
+              ? "allTodosPageEmpty thisIsYear"
+              : lastPage == "longTerm"
+              ? "allTodosPageEmpty thisIsLongTerm"
               : "allTodosPageEmpty"
           }
         >
@@ -143,7 +150,9 @@ function AllTodos() {
                 <QueueIcon />
               </IconButton>
             </div>
-            {unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
+            {loading ? (
+              <Loading />
+            ) : unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
               <div className="mainTodos">
                 {unfinishedTodos.length != 0 ? (
                   <div className="unfinishedTodos">
@@ -219,8 +228,6 @@ function AllTodos() {
         </div>
       </div>
     </div>
-  ) : (
-    <Loading />
   );
 }
 

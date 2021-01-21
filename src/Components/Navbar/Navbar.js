@@ -8,19 +8,19 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { IconButton } from "@material-ui/core";
 
 function Navbar() {
-  const firebaseInitialized = useContext(loadingContext);
+  const user = useContext(loadingContext);
   return (
     <div className="navbar">
       <img src={logo} className="conquerLogo" alt="" />
       <Link to="/" className="conquerText">
         Conquer
       </Link>
-      {firebaseInitialized ? (
+      {user == null || user == false ? (
+        <span></span>
+      ) : (
         <IconButton onClick={() => firebaseApp.auth().signOut()} title="Logout">
           <ExitToAppIcon className="logoutText" />
         </IconButton>
-      ) : (
-        <span></span>
       )}
     </div>
   );

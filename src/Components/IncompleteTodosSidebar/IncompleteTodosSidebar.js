@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import firebaseApp from "../../firebase";
 import "./IncompleteTodosSidebar.css";
 import Loading from "../Loading/Loading";
 import EachTodo from "../EachTodo/EachTodo";
 import NewTodoModal from "../NewTodoModal/NewTodoModal";
 import { months } from "../Calendar/Calendar";
+import { loadingContext } from "../../loadingContext";
 
 function IncompleteTodosSidebar(props) {
   const fullMonths = [
@@ -36,7 +37,8 @@ function IncompleteTodosSidebar(props) {
     "Dec",
   ];
   const [reqTodos, setReqTodos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const user = useContext(loadingContext);
+  const [loading, setLoading] = useState(true);
   const [expandTaskId, setExpandTaskId] = useState("");
   const [expandTaskName, setExpandTaskName] = useState("");
   const [expandTaskDesc, setExpandTaskDesc] = useState("");
@@ -121,7 +123,6 @@ function IncompleteTodosSidebar(props) {
       .where("timeType", "==", props.timeType)
       .orderBy("priority", "desc")
       .onSnapshot((snap) => {
-        setLoading(true);
         let tparray = [];
         snap.docs.map((each) => {
           let eachdict = {
@@ -142,8 +143,12 @@ function IncompleteTodosSidebar(props) {
       });
   }
   useEffect(() => {
-    loadReqTodos();
-  }, []);
+    if (user) {
+      loadReqTodos();
+    } else {
+      setLoading(true);
+    }
+  }, [user]);
   // console.log(reqTodos);
 
   function expandTodo(id, taskName, taskDesc, taskPri, taskTime, taskTimeType) {

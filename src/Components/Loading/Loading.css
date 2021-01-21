@@ -3,8 +3,14 @@
   width: 100%;
   height: 100%;
   display: grid;
+  /* background-color: rgb(137, 137, 189); */
   place-items: center;
 }
+
+.incompleteTodosSidebar .loading{
+  width: 30%;
+}
+
 
 .actualLoading {
   display: flex;
@@ -17,4 +23,12 @@
   font-family: Poppins;
   font-weight: 500;
   font-size: 30px;
+}
+
+@media only screen and (max-width:1200px){
+  .allTodosCont .loading{
+    position: relative;
+    top: 40px;
+    right: 20px;
+  }
 }
