@@ -122,6 +122,7 @@
   }
   .weekPageEmpty .incompleteTodosSidebar .eachTodoTaskName{
     width: 48%;
+    /* background-color: blue; */
   }
   .monthPageEmpty .incompleteTodosSidebar .eachTodoTaskName{
     width: 50%;

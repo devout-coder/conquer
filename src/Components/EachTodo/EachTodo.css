@@ -5,14 +5,22 @@
   justify-content: flex-start;
   position: relative;
   align-items: center;
-
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  border-radius: 10px;
 }
 
-.eachTodo:hover{
+.laptopTodo:hover{
+  background-color: rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  /* flex:1; */
+}
+
+.phoneTodo{
   background-color: rgba(0, 0, 0, 0.164);
   cursor: pointer;
   border-radius: 10px;
-  /* flex:1; */
 }
 
 .eachTodoTaskName {
@@ -64,9 +72,10 @@
 .dailyPageEmpty .todoTime{
   right: 40px;
 }
+
 .weekPageEmpty .todoTime{
   width: 90px;
-  right: 30;
+  right: 37px;
 }
 
 .monthPageEmpty .todoTime{
@@ -92,10 +101,18 @@
   visibility: hidden;
 }
 
-.eachTodo:hover .todoTime+.MuiButtonBase-root{
+.laptopTodo:hover .todoTime+.MuiButtonBase-root{
   visibility: visible;
 }
-.eachTodo:hover .noTodoTime+.MuiButtonBase-root{
+
+.laptopTodo:hover .noTodoTime+.MuiButtonBase-root{
+  visibility: visible;
+}
+
+.phoneTodo .noTodoTime+.MuiButtonBase-root{
+  visibility: visible;
+}
+.phoneTodo .todoTime+.MuiButtonBase-root{
   visibility: visible;
 }
 
@@ -120,7 +137,7 @@
   }
   .weekPageEmpty .todoTime{
     width: 60px;
-    right: 35px;
+    right: 37px;
   }
   .monthPageEmpty .todoTime{
     width: 50px;

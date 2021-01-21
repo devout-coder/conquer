@@ -123,6 +123,7 @@ function IncompleteTodosSidebar(props) {
       .where("timeType", "==", props.timeType)
       .orderBy("priority", "desc")
       .onSnapshot((snap) => {
+        setLoading(true);
         let tparray = [];
         snap.docs.map((each) => {
           let eachdict = {

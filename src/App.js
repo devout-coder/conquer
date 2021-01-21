@@ -17,7 +17,6 @@ import LongTerm from "./Components/LongTerm/LongTerm";
 import VisionBoard from "./Components/VisionBoard/VisionBoard";
 import { loadingContext } from "./loadingContext";
 import AllTodos from "./Components/AllTodos/AllTodos";
-import { Notifications } from "react-push-notification";
 
 //this component handles all the routes
 function App() {
@@ -31,7 +30,6 @@ function App() {
 
   return (
     <div className="App">
-      <Notifications />
       <BrowserRouter>
         {/* passing the auth status in context provider */}
         <loadingContext.Provider value={firebaseInitialized}>

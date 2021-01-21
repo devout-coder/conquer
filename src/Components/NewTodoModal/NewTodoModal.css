@@ -1,7 +1,7 @@
 .modalBackground {
   background-color: rgba(0, 0, 0, 0.692);
   width: 105vw;
-  height: 100vh;
+  height: 103vh;
   position: fixed;
   z-index: 5;
   display: grid;
