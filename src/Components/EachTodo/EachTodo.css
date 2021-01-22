@@ -34,6 +34,7 @@
   display: inline-block;
   word-break: break-word;
   height: auto;
+  /* background-color: blue; */
 }
 
 
@@ -65,25 +66,25 @@
   color: rgba(115, 110, 110, 0.68);
   margin-left: 15px;
   position: absolute;
-  right: 34px;
+  right: 10px;
   /* margin-right: 15px; */
 }
 
 .dailyPageEmpty .todoTime{
-  right: 40px;
+  /* right: 40px; */
 }
 
 .weekPageEmpty .todoTime{
-  width: 90px;
-  right: 37px;
+  width: 95px;
+  /* right: 37px; */
 }
 
 .monthPageEmpty .todoTime{
-  width: 90px;
-  right: 10px;
+  width: 85px;
+  right: 0px;
 }
 .thisIsYear .todoTime{
-  right: 50px;
+  /* right: 50px; */
 }
  
 .MuiButtonBase-root{
@@ -112,8 +113,13 @@
 .phoneTodo .noTodoTime+.MuiButtonBase-root{
   visibility: visible;
 }
+
 .phoneTodo .todoTime+.MuiButtonBase-root{
-  visibility: visible;
+  visibility: hidden;
+}
+
+.laptopTodo:hover .todoTime+.MuiButtonBase-root{
+  visibility: hidden;
 }
 
 .MuiTypography-root{
@@ -132,19 +138,23 @@
     line-height: 8vw;
     /* background-color: blue; */
   }
+  .todoTime{
+    right: 10px;
+  }
   .dailyPageEmpty .todoTime{
-    right: 30px;
+    right: 0px;
   }
   .weekPageEmpty .todoTime{
     width: 60px;
-    right: 37px;
   }
   .monthPageEmpty .todoTime{
     width: 50px;
-    right: 30px;
+    right: 5px;
   }
   .thisIsYear .todoTime{
-    right: 5px;
+    /* background-color: blue; */
+    width: 20px;
+    right: 15px;
   }
 }
 

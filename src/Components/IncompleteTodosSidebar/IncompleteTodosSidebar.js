@@ -133,6 +133,7 @@ function IncompleteTodosSidebar(props) {
             priority: each.get("priority"),
             finished: each.get("finished"),
             time: each.get("time"),
+            timeType: each.get("timeType")
           };
           if (!each.get("finished")) {
             tparray.push(eachdict);

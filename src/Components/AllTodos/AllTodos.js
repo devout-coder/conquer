@@ -15,11 +15,11 @@ import IncompleteTodosSidebar from "../IncompleteTodosSidebar/IncompleteTodosSid
 import { loadingContext } from "../../loadingContext";
 
 function AllTodos() {
+  const user = useContext(loadingContext);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const location = useLocation(); //holds props
   const [time, setTime] = useState(location.state.time); //this holds the date/month/week/year of which the user wants all todos
-  const user = useContext(loadingContext);
   const lastPage = location.state.lastPage; //this holds daily/weekly/monthly/yearly basically the type of time wanted
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);

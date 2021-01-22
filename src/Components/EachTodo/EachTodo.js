@@ -10,11 +10,12 @@ import React, { useEffect, useState } from "react";
 import firebaseApp from "../../firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "./EachTodo.css";
+import { useHistory } from "react-router-dom";
 
 function EachTodo(props) {
   const [checked, setChecked] = useState(props.finished);
   const [modalOpen, setModalOpen] = useState(false); //this state controls the delete modal
-  const [mobile, setMobile] = useState(false);
+  const history = useHistory();
   const checkUncheckfunc = (event) => {
     //this toggles check of todo checkbox and also toggles boolean value of finished property of that particular todo in firestore
     setChecked(event.target.checked);
@@ -76,7 +77,7 @@ function EachTodo(props) {
     },
   };
   function handleTodoClick() {
-    if (isMobile.any()) {
+    if (isMobile.any() && !props.sidebarTodo) {
       let reqElem = document.getElementById(props.id);
       if (Array.from(reqElem.classList).includes("phoneTodo")) {
         //this conditional checks if the todo has already been clicked and if thats the case then it is expanded
@@ -115,7 +116,6 @@ function EachTodo(props) {
       }
     }
   });
-
   return (
     <div
       className={isMobile.any() ? "eachTodo" : "eachTodo laptopTodo"}
@@ -176,9 +176,16 @@ function EachTodo(props) {
       {props.sidebarTodo ? (
         <span
           className="todoTime"
-          onClick={() => {
-            handleTodoClick();
-          }}
+          onClick={() =>
+            props.timeType != "year"?
+            history.push({
+              pathname: `${props.timeType}/allTodos`,
+              state: { time: props.time, lastPage: props.timeType },
+            }):history.push({
+              pathname: "/year",
+              state: {time:props.time}
+            })
+          }
         >
           {props.time}
         </span>

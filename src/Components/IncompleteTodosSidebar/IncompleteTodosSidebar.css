@@ -18,7 +18,7 @@
 }
 
 .incompleteTodosCont {
-  width: 90%;
+  width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,16 +58,16 @@
 }
 
 .incompleteTodosSidebar .eachTodoTaskName {
-  width: 65%;
+  width: 70%;
 }
 .dailyPageEmpty .incompleteTodosSidebar .eachTodoTaskName{
-  width: 60%;
+  width: 70%;
 }
 .weekPageEmpty .incompleteTodosSidebar .eachTodoTaskName {
-  width: 60%;
+  width: 64%;
 }
 .thisIsYear .incompleteTodosSidebar .eachTodoTaskName {
-  width: 68%;
+  width: 78%;
 }
 
 @media only screen and (max-width: 1200px) {
