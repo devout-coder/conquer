@@ -13,6 +13,7 @@ import EachTodo from "../EachTodo/EachTodo";
 import YearPicker from "../YearPicker/YearPicker";
 import IncompleteTodosSidebar from "../IncompleteTodosSidebar/IncompleteTodosSidebar";
 import { loadingContext } from "../../loadingContext";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function AllTodos() {
   const user = useContext(loadingContext);
@@ -41,7 +42,7 @@ function AllTodos() {
       .where("time", "==", time)
       .orderBy("priority", "desc")
       .onSnapshot((snap) => {
-        setLoading(true)
+        setLoading(true);
         //i know it seems silly to setLoading true and false one after another... i don't why but if i don't do that then unwanted tasks get ticked...
         let finished = [];
         let unfinished = [];
@@ -153,68 +154,92 @@ function AllTodos() {
             {loading ? (
               <Loading />
             ) : unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
-              <div className="mainTodos">
-                {unfinishedTodos.length != 0 ? (
-                  <div className="unfinishedTodos">
-                    <div className="noUnfinished noTodos">
-                      {unfinishedTodos.length} unfinished
+              <DragDropContext>
+                <div className="mainTodos">
+                  {unfinishedTodos.length != 0 ? (
+                    <div className="unfinishedTodos">
+                      <div className="noUnfinished noTodos">
+                        {unfinishedTodos.length} unfinished
+                      </div>
+                      <Droppable droppableId="unfinishedTodosList">
+                        {(provided) => (
+                          <div
+                            className="unfinishedTodosList"
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {unfinishedTodos.map((each, index) => (
+                              <EachTodo
+                                id={each.id}
+                                key={each.id}
+                                index={index}
+                                priority={each.priority}
+                                taskName={each.taskName}
+                                taskDesc={each.taskDesc}
+                                finished={each.finished}
+                                time={each.time}
+                                timeType={each.timeType}
+                                startLoading={() => loadData()}
+                                activateLoader={(shouldLoad) =>
+                                  setLoading(shouldLoad)
+                                }
+                                expandTodo={(id, taskName, taskDesc, taskPri) =>
+                                  expandTodo(id, taskName, taskDesc, taskPri)
+                                }
+                                sidebarTodo={false}
+                              />
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
                     </div>
-                    <div className="unfinishedTodosList">
-                      {unfinishedTodos.map((each) => (
-                        <EachTodo
-                          id={each.id}
-                          priority={each.priority}
-                          taskName={each.taskName}
-                          taskDesc={each.taskDesc}
-                          finished={each.finished}
-                          time={each.time}
-                          timeType={each.timeType}
-                          startLoading={() => loadData()}
-                          activateLoader={(shouldLoad) =>
-                            setLoading(shouldLoad)
-                          }
-                          expandTodo={(id, taskName, taskDesc, taskPri) =>
-                            expandTodo(id, taskName, taskDesc, taskPri)
-                          }
-                          sidebarTodo={false}
-                        />
-                      ))}
+                  ) : (
+                    <div></div>
+                  )}
+                  {finishedTodos.length != 0 ? (
+                    <div className="finishedTodos">
+                      <div className="noFinished noTodos">
+                        {finishedTodos.length} finished
+                      </div>
+                      <Droppable droppableId="finishedTodosList">
+                        {(provided) => (
+                          <div
+                            className="finishedTodosList"
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {finishedTodos.map((each, index) => (
+                              <EachTodo
+                                id={each.id}
+                                key={each.id}
+                                index={index}
+                                priority={each.priority}
+                                taskName={each.taskName}
+                                taskDesc={each.taskDesc}
+                                finished={each.finished}
+                                time={each.time}
+                                timeType={each.timeType}
+                                startLoading={() => loadData()}
+                                activateLoader={(shouldLoad) =>
+                                  setLoading(shouldLoad)
+                                }
+                                expandTodo={(id, taskName, taskDesc, taskPri) =>
+                                  expandTodo(id, taskName, taskDesc, taskPri)
+                                }
+                                sidebarTodo={false}
+                              />
+                            ))}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
                     </div>
-                  </div>
-                ) : (
-                  <div></div>
-                )}
-                {finishedTodos.length != 0 ? (
-                  <div className="finishedTodos">
-                    <div className="noFinished noTodos">
-                      {finishedTodos.length} finished
-                    </div>
-                    <div className="finishedTodosList">
-                      {finishedTodos.map((each) => (
-                        <EachTodo
-                          id={each.id}
-                          priority={each.priority}
-                          taskName={each.taskName}
-                          taskDesc={each.taskDesc}
-                          finished={each.finished}
-                          time={each.time}
-                          timeType={each.timeType}
-                          startLoading={() => loadData()}
-                          activateLoader={(shouldLoad) =>
-                            setLoading(shouldLoad)
-                          }
-                          expandTodo={(id, taskName, taskDesc, taskPri) =>
-                            expandTodo(id, taskName, taskDesc, taskPri)
-                          }
-                          sidebarTodo={false}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+              </DragDropContext>
             ) : (
               //this is rendered if the length of both finished and unfinished todos is 0
               <div className="noTodosMessage">No tasks added yet!</div>

@@ -11,6 +11,7 @@ import firebaseApp from "../../firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "./EachTodo.css";
 import { useHistory } from "react-router-dom";
+import { Draggable } from "react-beautiful-dnd";
 
 function EachTodo(props) {
   const [checked, setChecked] = useState(props.finished);
@@ -116,7 +117,7 @@ function EachTodo(props) {
       }
     }
   });
-  return (
+  let constJSX = (
     <div
       className={isMobile.any() ? "eachTodo" : "eachTodo laptopTodo"}
       id={props.id}
@@ -177,14 +178,15 @@ function EachTodo(props) {
         <span
           className="todoTime"
           onClick={() =>
-            props.timeType != "year"?
-            history.push({
-              pathname: `${props.timeType}/allTodos`,
-              state: { time: props.time, lastPage: props.timeType },
-            }):history.push({
-              pathname: "/year",
-              state: {time:props.time}
-            })
+            props.timeType != "year"
+              ? history.push({
+                  pathname: `${props.timeType}/allTodos`,
+                  state: { time: props.time, lastPage: props.timeType },
+                })
+              : history.push({
+                  pathname: "/year",
+                  state: { time: props.time },
+                })
           }
         >
           {props.time}
@@ -200,6 +202,21 @@ function EachTodo(props) {
         />
       </IconButton>
     </div>
+  );
+  return !props.sidebarTodo ? (
+    <Draggable draggableId={props.id} index={props.index}>
+      {(provided, snapshot) => (
+        <div
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          {constJSX}
+        </div>
+      )}
+    </Draggable>
+  ) : (
+    <div>{constJSX}</div>
   );
 }
 
