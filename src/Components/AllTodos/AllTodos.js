@@ -95,15 +95,33 @@ function AllTodos() {
       setLoading(true);
     }
   }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
+
   function rearrangeList(props) {
-    console.log(props);
     let droppable = props.source.droppableId;
     let initialPos = props.source.index;
-    let finalPos = props.destination.index;
-    if (droppable == "unfinishedTodos") {
-      unfinishedTodos.splice(finalPos, 0, unfinishedTodos.splice(initialPos, 1)[0]);
-    } else {
-      finishedTodos.splice(finalPos, 0, finishedTodos.splice(initialPos, 1)[0]);
+    if (props.destination != null) {
+      let finalPos = props.destination.index;
+      if (droppable == "unfinishedTodos") {
+        let initialTaskPri = unfinishedTodos[initialPos].priority;
+        let finalTaskPri = unfinishedTodos[finalPos].priority;
+        if (initialTaskPri == finalTaskPri) {
+          unfinishedTodos.splice(
+            finalPos,
+            0,
+            unfinishedTodos.splice(initialPos, 1)[0]
+          );
+        }
+      } else {
+        let initialTaskPri = unfinishedTodos[initialPos].priority;
+        let finalTaskPri = unfinishedTodos[finalPos].priority;
+        if (initialTaskPri == finalTaskPri) {
+          finishedTodos.splice(
+            finalPos,
+            0,
+            finishedTodos.splice(initialPos, 1)[0]
+          );
+        }
+      }
     }
   }
   return (
