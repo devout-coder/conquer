@@ -95,7 +95,17 @@ function AllTodos() {
       setLoading(true);
     }
   }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
-
+  function rearrangeList(props) {
+    console.log(props);
+    let droppable = props.source.droppableId;
+    let initialPos = props.source.index;
+    let finalPos = props.destination.index;
+    if (droppable == "unfinishedTodos") {
+      unfinishedTodos.splice(finalPos, 0, unfinishedTodos.splice(initialPos, 1)[0]);
+    } else {
+      finishedTodos.splice(finalPos, 0, finishedTodos.splice(initialPos, 1)[0]);
+    }
+  }
   return (
     <div className="allTodos">
       {openTodoModal ? (
@@ -154,14 +164,18 @@ function AllTodos() {
             {loading ? (
               <Loading />
             ) : unfinishedTodos.length != 0 || finishedTodos.length != 0 ? (
-              <DragDropContext>
-                <div className="mainTodos">
+              <div className="mainTodos">
+                <DragDropContext
+                  onDragEnd={(props) => {
+                    rearrangeList(props);
+                  }}
+                >
                   {unfinishedTodos.length != 0 ? (
                     <div className="unfinishedTodos">
                       <div className="noUnfinished noTodos">
                         {unfinishedTodos.length} unfinished
                       </div>
-                      <Droppable droppableId="unfinishedTodosList">
+                      <Droppable droppableId="unfinishedTodos">
                         {(provided) => (
                           <div
                             className="unfinishedTodosList"
@@ -197,12 +211,18 @@ function AllTodos() {
                   ) : (
                     <div></div>
                   )}
+                </DragDropContext>
+                <DragDropContext
+                  onDragEnd={(props) => {
+                    rearrangeList(props);
+                  }}
+                >
                   {finishedTodos.length != 0 ? (
                     <div className="finishedTodos">
                       <div className="noFinished noTodos">
                         {finishedTodos.length} finished
                       </div>
-                      <Droppable droppableId="finishedTodosList">
+                      <Droppable droppableId="finishedTodos">
                         {(provided) => (
                           <div
                             className="finishedTodosList"
@@ -238,8 +258,8 @@ function AllTodos() {
                   ) : (
                     <div></div>
                   )}
-                </div>
-              </DragDropContext>
+                </DragDropContext>
+              </div>
             ) : (
               //this is rendered if the length of both finished and unfinished todos is 0
               <div className="noTodosMessage">No tasks added yet!</div>
