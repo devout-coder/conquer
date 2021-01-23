@@ -54,6 +54,7 @@ function AllTodos() {
             priority: each.get("priority"),
             finished: each.get("finished"),
             time: each.get("time"),
+            index: each.get("index"),
             timeType: each.get("timeType"),
           };
           if (each.get("finished")) {
@@ -63,11 +64,20 @@ function AllTodos() {
             unfinished.push(eachdict);
           }
         });
-        setFinishedTodos(finished);
-        setUnfinishedTodos(unfinished);
+        setFinishedTodos(
+          finished.sort((a, b) => {
+            return a.index - b.index;
+          })
+        );
+        setUnfinishedTodos(
+          unfinished.sort((a, b) => {
+            return a.index - b.index;
+          })
+        );
         setLoading(false);
       });
   }
+  console.log(unfinishedTodos);
   function replaceDate(date) {
     //this func takes date and removes the space and year from it...
     return date.replace(/\s\d{4}/g, "");
@@ -97,9 +107,9 @@ function AllTodos() {
   }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
 
   function rearrangeList(props) {
-    let droppable = props.source.droppableId;
-    let initialPos = props.source.index;
     if (props.destination != null) {
+      let droppable = props.source.droppableId;
+      let initialPos = props.source.index;
       let finalPos = props.destination.index;
       if (droppable == "unfinishedTodos") {
         let initialTaskPri = unfinishedTodos[initialPos].priority;
@@ -110,16 +120,26 @@ function AllTodos() {
             0,
             unfinishedTodos.splice(initialPos, 1)[0]
           );
+          unfinishedTodos.forEach((each, index) => {
+            firebaseApp.firestore().collection("todos").doc(each.id).update({
+              index: index,
+            });
+          });
         }
       } else {
-        let initialTaskPri = unfinishedTodos[initialPos].priority;
-        let finalTaskPri = unfinishedTodos[finalPos].priority;
+        let initialTaskPri = finishedTodos[initialPos].priority;
+        let finalTaskPri = finishedTodos[finalPos].priority;
         if (initialTaskPri == finalTaskPri) {
           finishedTodos.splice(
             finalPos,
             0,
             finishedTodos.splice(initialPos, 1)[0]
           );
+          finishedTodos.forEach((each, index) => {
+            firebaseApp.firestore().collection("todos").doc(each.id).update({
+              index: index,
+            });
+          });
         }
       }
     }

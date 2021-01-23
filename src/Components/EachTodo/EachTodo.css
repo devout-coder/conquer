@@ -13,13 +13,13 @@
 
 .laptopTodo:hover{
   background-color: rgba(0, 0, 0, 0.164);
-  cursor: pointer;
+  cursor: grab;
   /* flex:1; */
 }
 
 .phoneTodo{
   background-color: rgba(0, 0, 0, 0.164);
-  cursor: pointer;
+  cursor: grab;
   border-radius: 10px;
 }
 

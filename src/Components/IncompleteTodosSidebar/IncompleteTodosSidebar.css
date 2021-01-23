@@ -56,6 +56,14 @@
 .inCompleteTodos .eachTodo:hover {
   background-color: rgba(255, 255, 255, 0.096);
 }
+  
+.incompleteTodosSidebar .laptopTodo:hover{
+  cursor: pointer;
+}
+
+.incompleteTodosSidebar .phoneTodo{
+  cursor: pointer;
+}
 
 .incompleteTodosSidebar .eachTodoTaskName {
   width: 70%;

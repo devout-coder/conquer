@@ -52,6 +52,9 @@ function IncompleteTodosSidebar(props) {
   function sortTodos(arr) {
     //later in func loadReqTodos i ve taken reqTodos as a parameter and sorts it by the time and in accordance of timeType(month, daily, week, year)
     let sortedTodos = arr;
+    sortedTodos = arr.sort((a, b)=>{
+      return a.index-b.index;
+    })
     sortedTodos = arr.sort((a, b) => {
       let temparr = [a.time, b.time];
       if (props.timeType == "year") {
@@ -122,6 +125,7 @@ function IncompleteTodosSidebar(props) {
       .where("user", "==", firebaseApp.auth().currentUser.uid)
       .where("timeType", "==", props.timeType)
       .orderBy("priority", "desc")
+      // .orderBy("index", "asc")
       .onSnapshot((snap) => {
         setLoading(true);
         let tparray = [];
@@ -133,7 +137,8 @@ function IncompleteTodosSidebar(props) {
             priority: each.get("priority"),
             finished: each.get("finished"),
             time: each.get("time"),
-            timeType: each.get("timeType")
+            index:each.get("index"),
+            timeType: each.get("timeType"),
           };
           if (!each.get("finished")) {
             tparray.push(eachdict);
