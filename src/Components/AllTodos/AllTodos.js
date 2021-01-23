@@ -41,7 +41,8 @@ function AllTodos() {
       .where("user", "==", firebaseApp.auth().currentUser.uid)
       .where("time", "==", time)
       .orderBy("priority", "desc")
-      .onSnapshot((snap) => {
+      .get()
+      .then((snap) => {
         setLoading(true);
         //i know it seems silly to setLoading true and false one after another... i don't why but if i don't do that then unwanted tasks get ticked...
         let finished = [];
@@ -77,7 +78,6 @@ function AllTodos() {
         setLoading(false);
       });
   }
-  console.log(unfinishedTodos);
   function replaceDate(date) {
     //this func takes date and removes the space and year from it...
     return date.replace(/\s\d{4}/g, "");
@@ -107,7 +107,9 @@ function AllTodos() {
   }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
 
   function rearrangeList(props) {
+    //this func deals with changes the todo position on drag end and also saves the positions in firebase
     if (props.destination != null) {
+      //this is evaluated true if drag isn't outside the draggable
       let droppable = props.source.droppableId;
       let initialPos = props.source.index;
       let finalPos = props.destination.index;
@@ -115,16 +117,20 @@ function AllTodos() {
         let initialTaskPri = unfinishedTodos[initialPos].priority;
         let finalTaskPri = unfinishedTodos[finalPos].priority;
         if (initialTaskPri == finalTaskPri) {
+          //this condition ensures that item will be dropped only its interchanged with items of same priority
           unfinishedTodos.splice(
             finalPos,
             0,
             unfinishedTodos.splice(initialPos, 1)[0]
           );
+          //splices removes the element from intial position and pastes it in new position
+
           unfinishedTodos.forEach((each, index) => {
             firebaseApp.firestore().collection("todos").doc(each.id).update({
               index: index,
             });
           });
+          //this saves the new list order in firebase
         }
       } else {
         let initialTaskPri = finishedTodos[initialPos].priority;

@@ -87,15 +87,21 @@
   flex-direction: column;
   width: 85%;
   height: 300px;
+  background-color: rgba(0, 0, 0, 0.089);
+  border-radius: 20px;
   overflow-y: auto;
+  padding: 10px;
 }
 
 .finishedTodosList {
   display: flex;
   flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.089);
   width: 85%;
   height: 300px;
+  border-radius: 20px;
   overflow-y: auto;
+  padding: 10px;
 }
 
 .noTodos {

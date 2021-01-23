@@ -41,6 +41,7 @@ function NewTodoModal(props) {
         { merge: true }
       );
     }
+    props.shouldReload()
     props.openTodoModal(false);
   }
 
