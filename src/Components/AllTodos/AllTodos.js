@@ -30,6 +30,7 @@ function AllTodos() {
   const [expandTaskDesc, setExpandTaskDesc] = useState("");
   const [expandTaskPri, setExpandTaskPri] = useState("0");
   //if any specific todo is clicked, all these expandTask details will be passed as a prop to the modal
+  
   const [openTodoModal, setOpenTodoModal] = useState(false);
   //whenever this is true modal with required props is rendered
 

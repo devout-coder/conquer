@@ -13,14 +13,16 @@
 
 .laptopTodo:hover{
   background-color: rgba(255, 255, 255, 0.068);
-  cursor: grab;
   /* flex:1; */
 }
 
 .phoneTodo{
   background-color: rgba(255, 255, 255, 0.096);
-  cursor: grab;
   border-radius: 10px;
+}
+
+.dragger{
+  cursor:grab;
 }
 
 .eachTodoTaskName {

@@ -12,6 +12,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "./EachTodo.css";
 import { useHistory } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
+import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 
 function EachTodo(props) {
   const [checked, setChecked] = useState(props.finished);
@@ -117,8 +118,9 @@ function EachTodo(props) {
       }
     }
   });
-  let constJSX = (
-    <div
+  function ConstJSX(newProps){
+    return(
+     <div
       className={isMobile.any() ? "eachTodo" : "eachTodo laptopTodo"}
       id={props.id}
     >
@@ -140,6 +142,13 @@ function EachTodo(props) {
           </Button>
         </DialogActions>
       </Dialog>
+      {!props.sidebarTodo && !props.finished ? (
+        <div className="dragger" {...newProps.dragger}>
+          <DragIndicatorIcon style={{ color: "#c6c4c4" }}></DragIndicatorIcon>
+        </div>
+      ) : (
+        <div></div>
+      )}
       <Checkbox
         style={{
           color: props.finished
@@ -201,22 +210,24 @@ function EachTodo(props) {
           }}
         />
       </IconButton>
-    </div>
-  );
+    </div> 
+    )
+
+  };
+
   return !props.sidebarTodo ? (
     <Draggable draggableId={props.id} index={props.index}>
       {(provided, snapshot) => (
         <div
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          {constJSX}
+          <ConstJSX dragger = {provided.dragHandleProps} />
         </div>
       )}
     </Draggable>
   ) : (
-    <div>{constJSX}</div>
+    <ConstJSX/>
   );
 }
 
