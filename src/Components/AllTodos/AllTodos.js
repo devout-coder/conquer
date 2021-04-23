@@ -107,6 +107,26 @@ function AllTodos() {
     }
   }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
 
+  function priPosition() {
+    let reqPos = [];
+    for (let i = 3; i >= 0; i--) {
+      if (unfinishedTodos.length != 0){
+       for(let index=0; index<unfinishedTodos.length; index++){
+        if (i > unfinishedTodos[index].priority) {
+          reqPos.push([i, index]);
+          break;
+        }else if(index==unfinishedTodos.length-1){
+          reqPos.push([i, unfinishedTodos.length])
+        }
+      } 
+      }else{
+        reqPos.push([i,0])
+      }
+    }
+    return reqPos;
+  }
+  console.log(unfinishedTodos)
+
   function rearrangeList(props) {
     //this func deals with changes the todo position on drag end and also saves the positions in firebase
     if (props.destination != null) {
@@ -164,6 +184,8 @@ function AllTodos() {
           taskDesc={expandTaskDesc}
           taskPri={expandTaskPri}
           lastPage={lastPage}
+          priPosition={priPosition()}
+          unfinishedTodos={unfinishedTodos}
         />
       ) : (
         <div></div>
@@ -231,13 +253,14 @@ function AllTodos() {
                               <EachTodo
                                 id={each.id}
                                 key={each.id}
-                                index={index}
+                                index={each.index}
                                 priority={each.priority}
                                 taskName={each.taskName}
                                 taskDesc={each.taskDesc}
                                 finished={each.finished}
                                 time={each.time}
                                 timeType={each.timeType}
+                                unfinishedTodos={unfinishedTodos}
                                 startLoading={() => loadData()}
                                 activateLoader={(shouldLoad) =>
                                   setLoading(shouldLoad)
@@ -278,13 +301,14 @@ function AllTodos() {
                               <EachTodo
                                 id={each.id}
                                 key={each.id}
-                                index={index}
+                                index={each.index}
                                 priority={each.priority}
                                 taskName={each.taskName}
                                 taskDesc={each.taskDesc}
                                 finished={each.finished}
                                 time={each.time}
                                 timeType={each.timeType}
+                                unfinishedTodos={unfinishedTodos}
                                 startLoading={() => loadData()}
                                 activateLoader={(shouldLoad) =>
                                   setLoading(shouldLoad)

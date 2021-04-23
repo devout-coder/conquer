@@ -35,9 +35,19 @@ function EachTodo(props) {
         props.startLoading(); //this triggers that loadData func in allTodos which fetches all todos again
       });
   };
+  function deleteTodoManagePri(newIndex) {
+    props.unfinishedTodos.forEach((each, index) => {
+      if (index >= newIndex) {
+        firebaseApp.firestore().collection("todos").doc(each.id).update({
+          index: index-1,
+        });
+      }
+    });
+  }
   function deleteTodo() {
     //this func deletes that particular todo
     setModalOpen(false);
+    deleteTodoManagePri(props.index)
     firebaseApp
       .firestore()
       .collection("todos")

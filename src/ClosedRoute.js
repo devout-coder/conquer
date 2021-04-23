@@ -5,7 +5,6 @@ import { loadingContext } from "./loadingContext";
 
 function ClosedRoute(props) {
   const user = useContext(loadingContext);
-  console.log(user)
   return (
     <Route
       path={props.path}

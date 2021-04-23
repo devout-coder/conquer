@@ -18,10 +18,30 @@ function NewTodoModal(props) {
   const [taskId, settaskId] = useState(props.taskId);
   const [ctrlPressed, setCtrlPressed] = useState(false);
 
+  function decidePosition(priority) {
+    //this function takes a priority and returns the sutiable index for a new element of that priority
+    let reqIndex;
+    props.priPosition.forEach((each) => {
+      if (priority == each[0]) {
+        reqIndex = each[1];
+      }
+    });
+    return reqIndex;
+  }
+  function newTodoManagePri(newIndex) {
+    props.unfinishedTodos.forEach((each, index) => {
+      if (index >= newIndex) {
+        firebaseApp.firestore().collection("todos").doc(each.id).update({
+          index: index+1,
+        });
+      }
+    });
+  }
   function saveTodo() {
     if (props.taskId === "") {
       //makes a new todo if the id prop is empty str which means that no particular todo is opened
-      firebaseApp.firestore().collection("todos").add({
+      newTodoManagePri(decidePosition(taskPri));
+      let todo = {
         taskName: taskName,
         taskDesc: taskDesc,
         time: props.time,
@@ -29,7 +49,9 @@ function NewTodoModal(props) {
         priority: taskPri,
         user: firebaseApp.auth().currentUser.uid,
         finished: false,
-      });
+        index: decidePosition(taskPri),
+      };
+      firebaseApp.firestore().collection("todos").add(todo);
     } else {
       //modifies the properties of original todo if some exisiting todo is opened in modal
       firebaseApp.firestore().collection("todos").doc(taskId).set(
