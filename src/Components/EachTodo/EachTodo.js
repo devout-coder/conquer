@@ -38,16 +38,20 @@ function EachTodo(props) {
   function deleteTodoManagePri(newIndex) {
     props.unfinishedTodos.forEach((each, index) => {
       if (index >= newIndex) {
-        firebaseApp.firestore().collection("todos").doc(each.id).update({
-          index: index-1,
-        });
+        firebaseApp
+          .firestore()
+          .collection("todos")
+          .doc(each.id)
+          .update({
+            index: index - 1,
+          });
       }
     });
   }
   function deleteTodo() {
     //this func deletes that particular todo
     setModalOpen(false);
-    deleteTodoManagePri(props.index)
+    deleteTodoManagePri(props.index);
     firebaseApp
       .firestore()
       .collection("todos")
@@ -99,8 +103,7 @@ function EachTodo(props) {
           props.taskName,
           props.taskDesc,
           props.priority,
-          props.time,
-          props.timeType
+          props.index
         );
       } else {
         //if the todo is not already clicked then phoneTodo is added to its classList which changes the color of the todo and also makes the delete button visible
@@ -113,12 +116,10 @@ function EachTodo(props) {
         props.taskName,
         props.taskDesc,
         props.priority,
-        props.time,
-        props.timeType
+        props.index
       );
     }
   }
-
   document.addEventListener("click", (eve) => {
     let reqElem = document.getElementById(props.id);
     if (reqElem != null) {
@@ -128,116 +129,112 @@ function EachTodo(props) {
       }
     }
   });
-  function ConstJSX(newProps){
-    return(
-     <div
-      className={isMobile.any() ? "eachTodo" : "eachTodo laptopTodo"}
-      id={props.id}
-    >
-      <Dialog
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Are you sure you want to delete this item from your list?"}
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={() => setModalOpen(false)} color="secondary">
-            No
-          </Button>
-          <Button onClick={deleteTodo} color="primary" autoFocus>
-            Yeah
-          </Button>
-        </DialogActions>
-      </Dialog>
-      {!props.sidebarTodo && !props.finished ? (
-        <div className="dragger" {...newProps.dragger}>
-          <DragIndicatorIcon style={{ color: "#c6c4c4" }}></DragIndicatorIcon>
-        </div>
-      ) : (
-        <div></div>
-      )}
-      <Checkbox
-        style={{
-          color: props.finished
-            ? "#474747"
-            : props.priority == 3
-            ? "#ff5151"
-            : props.priority == 2
-            ? "#7885fb"
-            : props.priority == 1
-            ? "#20e734"
-            : "rgba(198, 196, 196, 0.61)", //different color based on priority
-        }}
-        checked={checked}
-        onChange={checkUncheckfunc}
-        inputProps={{ "aria-label": "primary checkbox" }}
-      />
+  function ConstJSX(newProps) {
+    return (
       <div
-        className={
-          props.finished
-            ? "finishedTodo eachTodoTaskName"
-            : props.priority == 3
-            ? "highPriority eachTodoTaskName"
-            : props.priority == 2
-            ? "mediumPriority eachTodoTaskName"
-            : props.priority == 1
-            ? "lowPriority eachTodoTaskName"
-            : "noPriority eachTodoTaskName"
-        }
-        onClick={() => {
-          handleTodoClick();
-        }}
+        className={isMobile.any() ? "eachTodo" : "eachTodo laptopTodo"}
+        id={props.id}
       >
-        {props.taskName}
-      </div>
-      {props.sidebarTodo ? (
-        <span
-          className="todoTime"
-          onClick={() =>
-            props.timeType != "year"
-              ? history.push({
-                  pathname: `${props.timeType}/allTodos`,
-                  state: { time: props.time, lastPage: props.timeType },
-                })
-              : history.push({
-                  pathname: "/year",
-                  state: { time: props.time },
-                })
-          }
+        <Dialog
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
-          {props.time}
-        </span>
-      ) : (
-        <span className="noTodoTime"></span>
-      )}
-      <IconButton onClick={() => setModalOpen(true)}>
-        <DeleteIcon
+          <DialogTitle id="alert-dialog-title">
+            {"Are you sure you want to delete this item from your list?"}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={() => setModalOpen(false)} color="secondary">
+              No
+            </Button>
+            <Button onClick={deleteTodo} color="primary" autoFocus>
+              Yeah
+            </Button>
+          </DialogActions>
+        </Dialog>
+        {!props.sidebarTodo && !props.finished ? (
+          <div className="dragger" {...newProps.dragger}>
+            <DragIndicatorIcon style={{ color: "#c6c4c4" }}></DragIndicatorIcon>
+          </div>
+        ) : (
+          <div></div>
+        )}
+        <Checkbox
           style={{
-            color: "#FF3131",
+            color: props.finished
+              ? "#474747"
+              : props.priority == 3
+              ? "#ff5151"
+              : props.priority == 2
+              ? "#7885fb"
+              : props.priority == 1
+              ? "#20e734"
+              : "rgba(198, 196, 196, 0.61)", //different color based on priority
           }}
+          checked={checked}
+          onChange={checkUncheckfunc}
+          inputProps={{ "aria-label": "primary checkbox" }}
         />
-      </IconButton>
-    </div> 
-    )
-
-  };
+        <div
+          className={
+            props.finished
+              ? "finishedTodo eachTodoTaskName"
+              : props.priority == 3
+              ? "highPriority eachTodoTaskName"
+              : props.priority == 2
+              ? "mediumPriority eachTodoTaskName"
+              : props.priority == 1
+              ? "lowPriority eachTodoTaskName"
+              : "noPriority eachTodoTaskName"
+          }
+          onClick={() => {
+            handleTodoClick();
+          }}
+        >
+          {props.taskName}
+        </div>
+        {props.sidebarTodo ? (
+          <span
+            className="todoTime"
+            onClick={() =>
+              props.timeType != "year"
+                ? history.push({
+                    pathname: `${props.timeType}/allTodos`,
+                    state: { time: props.time, lastPage: props.timeType },
+                  })
+                : history.push({
+                    pathname: "/year",
+                    state: { time: props.time },
+                  })
+            }
+          >
+            {props.time}
+          </span>
+        ) : (
+          <span className="noTodoTime"></span>
+        )}
+        <IconButton onClick={() => setModalOpen(true)}>
+          <DeleteIcon
+            style={{
+              color: "#FF3131",
+            }}
+          />
+        </IconButton>
+      </div>
+    );
+  }
 
   return !props.sidebarTodo ? (
     <Draggable draggableId={props.id} index={props.index}>
       {(provided, snapshot) => (
-        <div
-          {...provided.draggableProps}
-          ref={provided.innerRef}
-        >
-          <ConstJSX dragger = {provided.dragHandleProps} />
+        <div {...provided.draggableProps} ref={provided.innerRef}>
+          <ConstJSX dragger={provided.dragHandleProps} />
         </div>
       )}
     </Draggable>
   ) : (
-    <ConstJSX/>
+    <ConstJSX />
   );
 }
 

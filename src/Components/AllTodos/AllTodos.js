@@ -29,6 +29,7 @@ function AllTodos() {
   const [expandTaskName, setExpandTaskName] = useState("");
   const [expandTaskDesc, setExpandTaskDesc] = useState("");
   const [expandTaskPri, setExpandTaskPri] = useState("0");
+  const [expandTaskIndex, setExpandTaskIndex] = useState(0)
   //if any specific todo is clicked, all these expandTask details will be passed as a prop to the modal
   
   const [openTodoModal, setOpenTodoModal] = useState(false);
@@ -83,12 +84,13 @@ function AllTodos() {
     //this func takes date and removes the space and year from it...
     return date.replace(/\s\d{4}/g, "");
   }
-  function expandTodo(id, taskName, taskDesc, taskPri) {
+  function expandTodo(id, taskName, taskDesc, taskPri, index) {
     //this function uses the parameters given by the particular todo triggering this function and sets those parameters equal to the state..then the modal is opened with these states as props
     setExpandTaskName(taskName);
     setExpandTaskDesc(taskDesc);
     setExpandTaskPri(taskPri);
     setExpandTaskId(id);
+    setExpandTaskIndex(index)
     setOpenTodoModal(true);
   }
   function expandBlankTodo() {
@@ -108,6 +110,10 @@ function AllTodos() {
   }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
 
   function priPosition() {
+    //this function computes the appropriate position for any new todo of each priority
+    //it returns an array something like this [[3,1], [2, 4], [1, 8], [0, 10]]
+    //it means the  array has 1 todo already exisiting at 0 position so appropriate position for new element of priority 3 is 1 and so on
+
     let reqPos = [];
     for (let i = 3; i >= 0; i--) {
       if (unfinishedTodos.length != 0){
@@ -125,7 +131,6 @@ function AllTodos() {
     }
     return reqPos;
   }
-  console.log(unfinishedTodos)
 
   function rearrangeList(props) {
     //this func deals with changes the todo position on drag end and also saves the positions in firebase
@@ -183,6 +188,7 @@ function AllTodos() {
           taskName={expandTaskName}
           taskDesc={expandTaskDesc}
           taskPri={expandTaskPri}
+          taskIndex={expandTaskIndex}
           lastPage={lastPage}
           priPosition={priPosition()}
           unfinishedTodos={unfinishedTodos}
@@ -265,8 +271,8 @@ function AllTodos() {
                                 activateLoader={(shouldLoad) =>
                                   setLoading(shouldLoad)
                                 }
-                                expandTodo={(id, taskName, taskDesc, taskPri) =>
-                                  expandTodo(id, taskName, taskDesc, taskPri)
+                                expandTodo={(id, taskName, taskDesc, taskPri, index) =>
+                                  expandTodo(id, taskName, taskDesc, taskPri, index)
                                 }
                                 sidebarTodo={false}
                               />
@@ -313,8 +319,8 @@ function AllTodos() {
                                 activateLoader={(shouldLoad) =>
                                   setLoading(shouldLoad)
                                 }
-                                expandTodo={(id, taskName, taskDesc, taskPri) =>
-                                  expandTodo(id, taskName, taskDesc, taskPri)
+                                expandTodo={(id, taskName, taskDesc, taskPri, index) =>
+                                  expandTodo(id, taskName, taskDesc, taskPri, index)
                                 }
                                 sidebarTodo={false}
                               />

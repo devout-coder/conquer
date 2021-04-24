@@ -10,6 +10,8 @@ import {
 } from "@material-ui/core";
 import "./NewTodoModal.css";
 import firebaseApp from "../../firebase";
+import { useEffect } from "react";
+import { useRef } from "react";
 
 function NewTodoModal(props) {
   const [taskPri, setTaskPri] = useState(props.taskPri);
@@ -17,6 +19,19 @@ function NewTodoModal(props) {
   const [taskDesc, setTaskDesc] = useState(props.taskDesc);
   const [taskId, settaskId] = useState(props.taskId);
   const [ctrlPressed, setCtrlPressed] = useState(false);
+  const [priChanged, setPriChanged] = useState(false);
+
+  const initialRender = useRef(true);
+  //useRef is used to store data which doesn't change even on re-render
+
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+      //once its set false even though the component re-renders its value be false
+    } else {
+      setPriChanged(true);
+    }
+  }, [taskPri]);
 
   function decidePosition(priority) {
     //this function takes a priority and returns the sutiable index for a new element of that priority
@@ -28,18 +43,60 @@ function NewTodoModal(props) {
     });
     return reqIndex;
   }
+
   function newTodoManagePri(newIndex) {
+    // it increases the index of all todos which have index value equal to or more than newIndex
     props.unfinishedTodos.forEach((each, index) => {
       if (index >= newIndex) {
-        firebaseApp.firestore().collection("todos").doc(each.id).update({
-          index: index+1,
-        });
+        firebaseApp
+          .firestore()
+          .collection("todos")
+          .doc(each.id)
+          .update({
+            index: index + 1,
+          });
       }
     });
   }
+
+  function existingTodoChangePri() {
+    //this changes the priority of all todos in between the todo and its new position
+
+    let initialPos = props.taskIndex;
+    let finalPos = decidePosition(taskPri);
+    if (initialPos < finalPos) {
+      props.unfinishedTodos.forEach((each, index) => {
+        if (index > initialPos && index < finalPos) {
+          // this reduces index of all items in between initial and final position by 1
+          firebaseApp
+          .firestore()
+          .collection("todos")
+          .doc(each.id)
+          .update({
+            index: index - 1,
+          });
+        }
+      });
+    } else if (initialPos > finalPos) {
+      // this increases index of all items in between initial and final position by 1
+      props.unfinishedTodos.forEach((each, index) => {
+        if (index < initialPos && index >= finalPos) {
+          firebaseApp
+            .firestore()
+            .collection("todos")
+            .doc(each.id)
+            .update({
+              index: index + 1,
+            });
+        }
+      });
+    }
+  }
+
   function saveTodo() {
     if (props.taskId === "") {
       //makes a new todo if the id prop is empty str which means that no particular todo is opened
+
       newTodoManagePri(decidePosition(taskPri));
       let todo = {
         taskName: taskName,
@@ -54,16 +111,32 @@ function NewTodoModal(props) {
       firebaseApp.firestore().collection("todos").add(todo);
     } else {
       //modifies the properties of original todo if some exisiting todo is opened in modal
-      firebaseApp.firestore().collection("todos").doc(taskId).set(
-        {
-          taskName: taskName,
-          taskDesc: taskDesc,
-          priority: taskPri,
-        },
-        { merge: true }
-      );
+      if (priChanged) {
+        existingTodoChangePri();
+      }
+      firebaseApp
+        .firestore()
+        .collection("todos")
+        .doc(taskId)
+        .set(
+          {
+            taskName: taskName,
+            taskDesc: taskDesc,
+            priority: taskPri,
+            index:
+            //props.taskIndex is the inital position and decidePosition(taskPri) gives the final position
+            //!  DON'T TOUCH IT PLZ this piece of code was absolutely mind fucking
+              priChanged && (props.taskIndex < decidePosition(taskPri))
+                ? decidePosition(taskPri) - 1
+                : priChanged && (props.taskIndex > decidePosition(taskPri))
+                ? decidePosition(taskPri)
+                : props.taskIndex,
+          },
+          { merge: true }
+        );
+      setPriChanged(false);
     }
-    props.shouldReload()
+    props.shouldReload();
     props.openTodoModal(false);
   }
 
