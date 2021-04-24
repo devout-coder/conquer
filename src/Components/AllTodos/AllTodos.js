@@ -259,7 +259,7 @@ function AllTodos() {
                               <EachTodo
                                 id={each.id}
                                 key={each.id}
-                                index={each.index}
+                                index={index}
                                 priority={each.priority}
                                 taskName={each.taskName}
                                 taskDesc={each.taskDesc}
@@ -307,7 +307,7 @@ function AllTodos() {
                               <EachTodo
                                 id={each.id}
                                 key={each.id}
-                                index={each.index}
+                                index={index}
                                 priority={each.priority}
                                 taskName={each.taskName}
                                 taskDesc={each.taskDesc}
