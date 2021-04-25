@@ -11,6 +11,7 @@
   flex-direction: column;
   align-items: center;
   margin-left: 10%;
+  margin-top: 20px;
 }
 
 .topbarMonth {
@@ -38,7 +39,7 @@ td {
 
 th {
   text-align: center;
-  padding: 10px;
+  padding: 11px;
 }
 
 td .MuiIconButton-label {
@@ -81,6 +82,7 @@ td .MuiIconButton-label {
 @media only screen and (max-width: 640px) {
   .calendar{
     position: relative;
+    left: 10px;
     top: -30px;
   }
   .calendar table {
@@ -97,8 +99,11 @@ td .MuiIconButton-label {
     font-size: 5vw;
     /* margin: 0px 2vw 0px 2vw; */
   }
+  th {
+    padding: 6px;
+  }
   td {
-    padding: 0.2vw 0vw 0.2vw 0vw;
+    padding: 0.1vw 0vw 0.1vw 0vw;
   }
   #today {
     background-color: transparent;

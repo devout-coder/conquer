@@ -149,6 +149,7 @@
 @media only screen and (max-width: 450px) {
   .incompleteTodosSidebar {
     max-height: 300px;
+    right: 20px;
     height: auto;
     z-index: 4;
   }

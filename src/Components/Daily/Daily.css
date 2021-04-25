@@ -11,8 +11,9 @@ button:hover {
   display: flex;
   justify-content: space-between;
   position: relative;
+  /* background-color: blueviolet; */
   top: 30px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 

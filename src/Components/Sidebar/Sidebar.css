@@ -36,6 +36,9 @@
 
 
 @media only screen and (max-width:600px){
+  .sidebar{
+    margin-left: 0;
+  }
   .sidebarIcon{
     width: 7vw;
     height: 8vw;
