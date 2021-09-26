@@ -15,7 +15,7 @@
   margin: auto;
   width: 90%;
   position: relative; 
-  top: 100px;
+  top: 200px;
   text-align: center;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .landingPara1 {
-  font-size: 40px;
+  font-size: 38px;
   color: #ffffff;
 }
 
@@ -40,12 +40,12 @@
 }
 
 .getStartedButt {
-  background: #a981ff;
+  background: #ceb8ff;
   border-radius: 15px;
   font-family: Poppins;
   font-style: normal;
   font-weight: 600;
-  font-size: 27px;
+  font-size: 23px;
   animation-name: buttonMove;
   animation-duration: 1.5s;
   animation-delay: 1s;
@@ -53,6 +53,7 @@
   height: 60px;
   position: relative;
   bottom: 100vh;
+  margin-top: 40px;
   padding: 10px;
   color: #000000;
 }

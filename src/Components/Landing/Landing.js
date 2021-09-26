@@ -10,10 +10,7 @@ function Landing() {
       <Navbar />
       <div className="landingContent">
         <p className="landingPara landingPara1">
-          We believe you can conquer all your goals..
-        </p>
-        <p className="landingPara landingPara2">
-          Our mission is to provide you an awesome tool to help you plan your journey
+          Introducing the best way to plan your goals...
         </p>
         <button className="getStartedButt" onClick={()=>history.push('/signup')}  >Get Started</button>
       </div>
