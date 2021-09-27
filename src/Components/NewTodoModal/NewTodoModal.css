@@ -1,11 +1,14 @@
 .modalBackground {
-  background-color: rgba(0, 0, 0, 0.692);
+  /* background-color: rgba(0, 0, 0, 0.692); */
   width: 105vw;
   height: 103vh;
   position: fixed;
   z-index: 5;
-  display: grid;
-  place-items: center;
+  display: flex;
+  /* place-items: center; */
+  flex-direction: row ;
+  justify-content: end;
+  align-items: center;
   top: 0;
   left: 0;
 }
@@ -15,13 +18,20 @@
 }
 
 .modal {
-  background: #a7e498;
+  background: #FFF7F7;
   border-radius: 20px;
   padding: 10px;
-  width: 63%;
+  width: 35%;
+  position: absolute;
   height: 400px;
-  animation-name: fadeIn;
-  animation-duration: 0.5s;
+  animation-name: slideIn;
+  right: 50px;
+  animation-duration: 1s;
+}
+
+.removeModal {
+  animation-name: slideOut;
+  animation-duration: 1s;
 }
 
 .modalTopbar {
@@ -31,12 +41,12 @@
 }
 
 #modalTaskName {
-  font-family: Ubuntu;
+  font-family: Poppins;
   font-weight: 500;
   font-size: 32px;
   color: black;
   width: 70%;
-  background: #a7e498;
+  background: #FFF7F7;
   margin-left: 3%;
   margin-right: 7%;
 }
@@ -71,8 +81,8 @@
   resize: none;
   height: 60%;
   width: 90%;
-  background: #a7e498;
-  font-family: Ubuntu;
+  background: #FFF7F7;
+  font-family: Poppins;
   font-weight: 400;
   font-size: 28px;
   line-height: 46px;
@@ -113,12 +123,21 @@
   font-weight: 600 !important;
 }
 
-@keyframes fadeIn {
+@keyframes slideIn {
   0% {
-    opacity: 0;
+    right: -500px;
   }
   100% {
-    opacity: 1;
+    right:50px;
+  }
+}
+
+@keyframes slideOut{
+  0%{
+    right: 50px;
+  }
+  100%{
+    right: -500px;
   }
 }
 

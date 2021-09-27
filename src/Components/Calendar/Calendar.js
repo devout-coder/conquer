@@ -43,7 +43,6 @@ function Calendar() {
     let noPrevDays = new Date(currentYear, currentMonth, 1).getDay() - 1;
     noPrevDays = noPrevDays === -1 ? 6 : noPrevDays;
     //this var holds the value of no of days in previous month which appear in the first week of this month
-
     let noNextDays =
       7 -
       new Date(
@@ -135,7 +134,6 @@ function Calendar() {
       setCurrentMonth(0);
     }
   };
-
   const decreaseMonth = () => {
     //this function decreases the month and changes the month to december of previous year if the existing month is jan
     if (currentMonth > 0) {

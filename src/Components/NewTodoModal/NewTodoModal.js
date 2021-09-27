@@ -24,6 +24,13 @@ function NewTodoModal(props) {
   const initialRender = useRef(true);
   //useRef is used to store data which doesn't change even on re-render
 
+  function slideback() {
+    document.getElementsByClassName("modal")[0].classList.add("removeModal");
+    setTimeout(() => {
+      props.openTodoModal(false);
+    }, 800);
+  }
+
   useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
@@ -69,12 +76,12 @@ function NewTodoModal(props) {
         if (index > initialPos && index < finalPos) {
           // this reduces index of all items in between initial and final position by 1
           firebaseApp
-          .firestore()
-          .collection("todos")
-          .doc(each.id)
-          .update({
-            index: index - 1,
-          });
+            .firestore()
+            .collection("todos")
+            .doc(each.id)
+            .update({
+              index: index - 1,
+            });
         }
       });
     } else if (initialPos > finalPos) {
@@ -124,11 +131,11 @@ function NewTodoModal(props) {
             taskDesc: taskDesc,
             priority: taskPri,
             index:
-            //props.taskIndex is the inital position and decidePosition(taskPri) gives the final position
-            //!  DON'T TOUCH IT PLZ this piece of code was absolutely mind fucking
-              priChanged && (props.taskIndex < decidePosition(taskPri))
+              //props.taskIndex is the inital position and decidePosition(taskPri) gives the final position
+              //!  DON'T TOUCH IT PLZ this piece of code was absolutely mind fucking
+              priChanged && props.taskIndex < decidePosition(taskPri)
                 ? decidePosition(taskPri) - 1
-                : priChanged && (props.taskIndex > decidePosition(taskPri))
+                : priChanged && props.taskIndex > decidePosition(taskPri)
                 ? decidePosition(taskPri)
                 : props.taskIndex,
           },
@@ -137,7 +144,7 @@ function NewTodoModal(props) {
       setPriChanged(false);
     }
     props.shouldReload();
-    props.openTodoModal(false);
+    slideback()
   }
 
   return (
@@ -147,14 +154,14 @@ function NewTodoModal(props) {
         try {
           if (!document.getElementsByClassName("modal")[0].contains(e.target)) {
             //this if statement checks if the click is inside the modal of not
-            props.openTodoModal(false);
+            slideback();
           }
         } catch (error) {} //ve added a try catch statement cause it gives error when i open the priority list
       }}
       onKeyDown={(evt) => {
         //this function checks for keypresses..in case esc button is pressed modal is closed..if ctrl+s is pressed its saved
         if (evt.key == "Escape") {
-          props.openTodoModal(false);
+          slideback()
         } else if (evt.key == "Control") {
           setCtrlPressed(true);
         } else if (evt.key == "s" && ctrlPressed) {
@@ -219,7 +226,7 @@ function NewTodoModal(props) {
             <IconButton
               title="Back"
               id="modalBackButton"
-              onClick={() => props.openTodoModal(false)}
+              onClick={() => slideback()}
             >
               <ArrowBack />
             </IconButton>
