@@ -6,26 +6,26 @@
   z-index: 5;
   display: flex;
   /* place-items: center; */
-  flex-direction: row ;
+  flex-direction: row;
   justify-content: end;
   align-items: center;
   top: 0;
   left: 0;
 }
 
-.MuiSelect-root span{
+.MuiSelect-root span {
   display: none;
 }
 
 .modal {
-  background: #FFF7F7;
+  background: #fff7f7;
   border-radius: 20px;
   padding: 10px;
   width: 35%;
   position: absolute;
-  height: 400px;
+  height: 50%;
   animation-name: slideIn;
-  right: 50px;
+  right: 3vw;
   animation-duration: 1s;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .modalTopbar {
-  padding: 20px;
+  padding: 10px;
   display: flex;
   align-items: center;
 }
@@ -43,10 +43,10 @@
 #modalTaskName {
   font-family: Poppins;
   font-weight: 500;
-  font-size: 32px;
+  font-size: 28px;
   color: black;
-  width: 70%;
-  background: #FFF7F7;
+  width: 90%;
+  background: #fff7f7;
   margin-left: 3%;
   margin-right: 7%;
 }
@@ -63,6 +63,7 @@
 .modalButtons {
   display: flex;
   align-items: flex-start;
+  margin-left: 20px;
 }
 
 .modal hr {
@@ -81,10 +82,10 @@
   resize: none;
   height: 60%;
   width: 90%;
-  background: #FFF7F7;
+  background: #fff7f7;
   font-family: Poppins;
   font-weight: 400;
-  font-size: 28px;
+  font-size: 25px;
   line-height: 46px;
   color: #5c3535;
 }
@@ -128,45 +129,84 @@
     right: -500px;
   }
   100% {
-    right:50px;
+    right: 3vw;
   }
 }
 
-@keyframes slideOut{
-  0%{
-    right: 50px;
+@keyframes slideOut {
+  0% {
+    right: 3vw;
   }
-  100%{
+  100% {
     right: -500px;
   }
 }
 
-@media only screen and (max-height: 550px){
+/* @media only screen and (max-height: 550px){
   .modal{
     height: 80vh;
   }
-}
+} */
 
 @media only screen and (max-width: 600px) {
+  .modalBackground {
+    justify-content: center;
+  }
   .modal {
-    width: 80%;
-    margin-right: 5%;
+    width: 70%;
+    right: 15vw;
+    bottom: 0;
+    animation-name: slideUp;
+    animation-duration: 1s;
+    /* margin-right: 5%; */
+  }
+  .removeModal {
+    animation-name: slideDown;
+    animation-duration: 1s;
+  }
+  .modal hr {
+    margin-top: 17px;
   }
   .modalTopbar {
-    padding: 10px;
+    margin-top: 15px;
   }
   .modalButtons {
     position: relative;
-    top: 340px;
-    left: 10px;
+    justify-content: flex-end;
+    bottom: 10px;
   }
   #modalTaskName {
     position: absolute;
-    width: 70%;
-    font-size: 6.8vw;
+    /* width: 70%; */
+    width: 80%;
+    font-size: 5vw;
   }
   #modalTaskDesc {
-    font-size: 5vw;
+    font-size: 4.8vw;
+  }
+  .MuiFormHelperText-root {
+    font-size: 3vw !important;
+  }
+  .modal .MuiSvgIcon-root {
+    height: 5vw !important;
+    width: 5vw !important;
+  }
+
+  @keyframes slideUp {
+    0% {
+      top: 300px;
+    }
+    100% {
+      bottom: 0px;
+    }
+  }
+  @keyframes slideDown {
+    0% {
+      bottom: 0px;
+    }
+    100% {
+      top: 300px;
+    }
   }
 }
 /* .modal ::-webkit-scrollbar {

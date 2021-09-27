@@ -25,6 +25,7 @@ function NewTodoModal(props) {
   //useRef is used to store data which doesn't change even on re-render
 
   function slideback() {
+    //this new class removeModal will be added which has a cool slideback animation attached to it
     document.getElementsByClassName("modal")[0].classList.add("removeModal");
     setTimeout(() => {
       props.openTodoModal(false);
@@ -132,7 +133,7 @@ function NewTodoModal(props) {
             priority: taskPri,
             index:
               //props.taskIndex is the inital position and decidePosition(taskPri) gives the final position
-              //!  DON'T TOUCH IT PLZ this piece of code was absolutely mind fucking
+              //!  DON'T TOUCH IT PLEASE this piece of code was absolutely mind fucking
               priChanged && props.taskIndex < decidePosition(taskPri)
                 ? decidePosition(taskPri) - 1
                 : priChanged && props.taskIndex > decidePosition(taskPri)
@@ -144,7 +145,7 @@ function NewTodoModal(props) {
       setPriChanged(false);
     }
     props.shouldReload();
-    slideback()
+    slideback();
   }
 
   return (
@@ -161,7 +162,7 @@ function NewTodoModal(props) {
       onKeyDown={(evt) => {
         //this function checks for keypresses..in case esc button is pressed modal is closed..if ctrl+s is pressed its saved
         if (evt.key == "Escape") {
-          slideback()
+          slideback();
         } else if (evt.key == "Control") {
           setCtrlPressed(true);
         } else if (evt.key == "s" && ctrlPressed) {
@@ -188,56 +189,6 @@ function NewTodoModal(props) {
             maxLength="42"
             onChange={(e) => setTaskName(e.target.value)}
           />
-          <div className="modalButtons">
-            <FormControl>
-              <Select
-                value={taskPri}
-                onChange={(e) => setTaskPri(e.target.value)}
-                displayEmpty
-              >
-                <MenuItem value="3" className="eachPriority">
-                  <PriorityHighIcon
-                    id="highPriority"
-                    style={{ color: "#FF3131" }}
-                  ></PriorityHighIcon>
-                  <span>High</span>
-                </MenuItem>
-                <MenuItem value="2" className="eachPriority">
-                  <PriorityHighIcon
-                    id="mediumPriority"
-                    style={{ color: "#464D8E" }}
-                  ></PriorityHighIcon>
-                  <span>Medium</span>
-                </MenuItem>
-                <MenuItem value="1" className="eachPriority">
-                  <PriorityHighIcon
-                    id="lowPriority"
-                    style={{ color: "#11B421" }}
-                  ></PriorityHighIcon>
-                  <span>Low</span>
-                </MenuItem>
-                <MenuItem value="0" className="eachPriority">
-                  <PriorityHighIcon></PriorityHighIcon>
-                  <span>No priority</span>
-                </MenuItem>
-              </Select>
-              <FormHelperText>Priority</FormHelperText>
-            </FormControl>
-            <IconButton
-              title="Back"
-              id="modalBackButton"
-              onClick={() => slideback()}
-            >
-              <ArrowBack />
-            </IconButton>
-            <IconButton
-              title="Save"
-              id="modalSaveButton"
-              onClick={() => saveTodo()}
-            >
-              <Save />
-            </IconButton>
-          </div>
         </div>
         <hr />
         <textarea
@@ -247,6 +198,56 @@ function NewTodoModal(props) {
           value={taskDesc}
           onChange={(e) => setTaskDesc(e.target.value)}
         ></textarea>
+        <div className="modalButtons">
+          <FormControl>
+            <Select
+              value={taskPri}
+              onChange={(e) => setTaskPri(e.target.value)}
+              displayEmpty
+            >
+              <MenuItem value="3" className="eachPriority">
+                <PriorityHighIcon
+                  id="highPriority"
+                  style={{ color: "#FF3131" }}
+                ></PriorityHighIcon>
+                <span>High</span>
+              </MenuItem>
+              <MenuItem value="2" className="eachPriority">
+                <PriorityHighIcon
+                  id="mediumPriority"
+                  style={{ color: "#464D8E" }}
+                ></PriorityHighIcon>
+                <span>Medium</span>
+              </MenuItem>
+              <MenuItem value="1" className="eachPriority">
+                <PriorityHighIcon
+                  id="lowPriority"
+                  style={{ color: "#11B421" }}
+                ></PriorityHighIcon>
+                <span>Low</span>
+              </MenuItem>
+              <MenuItem value="0" className="eachPriority">
+                <PriorityHighIcon></PriorityHighIcon>
+                <span>No priority</span>
+              </MenuItem>
+            </Select>
+            <FormHelperText>Priority</FormHelperText>
+          </FormControl>
+          <IconButton
+            title="Back"
+            id="modalBackButton"
+            onClick={() => slideback()}
+          >
+            <ArrowBack />
+          </IconButton>
+          <IconButton
+            title="Save"
+            id="modalSaveButton"
+            onClick={() => saveTodo()}
+          >
+            <Save />
+          </IconButton>
+        </div>
       </div>
     </div>
   );
