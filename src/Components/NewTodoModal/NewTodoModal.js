@@ -20,7 +20,6 @@ function NewTodoModal(props) {
   const [taskId, settaskId] = useState(props.taskId);
   const [ctrlPressed, setCtrlPressed] = useState(false);
   const [priChanged, setPriChanged] = useState(false);
-
   const initialRender = useRef(true);
   //useRef is used to store data which doesn't change even on re-render
 

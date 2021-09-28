@@ -45,6 +45,7 @@ function IncompleteTodosSidebar(props) {
   const [expandTaskPri, setExpandTaskPri] = useState("0");
   const [expandTaskTime, setExpandTaskTime] = useState("");
   const [expandTaskTimeType, setExpandTaskTimeType] = useState("");
+  const [expandTaskIndex, setExpandTaskIndex] = useState("0");
   //if any specific todo is clicked, all these expandTask details will be passed as a prop to the modal
   const [openTodoModal, setOpenTodoModal] = useState(false);
   //whenever this is true modal with required props is rendered
@@ -52,9 +53,9 @@ function IncompleteTodosSidebar(props) {
   function sortTodos(arr) {
     //later in func loadReqTodos i ve taken reqTodos as a parameter and sorts it by the time and in accordance of timeType(month, daily, week, year)
     let sortedTodos = arr;
-    sortedTodos = arr.sort((a, b)=>{
-      return a.index-b.index;
-    })
+    sortedTodos = arr.sort((a, b) => {
+      return a.index - b.index;
+    });
     sortedTodos = arr.sort((a, b) => {
       let temparr = [a.time, b.time];
       if (props.timeType == "year") {
@@ -137,7 +138,7 @@ function IncompleteTodosSidebar(props) {
             priority: each.get("priority"),
             finished: each.get("finished"),
             time: each.get("time"),
-            index:each.get("index"),
+            index: each.get("index"),
             timeType: each.get("timeType"),
           };
           if (!each.get("finished")) {
@@ -158,14 +159,13 @@ function IncompleteTodosSidebar(props) {
   }, [user]);
   // console.log(reqTodos);
 
-  function expandTodo(id, taskName, taskDesc, taskPri, taskTime, taskTimeType) {
+  function expandTodo(id, taskName, taskDesc, taskPri, taskIndex) {
     //this function uses the parameters given by the particular todo triggering this function and sets those parameters equal to the state..then the modal is opened with these states as props
     setExpandTaskName(taskName);
     setExpandTaskDesc(taskDesc);
     setExpandTaskPri(taskPri);
     setExpandTaskId(id);
-    setExpandTaskTime(taskTime);
-    setExpandTaskTimeType(taskTimeType);
+    setExpandTaskIndex(taskIndex)
     setOpenTodoModal(true);
   }
 
@@ -187,7 +187,8 @@ function IncompleteTodosSidebar(props) {
           taskName={expandTaskName}
           taskDesc={expandTaskDesc}
           taskPri={expandTaskPri}
-          lastPage={expandTaskTimeType}
+          taskIndex={expandTaskIndex}
+          // lastPage={expandTaskTimeType}
         />
       ) : (
         <div></div>
@@ -219,6 +220,7 @@ function IncompleteTodosSidebar(props) {
                 finished={each.finished}
                 time={each.time}
                 timeType={each.timeType}
+                index={each.index}
                 startLoading={() => loadReqTodos()}
                 // activateLoader={(shouldLoad) => setLoading(shouldLoad)}
                 expandTodo={(
@@ -226,16 +228,18 @@ function IncompleteTodosSidebar(props) {
                   taskName,
                   taskDesc,
                   taskPri,
-                  taskTime,
-                  taskTimeType
+                  // taskTime,
+                  // taskTimeType,
+                  taskIndex
                 ) =>
                   expandTodo(
                     id,
                     taskName,
                     taskDesc,
                     taskPri,
-                    taskTime,
-                    taskTimeType
+                    // taskTime,
+                    // taskTimeType,
+                    taskIndex
                   )
                 }
                 sidebarTodo={true}
