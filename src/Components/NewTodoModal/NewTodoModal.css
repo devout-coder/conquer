@@ -5,9 +5,8 @@
   position: fixed;
   z-index: 5;
   display: flex;
-  /* place-items: center; */
   flex-direction: row;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
   top: 0;
   left: 0;
@@ -24,13 +23,14 @@
   width: 35%;
   position: absolute;
   height: 50%;
-  animation-name: slideIn;
-  right: 3vw;
+  animation-name: slideUp;
+  /* right: 30vw; */
+  bottom: 1.5vw;
   animation-duration: 1s;
 }
 
 .removeModal {
-  animation-name: slideOut;
+  animation-name: slideDown;
   animation-duration: 1s;
 }
 
@@ -124,7 +124,7 @@
   font-weight: 600 !important;
 }
 
-@keyframes slideIn {
+/* @keyframes slideIn {
   0% {
     right: -500px;
   }
@@ -140,7 +140,25 @@
   100% {
     right: -500px;
   }
+} */
+
+@keyframes slideUp {
+  0%{
+    bottom: -100vw;
+  } 
+  100%{
+    bottom: 1.5vw;
+  }
 }
+@keyframes slideDown {
+  0%{
+    bottom: 1.5vw
+  } 
+  100%{
+    bottom: -100vw
+  }
+}
+
 
 /* @media only screen and (max-height: 550px){
   .modal{
@@ -154,8 +172,7 @@
   }
   .modal {
     width: 70%;
-    right: 15vw;
-    bottom: 0;
+    bottom: 1.5vw;
     animation-name: slideUp;
     animation-duration: 1s;
     /* margin-right: 5%; */
@@ -190,23 +207,6 @@
   .modal .MuiSvgIcon-root {
     height: 5vw !important;
     width: 5vw !important;
-  }
-
-  @keyframes slideUp {
-    0% {
-      top: 300px;
-    }
-    100% {
-      bottom: 0px;
-    }
-  }
-  @keyframes slideDown {
-    0% {
-      bottom: 0px;
-    }
-    100% {
-      top: 300px;
-    }
   }
 }
 /* .modal ::-webkit-scrollbar {
