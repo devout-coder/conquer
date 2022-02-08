@@ -1,5 +1,6 @@
 .allTodosPage {
   display: flex;
+  min-height: 512px;
 }
 
 .noTodosMessage {
@@ -167,7 +168,7 @@
     font-size: 5.3vw;
     /* margin: 0px 10px 0 10px; */
   }
-  .thisIsLongTerm .time{
+  .thisIsLongTerm .time {
     margin: 0;
   }
   .topbar {
@@ -195,8 +196,8 @@
   }
   .unfinishedTodosList::-webkit-scrollbar {
     -webkit-appearance: scrollbartrack-vertical;
-}    
-  .thisIsYear .unfinishedTodosList{
+  }
+  .thisIsYear .unfinishedTodosList {
     max-height: 300px;
   }
   .noTodosMessage {

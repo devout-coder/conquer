@@ -185,7 +185,6 @@ function NewTodoModal(props) {
             spellCheck="false"
             value={taskName}
             autoComplete="off"
-            maxLength="42"
             onChange={(e) => setTaskName(e.target.value)}
           />
         </div>
