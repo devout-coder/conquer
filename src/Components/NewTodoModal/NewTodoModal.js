@@ -12,6 +12,7 @@ import "./NewTodoModal.css";
 import firebaseApp from "../../firebase";
 import { useEffect } from "react";
 import { useRef } from "react";
+import { MdSubdirectoryArrowRight } from "react-icons/md";
 
 function NewTodoModal(props) {
   const [taskPri, setTaskPri] = useState(props.taskPri);
@@ -100,6 +101,10 @@ function NewTodoModal(props) {
     }
   }
 
+  function postponeTodo() {
+    console.log("postpone this todo!");
+  }
+
   function saveTodo() {
     if (props.taskId === "") {
       //makes a new todo if the id prop is empty str which means that no particular todo is opened
@@ -109,7 +114,7 @@ function NewTodoModal(props) {
         taskName: taskName,
         taskDesc: taskDesc,
         time: props.time,
-        timeType: props.lastPage,
+        timeType: props.timeType,
         priority: taskPri,
         user: firebaseApp.auth().currentUser.uid,
         finished: false,
@@ -237,6 +242,13 @@ function NewTodoModal(props) {
             onClick={() => slideback()}
           >
             <ArrowBack />
+          </IconButton>
+          <IconButton
+            title="Postpone"
+            id="modalPostponeButton"
+            onClick={() => postponeTodo()}
+          >
+            <MdSubdirectoryArrowRight />
           </IconButton>
           <IconButton
             title="Save"

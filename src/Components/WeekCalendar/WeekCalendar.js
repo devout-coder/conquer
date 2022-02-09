@@ -170,7 +170,7 @@ function WeekCalendar() {
             onClick={() =>
               history.push({
                 pathname: "week/allTodos",
-                state: { time: week.split("#")[0], lastPage: "week" },
+                state: { time: week.split("#")[0], timeType: "week" },
               })
             }
           >

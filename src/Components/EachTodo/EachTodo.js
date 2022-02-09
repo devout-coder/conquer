@@ -201,7 +201,7 @@ function EachTodo(props) {
               props.timeType != "year"
                 ? history.push({
                     pathname: `${props.timeType}/allTodos`,
-                    state: { time: props.time, lastPage: props.timeType },
+                    state: { time: props.time, timeType: props.timeType },
                   })
                 : history.push({
                     pathname: "/year",

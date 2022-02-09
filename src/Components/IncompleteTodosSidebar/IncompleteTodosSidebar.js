@@ -188,7 +188,7 @@ function IncompleteTodosSidebar(props) {
           taskDesc={expandTaskDesc}
           taskPri={expandTaskPri}
           taskIndex={expandTaskIndex}
-          // lastPage={expandTaskTimeType}
+          timeType={expandTaskTimeType}
         />
       ) : (
         <div></div>

@@ -31,7 +31,7 @@ function MonthCalendar() {
                     pathname: "month/allTodos",
                     state: {
                       time: `${month} ${year.toString()}`,
-                      lastPage: "month",
+                      timeType: "month",
                     },
                   })
                 }

@@ -12,7 +12,7 @@ function Year() {
     pathname: "/year/allTodos",
     state: {
       time: year != undefined ? year.time : new Date().getFullYear(),
-      lastPage: "year",
+      timeType: "year",
     },
   });
   return <div></div>;

@@ -77,6 +77,10 @@
   color: rgba(0, 0, 0, 0.692);
 }
 
+.modal .MuiIconButton-root {
+  color: rgba(0, 0, 0, 0.692);
+}
+
 #modalTaskDesc {
   margin: 2% 5% 2% 5%;
   resize: none;
@@ -143,22 +147,21 @@
 } */
 
 @keyframes slideUp {
-  0%{
+  0% {
     bottom: -100vw;
-  } 
-  100%{
+  }
+  100% {
     bottom: 1.5vw;
   }
 }
 @keyframes slideDown {
-  0%{
-    bottom: 1.5vw
-  } 
-  100%{
-    bottom: -100vw
+  0% {
+    bottom: 1.5vw;
+  }
+  100% {
+    bottom: -100vw;
   }
 }
-
 
 /* @media only screen and (max-height: 550px){
   .modal{

@@ -21,7 +21,7 @@ function AllTodos() {
   const history = useHistory();
   const location = useLocation(); //holds props
   const [time, setTime] = useState(location.state.time); //this holds the date/month/week/year of which the user wants all todos
-  const lastPage = location.state.lastPage; //this holds daily/weekly/monthly/yearly basically the type of time wanted
+  const timeType = location.state.timeType; //this holds daily/weekly/monthly/yearly basically the type of time wanted
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
   //finished and unfinished todos get updated when i use loadData func
@@ -189,7 +189,7 @@ function AllTodos() {
           taskDesc={expandTaskDesc}
           taskPri={expandTaskPri}
           taskIndex={expandTaskIndex}
-          lastPage={lastPage}
+          timeType={timeType}
           priPosition={priPosition()}
           unfinishedTodos={unfinishedTodos}
         />
@@ -201,26 +201,26 @@ function AllTodos() {
         <Sidebar />
         <div
           className={
-            lastPage == "year"
+            timeType == "year"
               ? "allTodosPageEmpty thisIsYear"
-              : lastPage == "longTerm"
+              : timeType == "longTerm"
               ? "allTodosPageEmpty thisIsLongTerm"
               : "allTodosPageEmpty"
           }
         >
           <div className="allTodosCont">
             <div className="topbar">
-              {lastPage != "longTerm" && lastPage != "year" ? (
+              {timeType != "longTerm" && timeType != "year" ? (
                 <IconButton
                   title="Back"
-                  onClick={() => history.push(`/${lastPage}`)}
+                  onClick={() => history.push(`/${timeType}`)}
                 >
                   <ArrowBackIcon />
                 </IconButton>
               ) : (
                 <div></div>
               )}
-              {lastPage != "year" ? (
+              {timeType != "year" ? (
                 <span className="time">{replaceDate(time)}</span>
               ) : (
                 <div className="modifiedYearPicker">
@@ -340,7 +340,7 @@ function AllTodos() {
               <div className="noTodosMessage">No tasks added yet!</div>
             )}
           </div>
-          {lastPage == "year" ? (
+          {timeType == "year" ? (
             <IncompleteTodosSidebar timeType="year" />
           ) : (
             <div></div>
