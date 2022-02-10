@@ -29,9 +29,10 @@ function AllTodos() {
   const [expandTaskName, setExpandTaskName] = useState("");
   const [expandTaskDesc, setExpandTaskDesc] = useState("");
   const [expandTaskPri, setExpandTaskPri] = useState("0");
-  const [expandTaskIndex, setExpandTaskIndex] = useState(0)
+  const [expandTaskTimesPostponed, setExpandTaskTimesPostponed] = useState(0);
+  const [expandTaskIndex, setExpandTaskIndex] = useState(0);
   //if any specific todo is clicked, all these expandTask details will be passed as a prop to the modal
-  
+
   const [openTodoModal, setOpenTodoModal] = useState(false);
   //whenever this is true modal with required props is rendered
 
@@ -57,8 +58,9 @@ function AllTodos() {
             priority: each.get("priority"),
             finished: each.get("finished"),
             time: each.get("time"),
-            index: each.get("index"),
             timeType: each.get("timeType"),
+            timesPostponed: each.get("timesPostponed"),
+            index: each.get("index"),
           };
           if (each.get("finished")) {
             //each doc in todos collection of firebase is added to either finished or unfinished list based on its finished status
@@ -84,13 +86,23 @@ function AllTodos() {
     //this func takes date and removes the space and year from it...
     return date.replace(/\s\d{4}/g, "");
   }
-  function expandTodo(id, taskName, taskDesc, taskPri, index) {
+  function expandTodo(
+    id,
+    taskName,
+    taskDesc,
+    time,
+    timeType,
+    timesPostponed,
+    taskPri,
+    index
+  ) {
     //this function uses the parameters given by the particular todo triggering this function and sets those parameters equal to the state..then the modal is opened with these states as props
     setExpandTaskName(taskName);
     setExpandTaskDesc(taskDesc);
+    setExpandTaskTimesPostponed(timesPostponed);
     setExpandTaskPri(taskPri);
     setExpandTaskId(id);
-    setExpandTaskIndex(index)
+    setExpandTaskIndex(index);
     setOpenTodoModal(true);
   }
   function expandBlankTodo() {
@@ -116,17 +128,17 @@ function AllTodos() {
 
     let reqPos = [];
     for (let i = 3; i >= 0; i--) {
-      if (unfinishedTodos.length != 0){
-       for(let index=0; index<unfinishedTodos.length; index++){
-        if (i > unfinishedTodos[index].priority) {
-          reqPos.push([i, index]);
-          break;
-        }else if(index==unfinishedTodos.length-1){
-          reqPos.push([i, unfinishedTodos.length])
+      if (unfinishedTodos.length != 0) {
+        for (let index = 0; index < unfinishedTodos.length; index++) {
+          if (i > unfinishedTodos[index].priority) {
+            reqPos.push([i, index]);
+            break;
+          } else if (index == unfinishedTodos.length - 1) {
+            reqPos.push([i, unfinishedTodos.length]);
+          }
         }
-      } 
-      }else{
-        reqPos.push([i,0])
+      } else {
+        reqPos.push([i, 0]);
       }
     }
     return reqPos;
@@ -190,6 +202,7 @@ function AllTodos() {
           taskPri={expandTaskPri}
           taskIndex={expandTaskIndex}
           timeType={timeType}
+          timesPostponed={expandTaskTimesPostponed}
           priPosition={priPosition()}
           unfinishedTodos={unfinishedTodos}
         />
@@ -266,13 +279,32 @@ function AllTodos() {
                                 finished={each.finished}
                                 time={each.time}
                                 timeType={each.timeType}
+                                timesPostponed={each.timesPostponed}
                                 unfinishedTodos={unfinishedTodos}
                                 startLoading={() => loadData()}
                                 activateLoader={(shouldLoad) =>
                                   setLoading(shouldLoad)
                                 }
-                                expandTodo={(id, taskName, taskDesc, taskPri, index) =>
-                                  expandTodo(id, taskName, taskDesc, taskPri, index)
+                                expandTodo={(
+                                  id,
+                                  taskName,
+                                  taskDesc,
+                                  time,
+                                  timeType,
+                                  timesPostponed,
+                                  taskPri,
+                                  index
+                                ) =>
+                                  expandTodo(
+                                    id,
+                                    taskName,
+                                    taskDesc,
+                                    time,
+                                    timeType,
+                                    timesPostponed,
+                                    taskPri,
+                                    index
+                                  )
                                 }
                                 sidebarTodo={false}
                               />
@@ -319,8 +351,20 @@ function AllTodos() {
                                 activateLoader={(shouldLoad) =>
                                   setLoading(shouldLoad)
                                 }
-                                expandTodo={(id, taskName, taskDesc, taskPri, index) =>
-                                  expandTodo(id, taskName, taskDesc, taskPri, index)
+                                expandTodo={(
+                                  id,
+                                  taskName,
+                                  taskDesc,
+                                  taskPri,
+                                  index
+                                ) =>
+                                  expandTodo(
+                                    id,
+                                    taskName,
+                                    taskDesc,
+                                    taskPri,
+                                    index
+                                  )
                                 }
                                 sidebarTodo={false}
                               />

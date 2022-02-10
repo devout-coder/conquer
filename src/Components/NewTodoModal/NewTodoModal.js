@@ -15,6 +15,9 @@ import { useRef } from "react";
 import { MdSubdirectoryArrowRight } from "react-icons/md";
 
 function NewTodoModal(props) {
+  console.log(props.time);
+  console.log(props.timeType);
+  console.log(props.timesPostponed);
   const [taskPri, setTaskPri] = useState(props.taskPri);
   const [taskName, setTaskName] = useState(props.taskName);
   const [taskDesc, setTaskDesc] = useState(props.taskDesc);
@@ -243,13 +246,19 @@ function NewTodoModal(props) {
           >
             <ArrowBack />
           </IconButton>
-          <IconButton
-            title="Postpone"
-            id="modalPostponeButton"
-            onClick={() => postponeTodo()}
-          >
-            <MdSubdirectoryArrowRight />
-          </IconButton>
+          {props.timeType != "longTerm" &&
+          !props.finished &&
+          props.taskId != "" ? (
+            <IconButton
+              title="Postpone"
+              id="modalPostponeButton"
+              onClick={() => postponeTodo()}
+            >
+              <MdSubdirectoryArrowRight />
+            </IconButton>
+          ) : (
+            <div></div>
+          )}
           <IconButton
             title="Save"
             id="modalSaveButton"

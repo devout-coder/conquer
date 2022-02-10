@@ -102,6 +102,9 @@ function EachTodo(props) {
           props.id,
           props.taskName,
           props.taskDesc,
+          props.time,
+          props.timeType,
+          props.timesPostponed,
           props.priority,
           props.index
         );
@@ -115,6 +118,9 @@ function EachTodo(props) {
         props.id,
         props.taskName,
         props.taskDesc,
+        props.time,
+        props.timeType,
+        props.timesPostponed,
         props.priority,
         props.index
       );
