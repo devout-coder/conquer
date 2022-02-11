@@ -5,7 +5,7 @@ import {
   DialogActions,
   DialogTitle,
   IconButton,
-} from "@material-ui/core";
+} from "@material-ui/core"
 import React, { useEffect, useState } from "react";
 import firebaseApp from "../../firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
