@@ -22,7 +22,7 @@
   padding: 10px;
   width: 35%;
   position: absolute;
-  height: 50%;
+  height: 52%;
   animation-name: slideUp;
   /* right: 30vw; */
   bottom: 1.5vw;
@@ -37,7 +37,7 @@
 .modalTopbar {
   padding: 10px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 #modalTaskName {
@@ -63,7 +63,9 @@
 .modalButtons {
   display: flex;
   align-items: flex-start;
-  margin-left: 20px;
+  /* background-color: #25252546; */
+  width:42%;
+  justify-content: space-around;
 }
 
 .modal hr {
@@ -126,6 +128,20 @@
 .MuiFormHelperText-root {
   font-family: Poppins !important;
   font-weight: 600 !important;
+}
+
+#modalBottomBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#postponeText {
+  font-family: Ubuntu;
+  margin-left: 25px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 /* @keyframes slideIn {

@@ -7,21 +7,22 @@ import NewTodoModal from "../NewTodoModal/NewTodoModal";
 import { months } from "../Calendar/Calendar";
 import { loadingContext } from "../../loadingContext";
 
+export const fullMonths = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 function IncompleteTodosSidebar(props) {
-  const fullMonths = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   const weekMonths = [
     "Jan",
     "Feb",

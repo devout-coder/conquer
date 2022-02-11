@@ -6,24 +6,24 @@ import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { useHistory } from "react-router-dom";
 import { months } from "../Calendar/Calendar";
 
+export const weekMonths = {
+  0: "Jan",
+  1: "Feb",
+  2: "Mar",
+  3: "Apr",
+  4: "May",
+  5: "June",
+  6: "July",
+  7: "Aug",
+  8: "Sept",
+  9: "Oct",
+  10: "Nov",
+  11: "Dec",
+}; //these r the months for the week in mainTodos
 function WeekCalendar() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const history = useHistory();
-  const weekMonths = {
-    0: "Jan",
-    1: "Feb",
-    2: "Mar",
-    3: "Apr",
-    4: "May",
-    5: "June",
-    6: "July",
-    7: "Aug",
-    8: "Sept",
-    9: "Oct",
-    10: "Nov",
-    11: "Dec",
-  }; //these r the months for the week in mainTodos
 
   const getWeekFormattedDate = (date) => {
     //this converts the date to the format dd M yyyy
@@ -125,7 +125,7 @@ function WeekCalendar() {
 
     let weeksList = [];
     let today = getWeekFormattedDate(new Date());
-    for (let i=0; i < allDays.length; i = i + 7) {
+    for (let i = 0; i < allDays.length; i = i + 7) {
       //loops through a week
       let foundToday = false;
       for (let each of allDays.slice(i, i + 7)) {

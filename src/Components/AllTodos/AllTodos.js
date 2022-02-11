@@ -121,28 +121,6 @@ function AllTodos() {
     }
   }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
 
-  function priPosition() {
-    //this function computes the appropriate position for any new todo of each priority
-    //it returns an array something like this [[3,1], [2, 4], [1, 8], [0, 10]]
-    //it means the  array has 1 todo already exisiting at 0 position so appropriate position for new element of priority 3 is 1 and so on
-
-    let reqPos = [];
-    for (let i = 3; i >= 0; i--) {
-      if (unfinishedTodos.length != 0) {
-        for (let index = 0; index < unfinishedTodos.length; index++) {
-          if (i > unfinishedTodos[index].priority) {
-            reqPos.push([i, index]);
-            break;
-          } else if (index == unfinishedTodos.length - 1) {
-            reqPos.push([i, unfinishedTodos.length]);
-          }
-        }
-      } else {
-        reqPos.push([i, 0]);
-      }
-    }
-    return reqPos;
-  }
 
   function rearrangeList(props) {
     //this func deals with changes the todo position on drag end and also saves the positions in firebase
@@ -188,6 +166,7 @@ function AllTodos() {
       }
     }
   }
+
   return (
     <div className="allTodos">
       {openTodoModal ? (
@@ -203,7 +182,6 @@ function AllTodos() {
           taskIndex={expandTaskIndex}
           timeType={timeType}
           timesPostponed={expandTaskTimesPostponed}
-          priPosition={priPosition()}
           unfinishedTodos={unfinishedTodos}
         />
       ) : (
@@ -272,7 +250,7 @@ function AllTodos() {
                               <EachTodo
                                 id={each.id}
                                 key={each.id}
-                                index={index}
+                                index={each.index}
                                 priority={each.priority}
                                 taskName={each.taskName}
                                 taskDesc={each.taskDesc}
@@ -339,7 +317,7 @@ function AllTodos() {
                               <EachTodo
                                 id={each.id}
                                 key={each.id}
-                                index={index}
+                                index={each.index}
                                 priority={each.priority}
                                 taskName={each.taskName}
                                 taskDesc={each.taskDesc}

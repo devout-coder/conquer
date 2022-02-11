@@ -100,6 +100,7 @@ function EachTodo(props) {
         props.expandTodo(
           //this triggers the func in all todos which renders the todo modal with all these parameters as props
           props.id,
+          props.index,
           props.taskName,
           props.taskDesc,
           props.time,
