@@ -90,7 +90,7 @@
   width: 90%;
   background: #fff7f7;
   font-family: Poppins;
-  font-weight: 400;
+  font-weight:300;
   font-size: 25px;
   line-height: 46px;
   color: #5c3535;
@@ -113,6 +113,7 @@
   padding: 30px;
   display: none;
 }
+
 #prioritiesDropdown span {
   font-family: Ubuntu;
   font-weight: 500;
