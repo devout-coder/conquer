@@ -183,7 +183,7 @@ function EachTodo(props) {
           onChange={checkUncheckfunc}
           inputProps={{ "aria-label": "primary checkbox" }}
         />
-        <span
+        <div
           className={
             props.finished
               ? "finishedTodo eachTodoTaskName"
@@ -200,7 +200,7 @@ function EachTodo(props) {
           }}
         >
           {props.taskName}
-        </span>
+        </div>
         {props.sidebarTodo ? (
           <span
             className="todoTime"

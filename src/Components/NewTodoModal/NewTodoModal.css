@@ -64,7 +64,7 @@
   display: flex;
   align-items: flex-start;
   /* background-color: #25252546; */
-  width:42%;
+  width: 42%;
   justify-content: space-around;
 }
 
@@ -90,7 +90,7 @@
   width: 90%;
   background: #fff7f7;
   font-family: Poppins;
-  font-weight:300;
+  font-weight: 400;
   font-size: 25px;
   line-height: 46px;
   color: #5c3535;
