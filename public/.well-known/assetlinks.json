@@ -1,0 +1,29 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.conquer_app",
+      "sha256_cert_fingerprints": [
+        "A8:EA:88:77:36:66:3F:31:D5:DB:2B:1D:F4:D2:9B:C2:C5:8E:7A:1D:CE:D2:76:19:61:5B:F8:F7:29:B1:F1:36"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.get_login_creds"],
+    "target": {
+      "namespace": "web",
+      "site": "https://conquer-goals.netlify.app"
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.get_login_creds"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.conquer_app",
+      "sha256_cert_fingerprints": [
+        "A8:EA:88:77:36:66:3F:31:D5:DB:2B:1D:F4:D2:9B:C2:C5:8E:7A:1D:CE:D2:76:19:61:5B:F8:F7:29:B1:F1:36"
+      ]
+    }
+  }
+]
