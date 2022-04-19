@@ -40,15 +40,9 @@ function IncompleteTodosSidebar(props) {
   const [reqTodos, setReqTodos] = useState([]);
   const user = useContext(loadingContext);
   const [loading, setLoading] = useState(true);
-  const [expandTaskId, setExpandTaskId] = useState("");
-  const [expandTaskName, setExpandTaskName] = useState("");
-  const [expandTaskDesc, setExpandTaskDesc] = useState("");
-  const [expandTaskPri, setExpandTaskPri] = useState("0");
-  const [expandTaskTime, setExpandTaskTime] = useState("");
-  const [expandTaskTimeType, setExpandTaskTimeType] = useState("");
-  const [expandTaskTimesPostponed, setExpandTaskTimesPostponed] = useState(0);
-  const [expandTaskIndex, setExpandTaskIndex] = useState("0");
-  //if any specific todo is clicked, all these expandTask details will be passed as a prop to the modal
+
+  const [expandTask, setExpandTask] = useState(null);
+
   const [openTodoModal, setOpenTodoModal] = useState(false);
   //whenever this is true modal with required props is rendered
 
@@ -121,11 +115,12 @@ function IncompleteTodosSidebar(props) {
     });
     return sortedTodos;
   }
+
   function loadReqTodos() {
     firebaseApp
       .firestore()
       .collection("todos")
-      .where("user", "==", firebaseApp.auth().currentUser.uid)
+      .where("users", "array-contains", user.uid)
       .where("timeType", "==", props.timeType)
       .orderBy("priority", "desc")
       // .orderBy("index", "asc")
@@ -143,6 +138,7 @@ function IncompleteTodosSidebar(props) {
             timeType: each.get("timeType"),
             timesPostponed: each.get("timesPostponed"),
             index: each.get("index"),
+            users: each.get("users"),
           };
           if (!each.get("finished")) {
             tparray.push(eachdict);
@@ -153,6 +149,7 @@ function IncompleteTodosSidebar(props) {
         setLoading(false);
       });
   }
+
   useEffect(() => {
     if (user) {
       loadReqTodos();
@@ -161,28 +158,6 @@ function IncompleteTodosSidebar(props) {
     }
   }, [user]);
   // console.log(reqTodos);
-
-  function expandTodo(
-    id,
-    taskName,
-    taskDesc,
-    taskTime,
-    taskTimeType,
-    taskTimesPostponed,
-    taskPri,
-    taskIndex
-  ) {
-    //this function uses the parameters given by the particular todo triggering this function and sets those parameters equal to the state..then the modal is opened with these states as props
-    setExpandTaskName(taskName);
-    setExpandTaskDesc(taskDesc);
-    setExpandTaskTime(taskTime);
-    setExpandTaskTimeType(taskTimeType);
-    setExpandTaskTimesPostponed(taskTimesPostponed);
-    setExpandTaskPri(taskPri);
-    setExpandTaskId(id);
-    setExpandTaskIndex(taskIndex);
-    setOpenTodoModal(true);
-  }
 
   return (
     <div
@@ -194,17 +169,9 @@ function IncompleteTodosSidebar(props) {
     >
       {openTodoModal ? (
         <NewTodoModal
-          time={expandTaskTime}
-          shouldReload={() => loadReqTodos()}
+          task={expandTask}
+          shouldReload={() => console.log("nothing")}
           openTodoModal={(shouldOpen) => setOpenTodoModal(shouldOpen)}
-          //this function can change the state which controls opening and closing of modal
-          taskId={expandTaskId}
-          taskName={expandTaskName}
-          taskDesc={expandTaskDesc}
-          taskPri={expandTaskPri}
-          taskIndex={expandTaskIndex}
-          timeType={expandTaskTimeType}
-          timesPostponed={expandTaskTimesPostponed}
         />
       ) : (
         <div></div>
@@ -229,38 +196,13 @@ function IncompleteTodosSidebar(props) {
           <div className="inCompleteTodos">
             {reqTodos.map((each) => (
               <EachTodo
-                id={each.id}
-                priority={each.priority}
-                taskName={each.taskName}
-                taskDesc={each.taskDesc}
-                finished={each.finished}
-                time={each.time}
-                timeType={each.timeType}
-                timesPostponed={each.timesPostponed}
-                index={each.index}
+                key={each.id}
+                task={each}
+                expandTodo={(task) => {
+                  setExpandTask(task);
+                  setOpenTodoModal(true);
+                }}
                 startLoading={() => loadReqTodos()}
-                // activateLoader={(shouldLoad) => setLoading(shouldLoad)}
-                expandTodo={(
-                  id,
-                  taskName,
-                  taskDesc,
-                  taskTime,
-                  taskTimeType,
-                  taskTimesPostponed,
-                  taskPri,
-                  taskIndex
-                ) =>
-                  expandTodo(
-                    id,
-                    taskName,
-                    taskDesc,
-                    taskTime,
-                    taskTimeType,
-                    taskTimesPostponed,
-                    taskPri,
-                    taskIndex
-                  )
-                }
                 sidebarTodo={true}
               />
             ))}

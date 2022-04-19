@@ -5,7 +5,7 @@ import {
   DialogActions,
   DialogTitle,
   IconButton,
-} from "@material-ui/core"
+} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import firebaseApp from "../../firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -14,17 +14,18 @@ import { useHistory } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 
-function EachTodo(props) {
-  const [checked, setChecked] = useState(props.finished);
+function EachTodo({ task, startLoading, expandTodo, sidebarTodo }) {
+  const [checked, setChecked] = useState(task.finished);
   const [modalOpen, setModalOpen] = useState(false); //this state controls the delete modal
   const history = useHistory();
+
   const checkUncheckfunc = (event) => {
     //this toggles check of todo checkbox and also toggles boolean value of finished property of that particular todo in firestore
     setChecked(event.target.checked);
     firebaseApp
       .firestore()
       .collection("todos")
-      .doc(props.id)
+      .doc(task.id)
       .set(
         {
           finished: !checked ? true : false, //this seems contradictory but due to some reason value of checked is false when i check it and true when i uncheck
@@ -32,33 +33,34 @@ function EachTodo(props) {
         { merge: true }
       )
       .then(() => {
-        props.startLoading(); //this triggers that loadData func in allTodos which fetches all todos again
+        startLoading(); //this triggers that loadData func in allTodos which fetches all todos again
       });
   };
   function deleteTodoManagePri(newIndex) {
-    props.unfinishedTodos.forEach((each, index) => {
-      if (index >= newIndex) {
-        firebaseApp
-          .firestore()
-          .collection("todos")
-          .doc(each.id)
-          .update({
-            index: index - 1,
-          });
-      }
-    });
+    // props.unfinishedTodos.forEach((each, index) => {
+    //   if (index >= newIndex) {
+    //     firebaseApp
+    //       .firestore()
+    //       .collection("todos")
+    //       .doc(each.id)
+    //       .update({
+    //         index: index - 1,
+    //       });
+    //   }
+    // });
+    console.log("attempt to delete todo");
   }
   function deleteTodo() {
     //this func deletes that particular todo
     setModalOpen(false);
-    deleteTodoManagePri(props.index);
+    deleteTodoManagePri(task.index);
     firebaseApp
       .firestore()
       .collection("todos")
-      .doc(props.id)
+      .doc(task.id)
       .delete()
       .then(() => {
-        props.startLoading();
+        startLoading();
       });
   }
 
@@ -93,42 +95,21 @@ function EachTodo(props) {
     },
   };
   function handleTodoClick() {
-    if (isMobile.any() && !props.sidebarTodo) {
-      let reqElem = document.getElementById(props.id);
+    if (isMobile.any() && !sidebarTodo) {
+      let reqElem = document.getElementById(task.id);
       if (Array.from(reqElem.classList).includes("phoneTodo")) {
         //this conditional checks if the todo has already been clicked and if thats the case then it is expanded
-        props.expandTodo(
-          //this triggers the func in all todos which renders the todo modal with all these parameters as props
-          props.id,
-          props.index,
-          props.taskName,
-          props.taskDesc,
-          props.time,
-          props.timeType,
-          props.timesPostponed,
-          props.priority,
-          props.index
-        );
+        expandTodo(task);
       } else {
         //if the todo is not already clicked then phoneTodo is added to its classList which changes the color of the todo and also makes the delete button visible
         reqElem.classList.add("phoneTodo");
       }
     } else {
-      props.expandTodo(
-        //this triggers the func in all todos which renders the todo modal with all these parameters as props
-        props.id,
-        props.taskName,
-        props.taskDesc,
-        props.time,
-        props.timeType,
-        props.timesPostponed,
-        props.priority,
-        props.index
-      );
+      expandTodo(task);
     }
   }
   document.addEventListener("click", (eve) => {
-    let reqElem = document.getElementById(props.id);
+    let reqElem = document.getElementById(task.id);
     if (reqElem != null) {
       let isClickInside = reqElem.contains(eve.target);
       if (!isClickInside) {
@@ -140,7 +121,7 @@ function EachTodo(props) {
     return (
       <div
         className={isMobile.any() ? "eachTodo" : "eachTodo laptopTodo"}
-        id={props.id}
+        id={task.id}
       >
         <Dialog
           open={modalOpen}
@@ -160,7 +141,7 @@ function EachTodo(props) {
             </Button>
           </DialogActions>
         </Dialog>
-        {!props.sidebarTodo && !props.finished ? (
+        {!sidebarTodo && !task.finished ? (
           <div className="dragger" {...newProps.dragger}>
             <DragIndicatorIcon style={{ color: "#c6c4c4" }}></DragIndicatorIcon>
           </div>
@@ -169,13 +150,13 @@ function EachTodo(props) {
         )}
         <Checkbox
           style={{
-            color: props.finished
+            color: task.finished
               ? "#474747"
-              : props.priority == 3
+              : task.priority == 3
               ? "#ff5151"
-              : props.priority == 2
+              : task.priority == 2
               ? "#7885fb"
-              : props.priority == 1
+              : task.priority == 1
               ? "#20e734"
               : "rgba(198, 196, 196, 0.61)", //different color based on priority
           }}
@@ -185,13 +166,13 @@ function EachTodo(props) {
         />
         <div
           className={
-            props.finished
+            task.finished
               ? "finishedTodo eachTodoTaskName"
-              : props.priority == 3
+              : task.priority == 3
               ? "highPriority eachTodoTaskName"
-              : props.priority == 2
+              : task.priority == 2
               ? "mediumPriority eachTodoTaskName"
-              : props.priority == 1
+              : task.priority == 1
               ? "lowPriority eachTodoTaskName"
               : "noPriority eachTodoTaskName"
           }
@@ -199,24 +180,24 @@ function EachTodo(props) {
             handleTodoClick();
           }}
         >
-          {props.taskName}
+          {task.taskName}
         </div>
-        {props.sidebarTodo ? (
+        {sidebarTodo ? (
           <span
             className="todoTime"
             onClick={() =>
-              props.timeType != "year"
+              task.timeType != "year"
                 ? history.push({
-                    pathname: `${props.timeType}/allTodos`,
-                    state: { time: props.time, timeType: props.timeType },
+                    pathname: `${task.timeType}/allTodos`,
+                    state: { time: task.time, timeType: task.timeType },
                   })
                 : history.push({
                     pathname: "/year",
-                    state: { time: props.time },
+                    state: { time: task.time },
                   })
             }
           >
-            {props.time}
+            {task.time}
           </span>
         ) : (
           <span className="noTodoTime"></span>
@@ -232,8 +213,8 @@ function EachTodo(props) {
     );
   }
 
-  return !props.sidebarTodo ? (
-    <Draggable draggableId={props.id} index={props.index}>
+  return !sidebarTodo ? (
+    <Draggable draggableId={task.id} index={task.index}>
       {(provided, snapshot) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
           <ConstJSX dragger={provided.dragHandleProps} />

@@ -25,12 +25,8 @@ function AllTodos() {
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
   //finished and unfinished todos get updated when i use loadData func
-  const [expandTaskId, setExpandTaskId] = useState("");
-  const [expandTaskName, setExpandTaskName] = useState("");
-  const [expandTaskDesc, setExpandTaskDesc] = useState("");
-  const [expandTaskPri, setExpandTaskPri] = useState("0");
-  const [expandTaskTimesPostponed, setExpandTaskTimesPostponed] = useState(0);
-  const [expandTaskIndex, setExpandTaskIndex] = useState(0);
+
+  const [expandTask, setExpandTask] = useState(null);
   //if any specific todo is clicked, all these expandTask details will be passed as a prop to the modal
 
   const [openTodoModal, setOpenTodoModal] = useState(false);
@@ -41,7 +37,7 @@ function AllTodos() {
     firebaseApp
       .firestore()
       .collection("todos")
-      .where("user", "==", firebaseApp.auth().currentUser.uid)
+      .where("users", "array-contains", user.uid)
       .where("time", "==", time)
       .orderBy("priority", "desc")
       .get()
@@ -61,6 +57,7 @@ function AllTodos() {
             timeType: each.get("timeType"),
             timesPostponed: each.get("timesPostponed"),
             index: each.get("index"),
+            users: each.get("users"),
           };
           if (each.get("finished")) {
             //each doc in todos collection of firebase is added to either finished or unfinished list based on its finished status
@@ -82,37 +79,12 @@ function AllTodos() {
         setLoading(false);
       });
   }
+
   function replaceDate(date) {
     //this func takes date and removes the space and year from it...
     return date.replace(/\s\d{4}/g, "");
   }
-  function expandTodo(
-    id,
-    taskName,
-    taskDesc,
-    time,
-    timeType,
-    timesPostponed,
-    taskPri,
-    index
-  ) {
-    //this function uses the parameters given by the particular todo triggering this function and sets those parameters equal to the state..then the modal is opened with these states as props
-    setExpandTaskName(taskName);
-    setExpandTaskDesc(taskDesc);
-    setExpandTaskTimesPostponed(timesPostponed);
-    setExpandTaskPri(taskPri);
-    setExpandTaskId(id);
-    setExpandTaskIndex(index);
-    setOpenTodoModal(true);
-  }
-  function expandBlankTodo() {
-    //this opens a blank todo with no props regarding details of any todo
-    setExpandTaskName("");
-    setExpandTaskDesc("");
-    setExpandTaskPri("0");
-    setExpandTaskId("");
-    setOpenTodoModal(true);
-  }
+
   useEffect(() => {
     if (user) {
       loadData();
@@ -120,7 +92,6 @@ function AllTodos() {
       setLoading(true);
     }
   }, [time, user]); //passed time here so that in yearly todos when i update the year data gets loaded again..
-
 
   function rearrangeList(props) {
     //this func deals with changes the todo position on drag end and also saves the positions in firebase
@@ -171,18 +142,11 @@ function AllTodos() {
     <div className="allTodos">
       {openTodoModal ? (
         <NewTodoModal
-          time={time}
+          task={
+            expandTask == null ? { time: time, timeType: timeType } : expandTask
+          }
           shouldReload={() => loadData()}
           openTodoModal={(shouldOpen) => setOpenTodoModal(shouldOpen)}
-          //this function can change the state which controls opening and closing of modal
-          taskId={expandTaskId}
-          taskName={expandTaskName}
-          taskDesc={expandTaskDesc}
-          taskPri={expandTaskPri}
-          taskIndex={expandTaskIndex}
-          timeType={timeType}
-          timesPostponed={expandTaskTimesPostponed}
-          unfinishedTodos={unfinishedTodos}
         />
       ) : (
         <div></div>
@@ -221,7 +185,10 @@ function AllTodos() {
                   />
                 </div>
               )}
-              <IconButton onClick={() => expandBlankTodo()} title="New Todo">
+              <IconButton
+                onClick={() => setOpenTodoModal(true)}
+                title="New Todo"
+              >
                 <QueueIcon />
               </IconButton>
             </div>
@@ -246,44 +213,15 @@ function AllTodos() {
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                           >
-                            {unfinishedTodos.map((each, index) => (
+                            {unfinishedTodos.map((each) => (
                               <EachTodo
-                                id={each.id}
                                 key={each.id}
-                                index={each.index}
-                                priority={each.priority}
-                                taskName={each.taskName}
-                                taskDesc={each.taskDesc}
-                                finished={each.finished}
-                                time={each.time}
-                                timeType={each.timeType}
-                                timesPostponed={each.timesPostponed}
-                                unfinishedTodos={unfinishedTodos}
+                                task={each}
                                 startLoading={() => loadData()}
-                                activateLoader={(shouldLoad) =>
-                                  setLoading(shouldLoad)
-                                }
-                                expandTodo={(
-                                  id,
-                                  taskName,
-                                  taskDesc,
-                                  time,
-                                  timeType,
-                                  timesPostponed,
-                                  taskPri,
-                                  index
-                                ) =>
-                                  expandTodo(
-                                    id,
-                                    taskName,
-                                    taskDesc,
-                                    time,
-                                    timeType,
-                                    timesPostponed,
-                                    taskPri,
-                                    index
-                                  )
-                                }
+                                expandTodo={(task) => {
+                                  setExpandTask(task);
+                                  setOpenTodoModal(true);
+                                }}
                                 sidebarTodo={false}
                               />
                             ))}
@@ -313,37 +251,15 @@ function AllTodos() {
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                           >
-                            {finishedTodos.map((each, index) => (
+                            {finishedTodos.map((each) => (
                               <EachTodo
-                                id={each.id}
                                 key={each.id}
-                                index={each.index}
-                                priority={each.priority}
-                                taskName={each.taskName}
-                                taskDesc={each.taskDesc}
-                                finished={each.finished}
-                                time={each.time}
-                                timeType={each.timeType}
-                                unfinishedTodos={unfinishedTodos}
+                                task={each}
                                 startLoading={() => loadData()}
-                                activateLoader={(shouldLoad) =>
-                                  setLoading(shouldLoad)
-                                }
-                                expandTodo={(
-                                  id,
-                                  taskName,
-                                  taskDesc,
-                                  taskPri,
-                                  index
-                                ) =>
-                                  expandTodo(
-                                    id,
-                                    taskName,
-                                    taskDesc,
-                                    taskPri,
-                                    index
-                                  )
-                                }
+                                expandTodo={(task) => {
+                                  setExpandTask(task);
+                                  setOpenTodoModal(true);
+                                }}
                                 sidebarTodo={false}
                               />
                             ))}
