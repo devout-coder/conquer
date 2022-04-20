@@ -18,7 +18,7 @@ import { fullMonths } from "../IncompleteTodosSidebar/IncompleteTodosSidebar";
 import { weekMonths } from "../WeekCalendar/WeekCalendar";
 import { loadingContext } from "../../loadingContext";
 
-function NewTodoModal({ task, shouldReload, openTodoModal }) {
+function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
   // console.log(task.time);
   // console.log(task.timeType);
   // console.log(task.timesPostponed);
@@ -114,6 +114,7 @@ function NewTodoModal({ task, shouldReload, openTodoModal }) {
     //this new class removeModal will be added which has a cool slideback animation attached to it
     document.getElementsByClassName("modal")[0].classList.add("removeModal");
     setTimeout(() => {
+      setTask(null)
       openTodoModal(false);
     }, 800);
   }
@@ -503,7 +504,6 @@ function NewTodoModal({ task, shouldReload, openTodoModal }) {
     }
     if (taskId === null) {
       //makes a new todo if the id prop is empty str which means that no particular todo is opened
-      console.log("yeah this is run");
       for (let taskUser of taskUsers) {
         newTodoManagePri(
           taskUser,

@@ -24,6 +24,7 @@ function AllTodos() {
   const timeType = location.state.timeType; //this holds daily/weekly/monthly/yearly basically the type of time wanted
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
+  const [allTodos, setAllTodos] = useState([]);
   //finished and unfinished todos get updated when i use loadData func
 
   const [expandTask, setExpandTask] = useState(null);
@@ -66,14 +67,22 @@ function AllTodos() {
             unfinished.push(eachdict);
           }
         });
+
+        let all = [...unfinished, ...finished];
+
         setFinishedTodos(
           finished.sort((a, b) => {
-            return a.index - b.index;
+            return a.index[user.uid] - b.index[user.uid];
           })
         );
         setUnfinishedTodos(
           unfinished.sort((a, b) => {
-            return a.index - b.index;
+            return a.index[user.uid] - b.index[user.uid];
+          })
+        );
+        setAllTodos(
+          all.sort((a, b) => {
+            return a.index[user.uid] - b.index[user.uid];
           })
         );
         setLoading(false);
@@ -97,46 +106,92 @@ function AllTodos() {
     //this func deals with changes the todo position on drag end and also saves the positions in firebase
     if (props.destination != null) {
       //this is evaluated true if drag isn't outside the draggable
-      let droppable = props.source.droppableId;
       let initialPos = props.source.index;
       let finalPos = props.destination.index;
-      if (droppable == "unfinishedTodos") {
-        let initialTaskPri = unfinishedTodos[initialPos].priority;
-        let finalTaskPri = unfinishedTodos[finalPos].priority;
-        if (initialTaskPri == finalTaskPri) {
-          //this condition ensures that item will be dropped only its interchanged with items of same priority
-          unfinishedTodos.splice(
-            finalPos,
-            0,
-            unfinishedTodos.splice(initialPos, 1)[0]
-          );
-          //splices removes the element from intial position and pastes it in new position
+      let initialPosAllTodos;
+      let finalPosAllTodos;
 
-          unfinishedTodos.forEach((each, index) => {
-            firebaseApp.firestore().collection("todos").doc(each.id).update({
-              index: index,
-            });
+      let initialTaskPri = allTodos[initialPos].priority;
+      let finalTaskPri = allTodos[finalPos].priority;
+
+      if (initialTaskPri == finalTaskPri) {
+        //this condition ensures that item will be dropped only its interchanged with items of same priority
+
+        unfinishedTodos.splice(
+          finalPos,
+          0,
+          unfinishedTodos.splice(initialPos, 1)[0]
+        );
+        //splices removes the element from intial position and pastes it in new position
+
+        allTodos.forEach((each) => {
+          if (each.id == unfinishedTodos[finalPos].id) {
+            finalPosAllTodos = each.index[user.uid];
+          } else if (each.id == unfinishedTodos[initialPos].id) {
+            initialPosAllTodos = each.index[user.uid];
+          }
+        });
+
+        if (initialPosAllTodos < finalPosAllTodos) {
+          allTodos.forEach((each, index) => {
+            let indexDict = each.index;
+            if (index == initialPosAllTodos) {
+              indexDict[user.uid] = finalPosAllTodos;
+              firebaseApp
+                .firestore()
+                .collection("todos")
+                .doc(each.id)
+                .update({
+                  index: indexDict,
+                })
+                .catch((error) => console.error(error));
+            }
+            if (index > initialPosAllTodos && index <= finalPosAllTodos) {
+              indexDict[user.uid] = indexDict[user.uid] - 1;
+              firebaseApp
+                .firestore()
+                .collection("todos")
+                .doc(each.id)
+                .update({
+                  index: indexDict,
+                })
+                .catch((error) => console.error(error));
+            }
           });
-          //this saves the new list order in firebase
-        }
-      } else {
-        let initialTaskPri = finishedTodos[initialPos].priority;
-        let finalTaskPri = finishedTodos[finalPos].priority;
-        if (initialTaskPri == finalTaskPri) {
-          finishedTodos.splice(
-            finalPos,
-            0,
-            finishedTodos.splice(initialPos, 1)[0]
-          );
-          finishedTodos.forEach((each, index) => {
-            firebaseApp.firestore().collection("todos").doc(each.id).update({
-              index: index,
-            });
+        } else if (initialPosAllTodos > finalPosAllTodos) {
+          allTodos.forEach((each, index) => {
+            let indexDict = each.index;
+            if (index == initialPosAllTodos) {
+              indexDict[user.uid] = finalPosAllTodos;
+              firebaseApp
+                .firestore()
+                .collection("todos")
+                .doc(each.id)
+                .update({
+                  index: indexDict,
+                })
+                .catch((error) => console.error(error));
+            }
+            if (index < initialPosAllTodos && index >= finalPosAllTodos) {
+              indexDict[user.uid] = indexDict[user.uid] + 1;
+              firebaseApp
+                .firestore()
+                .collection("todos")
+                .doc(each.id)
+                .update({
+                  index: indexDict,
+                })
+                .catch((error) => console.error(error));
+            }
           });
         }
       }
     }
   }
+
+  allTodos.forEach((todo) => {
+    console.log(todo.taskName, todo.index);
+  });
 
   return (
     <div className="allTodos">
@@ -145,6 +200,7 @@ function AllTodos() {
           task={
             expandTask == null ? { time: time, timeType: timeType } : expandTask
           }
+          setTask={setExpandTask}
           shouldReload={() => loadData()}
           openTodoModal={(shouldOpen) => setOpenTodoModal(shouldOpen)}
         />
@@ -234,44 +290,29 @@ function AllTodos() {
                     <div></div>
                   )}
                 </DragDropContext>
-                <DragDropContext
-                  onDragEnd={(props) => {
-                    rearrangeList(props);
-                  }}
-                >
-                  {finishedTodos.length != 0 ? (
-                    <div className="finishedTodos">
-                      <div className="noFinished noTodos">
-                        {finishedTodos.length} finished
-                      </div>
-                      <Droppable droppableId="finishedTodos">
-                        {(provided) => (
-                          <div
-                            className="finishedTodosList"
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                          >
-                            {finishedTodos.map((each) => (
-                              <EachTodo
-                                key={each.id}
-                                task={each}
-                                startLoading={() => loadData()}
-                                expandTodo={(task) => {
-                                  setExpandTask(task);
-                                  setOpenTodoModal(true);
-                                }}
-                                sidebarTodo={false}
-                              />
-                            ))}
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Droppable>
+                {finishedTodos.length != 0 ? (
+                  <div className="finishedTodos">
+                    <div className="noFinished noTodos">
+                      {finishedTodos.length} finished
                     </div>
-                  ) : (
-                    <div></div>
-                  )}
-                </DragDropContext>
+                    <div className="finishedTodosList">
+                      {finishedTodos.map((each) => (
+                        <EachTodo
+                          key={each.id}
+                          task={each}
+                          startLoading={() => loadData()}
+                          expandTodo={(task) => {
+                            setExpandTask(task);
+                            setOpenTodoModal(true);
+                          }}
+                          sidebarTodo={false}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             ) : (
               //this is rendered if the length of both finished and unfinished todos is 0

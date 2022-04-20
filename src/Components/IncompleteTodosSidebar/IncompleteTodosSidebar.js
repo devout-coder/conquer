@@ -170,6 +170,7 @@ function IncompleteTodosSidebar(props) {
       {openTodoModal ? (
         <NewTodoModal
           task={expandTask}
+          setTask={setExpandTask}
           shouldReload={() => console.log("nothing")}
           openTodoModal={(shouldOpen) => setOpenTodoModal(shouldOpen)}
         />

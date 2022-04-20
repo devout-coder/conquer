@@ -6,18 +6,22 @@ import {
   DialogTitle,
   IconButton,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import firebaseApp from "../../firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "./EachTodo.css";
 import { useHistory } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
+import { loadingContext } from "../../loadingContext";
 
 function EachTodo({ task, startLoading, expandTodo, sidebarTodo }) {
+  const user = useContext(loadingContext);
+
   const [checked, setChecked] = useState(task.finished);
   const [modalOpen, setModalOpen] = useState(false); //this state controls the delete modal
   const history = useHistory();
+  let allTasks = {};
 
   const checkUncheckfunc = (event) => {
     //this toggles check of todo checkbox and also toggles boolean value of finished property of that particular todo in firestore
@@ -36,32 +40,102 @@ function EachTodo({ task, startLoading, expandTodo, sidebarTodo }) {
         startLoading(); //this triggers that loadData func in allTodos which fetches all todos again
       });
   };
-  function deleteTodoManagePri(newIndex) {
-    // props.unfinishedTodos.forEach((each, index) => {
-    //   if (index >= newIndex) {
-    //     firebaseApp
-    //       .firestore()
-    //       .collection("todos")
-    //       .doc(each.id)
-    //       .update({
-    //         index: index - 1,
-    //       });
-    //   }
-    // });
-    console.log("attempt to delete todo");
+
+  const alterIndex = (user, taskId) => {
+    //keeps allTasks updated with the reduced indices
+    let allTodos = allTasks;
+    for (let allTodosUser in allTodos) {
+      let userTodos = allTodos[allTodosUser];
+      userTodos = userTodos.map((eachTodo) => {
+        if (eachTodo.id == taskId) {
+          let tempInd = eachTodo.index;
+          tempInd[user] = tempInd[user] - 1;
+          eachTodo.index = tempInd;
+        }
+        return eachTodo;
+      });
+      allTodos[allTodosUser] = userTodos;
+    }
+    allTasks = allTodos;
+  };
+
+  function deleteTodoManagePri(user, todos, taskIndex) {
+    //this function manages index of todos below a certain todo in case i delete it
+    todos.forEach((each) => {
+      if (each.index[user] > taskIndex) {
+        let indexDict = each.index;
+        indexDict[user] = indexDict[user] - 1;
+        firebaseApp
+          .firestore()
+          .collection("todos")
+          .doc(each.id)
+          .update({
+            index: indexDict,
+          })
+          .catch((error) => console.log(error));
+
+        alterIndex(user, each.id);
+      }
+    });
   }
+
   function deleteTodo() {
     //this func deletes that particular todo
-    setModalOpen(false);
-    deleteTodoManagePri(task.index);
-    firebaseApp
-      .firestore()
-      .collection("todos")
-      .doc(task.id)
-      .delete()
-      .then(() => {
-        startLoading();
-      });
+    let tasksDict = {};
+    task.users.forEach((taskUser) => {
+      firebaseApp
+        .firestore()
+        .collection("todos")
+        .where("users", "array-contains", taskUser)
+        .where("time", "==", task.time)
+        .get()
+        .then((snap) => {
+          let all = [];
+          snap.docs.map((each) => {
+            let eachdict = {
+              id: each.id,
+              index: each.get("index"),
+            };
+            all.push(eachdict);
+          });
+          tasksDict[taskUser] = all;
+          if (task.users.length == Object.keys(tasksDict).length) {
+            allTasks = tasksDict;
+            for (let todoUser in allTasks) {
+              deleteTodoManagePri(
+                todoUser,
+                allTasks[todoUser],
+                task.index[todoUser]
+              );
+              if (
+                Object.keys(allTasks).indexOf(todoUser) ==
+                Object.keys(allTasks).length - 1
+              ) {
+                firebaseApp
+                  .firestore()
+                  .collection("todos")
+                  .doc(task.id)
+                  .delete()
+                  .then(() => {
+                    setModalOpen(false);
+                    startLoading();
+                  })
+                  .catch((error) => console.log(error));
+              }
+            }
+          }
+        });
+    });
+    // setModalOpen(false);
+    // deleteTodoManagePri(task.index);
+    // firebaseApp
+    //   .firestore()
+    //   .collection("todos")
+    //   .doc(task.id)
+    //   .delete()
+    //   .then(() => {
+    //     startLoading();
+    //   });
   }
 
   var isMobile = {
@@ -117,6 +191,7 @@ function EachTodo({ task, startLoading, expandTodo, sidebarTodo }) {
       }
     }
   });
+
   function ConstJSX(newProps) {
     return (
       <div
@@ -213,8 +288,8 @@ function EachTodo({ task, startLoading, expandTodo, sidebarTodo }) {
     );
   }
 
-  return !sidebarTodo ? (
-    <Draggable draggableId={task.id} index={task.index}>
+  return !sidebarTodo && !task.finished ? (
+    <Draggable draggableId={task.id} index={task.index[user.uid]}>
       {(provided, snapshot) => (
         <div {...provided.draggableProps} ref={provided.innerRef}>
           <ConstJSX dragger={provided.dragHandleProps} />
