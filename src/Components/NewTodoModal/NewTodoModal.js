@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
-import { ArrowBack, Save } from "@material-ui/icons";
+import { ArrowBack, People, Save } from "@material-ui/icons";
 import {
   FormControl,
   FormHelperText,
@@ -17,6 +17,7 @@ import { months } from "../Calendar/Calendar";
 import { fullMonths } from "../IncompleteTodosSidebar/IncompleteTodosSidebar";
 import { weekMonths } from "../WeekCalendar/WeekCalendar";
 import { loadingContext } from "../../loadingContext";
+import SelectFriendModal from "../SelectFriendsModal/SelectFriendModal";
 
 function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
   // console.log(task.time);
@@ -24,22 +25,26 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
   // console.log(task.timesPostponed);
   // console.log(task.id);
   const user = useContext(loadingContext);
+
   const [taskPri, setTaskPri] = useState(
-    task.id != undefined ? task.priority : "0"
+    task != null ? (task.id != undefined ? task.priority : "0") : "0"
   );
   const [taskName, setTaskName] = useState(
-    task.id != undefined ? task.taskName : ""
+    task != null ? (task.id != undefined ? task.taskName : "") : ""
   );
   const [taskDesc, setTaskDesc] = useState(
-    task.id != undefined ? task.taskDesc : ""
+    task != null ? (task.id != undefined ? task.taskDesc : "") : ""
   );
-  const [taskId, setTaskId] = useState(task.id != undefined ? task.id : null);
-  const [todoTaskOriginalUsers, setTodoTaskOriginalUsers] = useState(
-    task.id != undefined ? task.users : [user.uid]
+  const [taskId, setTaskId] = useState(
+    task != null ? (task.id != undefined ? task.id : null) : null
+  );
+  const [taskOriginalUsers, setTaskOriginalUsers] = useState(
+    task != null ? (task.id != undefined ? task.users : [user.uid]) : [user.uid]
   );
   const [taskUsers, setTaskUsers] = useState(
-    task.id != undefined ? task.users : [user.uid]
+    task != null ? (task.id != undefined ? task.users : [user.uid]) : [user.uid]
   );
+
   const [taskRemovedUsers, setTaskRemovedUsers] = useState([]);
 
   const [ctrlPressed, setCtrlPressed] = useState(false);
@@ -114,7 +119,7 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
     //this new class removeModal will be added which has a cool slideback animation attached to it
     document.getElementsByClassName("modal")[0].classList.add("removeModal");
     setTimeout(() => {
-      setTask(null)
+      setTask(null);
       openTodoModal(false);
     }, 800);
   }
@@ -458,7 +463,7 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
         futureTodos[taskUser],
         taskPri
       );
-      if (todoTaskOriginalUsers.includes(taskUser)) {
+      if (taskOriginalUsers.includes(taskUser)) {
         postponeIndicesUpdate(
           taskUser,
           originalPresentTodos[taskUser],
@@ -537,7 +542,7 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
         delete indexDict[deletedUser];
       }
       for (let taskUser of taskUsers) {
-        if (todoTaskOriginalUsers.includes(taskUser)) {
+        if (taskOriginalUsers.includes(taskUser)) {
           if (priChanged) {
             existingTodoPriChanged(taskUser, originalPresentTodos[taskUser]);
             indexDict[taskUser] =
@@ -573,6 +578,8 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
     shouldReload();
   }
 
+  const [selectFriendsModalOpen, setSelectFriendsModalOpen] = useState(false);
+
   // for (let user in presentTodos) {
   //   console.log("====");
   //   console.log(user);
@@ -598,7 +605,10 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
       className="modalBackground"
       onClick={(e) => {
         try {
-          if (!document.getElementsByClassName("modal")[0].contains(e.target)) {
+          if (
+            !selectFriendsModalOpen &&
+            !document.getElementsByClassName("modal")[0].contains(e.target)
+          ) {
             //this if statement checks if the click is inside the modal of not
             slideback();
           }
@@ -643,7 +653,7 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
           onChange={(e) => setTaskDesc(e.target.value)}
         ></textarea>
         <div id="modalBottomBar">
-          {task.id != undefined ? (
+          {task != null ? (
             task.timesPostponed != undefined ? (
               <span id="postponeText">{postponeText()}</span>
             ) : (
@@ -688,14 +698,25 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
               <FormHelperText>Priority</FormHelperText>
             </FormControl>
             <IconButton
-              title="Back"
+              title="Add Friend"
               id="modalBackButton"
-              onClick={() => slideback()}
+              onClick={() => setSelectFriendsModalOpen(true)}
             >
-              <ArrowBack />
+              <People />
+              <SelectFriendModal
+                modalOpen={selectFriendsModalOpen}
+                closeModal={() => setSelectFriendsModalOpen(false)}
+                taskUsers={taskUsers}
+                setTaskUsers={setTaskUsers}
+                taskOriginalUsers={taskOriginalUsers}
+                taskRemovedUsers={taskRemovedUsers}
+                setTaskRemovedUsers={setTaskRemovedUsers}
+              />
             </IconButton>
-            {task.id != undefined ? (
-              task.timeType != "longTerm" && !task.finished ? (
+            {task != null ? (
+              taskId != null &&
+              task.timeType != "longTerm" &&
+              !task.finished ? (
                 <IconButton
                   title="Postpone"
                   id="modalPostponeButton"

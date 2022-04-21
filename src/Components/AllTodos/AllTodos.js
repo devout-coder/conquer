@@ -189,9 +189,9 @@ function AllTodos() {
     }
   }
 
-  allTodos.forEach((todo) => {
-    console.log(todo.taskName, todo.index);
-  });
+  // allTodos.forEach((todo) => {
+  //   console.log(todo.taskName, todo.index);
+  // });
 
   return (
     <div className="allTodos">
