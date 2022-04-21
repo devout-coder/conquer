@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 import { loadingContext } from "../../loadingContext";
+import PeopleIcon from "../../images/people.png";
 
 function EachTodo({ task, startLoading, expandTodo, sidebarTodo }) {
   const user = useContext(loadingContext);
@@ -126,16 +127,6 @@ function EachTodo({ task, startLoading, expandTodo, sidebarTodo }) {
           }
         });
     });
-    // setModalOpen(false);
-    // deleteTodoManagePri(task.index);
-    // firebaseApp
-    //   .firestore()
-    //   .collection("todos")
-    //   .doc(task.id)
-    //   .delete()
-    //   .then(() => {
-    //     startLoading();
-    //   });
   }
 
   var isMobile = {
@@ -277,13 +268,22 @@ function EachTodo({ task, startLoading, expandTodo, sidebarTodo }) {
         ) : (
           <span className="noTodoTime"></span>
         )}
-        <IconButton onClick={() => setModalOpen(true)}>
-          <DeleteIcon
-            style={{
-              color: "#FF3131",
-            }}
-          />
-        </IconButton>
+
+        {task.users.length > 1 ? (
+          <img className="sharedIcon" src={PeopleIcon} alt="Shared Icon" />
+        ) : (
+          <></>
+        )}
+
+        <div className="deleteIcon">
+          <IconButton onClick={() => setModalOpen(true)}>
+            <DeleteIcon
+              style={{
+                color: "#FF3131",
+              }}
+            />
+          </IconButton>
+        </div>
       </div>
     );
   }

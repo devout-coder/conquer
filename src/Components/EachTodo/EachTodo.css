@@ -11,18 +11,18 @@
   border-radius: 10px;
 }
 
-.laptopTodo:hover{
+.laptopTodo:hover {
   background-color: rgba(255, 255, 255, 0.068);
   /* flex:1; */
 }
 
-.phoneTodo{
+.phoneTodo {
   background-color: rgba(255, 255, 255, 0.096);
   border-radius: 10px;
 }
 
-.dragger{
-  cursor:grab;
+.dragger {
+  cursor: grab;
 }
 
 .eachTodoTaskName {
@@ -39,7 +39,6 @@
   /* background-color: blue; */
 }
 
-
 .highPriority {
   color: #ff5151;
 }
@@ -55,12 +54,12 @@
   color: rgba(198, 196, 196, 0.61);
 }
 
-.finishedTodo{
+.finishedTodo {
   text-decoration: line-through;
   color: #474747;
 }
 
-.todoTime{
+.todoTime {
   font-family: Ubuntu;
   font-style: normal;
   font-weight: 500;
@@ -72,96 +71,109 @@
   /* margin-right: 15px; */
 }
 
-.dailyPageEmpty .todoTime{
+.sharedIcon {
+  width: 25px;
+  height: 25px;
+}
+
+.dailyPageEmpty .todoTime {
   /* right: 40px; */
 }
 
-.weekPageEmpty .todoTime{
+.weekPageEmpty .todoTime {
   width: 95px;
   /* right: 37px; */
 }
 
-.monthPageEmpty .todoTime{
+.monthPageEmpty .todoTime {
   width: 85px;
   right: 0px;
 }
-.thisIsYear .todoTime{
+.thisIsYear .todoTime {
   /* right: 50px; */
 }
- 
-.MuiButtonBase-root{
+
+.MuiButtonBase-root {
   justify-self: center;
   /* align-self: flex-end; */
 }
 
-.todoTime + .MuiButtonBase-root{
+.todoTime + .MuiButtonBase-root {
   visibility: hidden;
   position: absolute;
   right: 0;
 }
 
-.noTodoTime + .MuiButtonBase-root{
+.noTodoTime + .MuiButtonBase-root {
   visibility: hidden;
 }
 
-.laptopTodo:hover .todoTime+.MuiButtonBase-root{
+/* .laptopTodo:hover .todoTime + .MuiButtonBase-root {
+  visibility: visible;
+} */
+
+.laptopTodo:hover .noTodoTime + .deleteIcon {
   visibility: visible;
 }
 
-.laptopTodo:hover .noTodoTime+.MuiButtonBase-root{
+.laptopTodo:hover .noTodoTime + .sharedIcon + .deleteIcon {
   visibility: visible;
 }
 
-.phoneTodo .noTodoTime+.MuiButtonBase-root{
-  visibility: visible;
-}
-
-.phoneTodo .todoTime+.MuiButtonBase-root{
+.laptopTodo .deleteIcon {
   visibility: hidden;
 }
 
-.laptopTodo:hover .todoTime+.MuiButtonBase-root{
+.phoneTodo .noTodoTime + .MuiButtonBase-root {
+  visibility: visible;
+}
+
+.phoneTodo .todoTime + .MuiButtonBase-root {
   visibility: hidden;
 }
 
-.MuiTypography-root{
+.laptopTodo:hover .todoTime + .MuiButtonBase-root {
+  visibility: hidden;
+}
+
+.MuiTypography-root {
   font-family: "Poppins" !important;
   font-weight: 400 !important;
 }
 
-.MuiButton-label{
+.MuiButton-label {
   font-family: "Poppins" !important;
   font-weight: 600 !important;
 }
 
-@media only screen and (max-width:600px){
-  .eachTodoTaskName{
+@media only screen and (max-width: 600px) {
+  .eachTodoTaskName {
     font-size: 5vw;
     line-height: 8vw;
     /* background-color: blue; */
   }
-  .todoTime{
+  .todoTime {
     right: 10px;
   }
-  .dailyPageEmpty .todoTime{
+  .dailyPageEmpty .todoTime {
     right: 0px;
   }
-  .weekPageEmpty .todoTime{
+  .weekPageEmpty .todoTime {
     width: 60px;
   }
-  .monthPageEmpty .todoTime{
+  .monthPageEmpty .todoTime {
     width: 50px;
     right: 5px;
   }
-  .thisIsYear .todoTime{
+  .thisIsYear .todoTime {
     /* background-color: blue; */
     width: 20px;
     right: 15px;
   }
 }
 
-@media only screen and (max-width:450px){
-  .todoTime{
+@media only screen and (max-width: 450px) {
+  .todoTime {
     font-size: 10px;
     width: 60px;
   }

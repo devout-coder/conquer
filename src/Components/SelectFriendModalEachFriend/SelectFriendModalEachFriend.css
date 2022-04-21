@@ -1,8 +1,30 @@
+.eachFriend {
+  width: "100%";
+  display: "flex";
+  flex-direction: "row";
+  /* background-color: aqua; */
+}
+
+.friendBoxChecked {
+  /* flex: 0.2; */
+}
+
+.friendInfo {
+  /* background-color: aqua; */
+}
+
 .eachFriendImage {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   margin-left: 10px;
+}
+
+.eachFriendImageSpace {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 53px;
 }
 
 .eachFriendName {
@@ -12,4 +34,14 @@
   font-weight: 500;
   font-size: 18px;
   text-transform: none;
+}
+
+.ownerText {
+  color: #f1d7d7;
+  font-family: Poppins;
+  font-weight: 400;
+  font-size: 16px;
+  text-transform: none;
+  position: absolute;
+  left: 0;
 }
