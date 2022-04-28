@@ -1,5 +1,14 @@
 .navbar {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: "98%";
+  justify-content: space-between;
+}
+
+.navbarLeft {
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 
@@ -12,25 +21,37 @@
   text-decoration: none;
 }
 
-.conquerLogo{
-  width: 95px;  
+.conquerLogo {
+  width: 95px;
   height: 95px;
+}
+
+.navbarRight {
+  margin-right: 15px;
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar .MuiButtonBase-root {
   font-family: Poppins;
   font-weight: 400;
   color: white;
-  position: absolute;
+  /* position: absolute; */
   font-size: 25px;
-  right: 0px;
-  margin-right: 30px;
+  /* right: 0px; */
+  /* margin-right: 30px; */
   cursor: pointer;
+}
+
+.peopleIcon {
+  color: white;
 }
 
 @media only screen and (max-width: 600px) {
   .navbar {
-    justify-content:center;
+    justify-content: center;
     margin-bottom: 30px;
   }
   .conquerText {
@@ -44,7 +65,7 @@
     /* bottom: 0; */
     font-size: 5vw;
   }
-  .navbar .MuiButtonBase-root{
-      right: -20px;
+  .navbar .MuiButtonBase-root {
+    right: -20px;
   }
 }

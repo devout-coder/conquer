@@ -1,0 +1,32 @@
+.friendsPageContent {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friendsPageTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.addFriendsTagline {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  color: #c6c4c4;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.addFriendsButton {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  color: #eada76;
+  text-transform: none;
+}

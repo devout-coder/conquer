@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
-import { ArrowBack, People, Save } from "@material-ui/icons";
+import { ArrowBack, GroupAdd, People, Save } from "@material-ui/icons";
 import {
   FormControl,
   FormHelperText,
@@ -702,7 +702,7 @@ function NewTodoModal({ task, setTask, shouldReload, openTodoModal }) {
               id="modalBackButton"
               onClick={() => setSelectFriendsModalOpen(true)}
             >
-              <People />
+              <GroupAdd />
               <SelectFriendModal
                 modalOpen={selectFriendsModalOpen}
                 closeModal={() => setSelectFriendsModalOpen(false)}

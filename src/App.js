@@ -15,6 +15,7 @@ import Year from "./Components/Year/Year";
 import LongTerm from "./Components/LongTerm/LongTerm";
 import { loadingContext } from "./loadingContext";
 import AllTodos from "./Components/AllTodos/AllTodos";
+import Friends from "./Components/Friends/Friends";
 
 //this component handles all the routes
 function App() {
@@ -42,11 +43,12 @@ function App() {
             <PrivateRoute exact path="/year" component={Year} />
             <PrivateRoute exact path="/longTerm" component={LongTerm} />
             <PrivateRoute exact path="/:time/allTodos" component={AllTodos} />
+            <PrivateRoute exact path="/friends" component={Friends} />
           </Switch>
         </loadingContext.Provider>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
 export default App;
