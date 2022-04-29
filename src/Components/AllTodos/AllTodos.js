@@ -22,6 +22,7 @@ function AllTodos() {
   const location = useLocation(); //holds props
   const [time, setTime] = useState(location.state.time); //this holds the date/month/week/year of which the user wants all todos
   const timeType = location.state.timeType; //this holds daily/weekly/monthly/yearly basically the type of time wanted
+  console.log(location.state);
   const [finishedTodos, setFinishedTodos] = useState([]);
   const [unfinishedTodos, setUnfinishedTodos] = useState([]);
   const [allTodos, setAllTodos] = useState([]);

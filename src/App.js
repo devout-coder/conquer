@@ -44,6 +44,11 @@ function App() {
             <PrivateRoute exact path="/longTerm" component={LongTerm} />
             <PrivateRoute exact path="/:time/allTodos" component={AllTodos} />
             <PrivateRoute exact path="/friends" component={Friends} />
+            <PrivateRoute
+              exact
+              path="/add-friend/:userId"
+              component={Friends}
+            />
           </Switch>
         </loadingContext.Provider>
       </BrowserRouter>

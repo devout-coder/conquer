@@ -22,17 +22,17 @@ function Navbar() {
         <span></span>
       ) : (
         <div className="navbarRight">
+          <Link to="/friends">
+            <IconButton>
+              <People className="peopleIcon" />
+            </IconButton>
+          </Link>
           <IconButton
             onClick={() => firebaseApp.auth().signOut()}
             title="Logout"
           >
             <ExitToAppIcon className="logoutIcon" />
           </IconButton>
-          <Link to="/friends">
-            <IconButton>
-              <People className="peopleIcon" />
-            </IconButton>
-          </Link>
         </div>
       )}
     </div>
