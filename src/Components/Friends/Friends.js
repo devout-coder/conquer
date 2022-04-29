@@ -1,24 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import "./Friends.css";
 import { Button, CircularProgress } from "@material-ui/core";
+import EachFriend from "../EachFriend/EachFriend";
+import firebaseApp from "../../firebase";
+import { loadingContext } from "../../loadingContext";
+import { RWebShare } from "react-web-share";
 
 const Friends = () => {
   const [friendsLoading, setFriendsLoading] = useState(true);
   const [allFriends, setAllFriends] = useState([]);
+  let user = useContext(loadingContext);
 
-  function fetchAllFriendsUser() {
+  async function fetchAllFriendsUser() {
     firebaseApp
       .firestore()
       .collection("friends")
       .doc(user.uid)
       .onSnapshot((snap) => {
+        // console.log(snap.get("friends"));
         if (snap.get("friends") != undefined) {
           let friends = snap.get("friends");
           let friendsDetails = [];
           friends.forEach((friendId) => {
             let obj = {};
-            firestore()
+            firebaseApp
+              .firestore()
               .collection("users")
               .doc(friendId)
               .get()
@@ -40,8 +47,13 @@ const Friends = () => {
   }
 
   useEffect(() => {
-    fetchAllFriendsUser();
-  }, []);
+    if (user) {
+      fetchAllFriendsUser();
+    } else {
+      setFriendsLoading(true);
+    }
+  }, [user]);
+
   return (
     <div className="friendsPage">
       <Navbar />
@@ -51,7 +63,16 @@ const Friends = () => {
             Add friends to create common tasks with them
           </span>
           <Button variant="text">
-            <span className="addFriendsButton">Share friendship link</span>
+            <RWebShare
+              data={{
+                text: `Tap this link to accept ${user.displayName}'s Conquer friend request`,
+                url: `https://conquer-goals.netlify.app/add-friend/${user.uid}`,
+                title: "Friend Request",
+              }}
+              onClick={() => console.log("shared successfully!")}
+            >
+              <span className="addFriendsButton">Share friendship link</span>
+            </RWebShare>
           </Button>
           <div className="allFriends">
             {!friendsLoading ? (

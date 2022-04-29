@@ -1,0 +1,27 @@
+.eachFriend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: #ffffff; */
+  width: 100%;
+  padding: 10px;
+}
+
+.friendPhoto {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.friendName {
+  color: #ffffff;
+  font-family: Poppins;
+  font-weight: 400;
+  font-size: 23px;
+  margin: 5px;
+}
+
+.deleteFriendModalText {
+  text-transform: none;
+}

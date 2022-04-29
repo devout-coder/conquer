@@ -21,7 +21,7 @@ function Navbar() {
       {user == null || user == false ? (
         <span></span>
       ) : (
-        <div class="navbarRight">
+        <div className="navbarRight">
           <IconButton
             onClick={() => firebaseApp.auth().signOut()}
             title="Logout"
