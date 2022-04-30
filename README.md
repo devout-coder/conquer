@@ -2,7 +2,7 @@
 
 ![Conquer](https://play-lh.googleusercontent.com/o-p3GT0nKIn0ZZ2RJET1dICukLrEwJsySjo-LQ6WJ4mlqY6-ltFtkhyPpbgxWgIGUXJl=s180-rw)
 
-Conquer is a productivity app which allows users to divide their tasks and goals into five segments: daily, weekly, monthly, yearly and long term. Users can create, update, prioritize, postpone and delete tasks in all these sections. This is available both as a [web](https://conquer-goals.netlify.app/) and [android](https://play.google.com/store/apps/details?id=com.conquer_app) app
+Conquer is a productivity app which allows users to divide their tasks and goals into five segments: daily, weekly, monthly, yearly and long term. Users can create, update, prioritize, postpone and delete tasks in all these sections. They can also add friends and share tasks with their friends. This is available both as a [web](https://conquer-goals.netlify.app/) and [android](https://play.google.com/store/apps/details?id=com.conquer_app) app
 
 This repo handles the web app of conquer. [This repo](https://github.com/devout-coder/conquer-rn-app) has the code for the android app of conquer.
 
