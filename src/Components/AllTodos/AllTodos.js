@@ -36,6 +36,8 @@ function AllTodos() {
 
   function loadData() {
     //this function fetches todos from firebase of the specific time, distinguishes them as finished and unfinished and stores them in state variables
+
+    setLoading(true);
     firebaseApp
       .firestore()
       .collection("todos")
@@ -44,7 +46,6 @@ function AllTodos() {
       .orderBy("priority", "desc")
       .get()
       .then((snap) => {
-        setLoading(true);
         //i know it seems silly to setLoading true and false one after another... i don't why but if i don't do that then unwanted tasks get ticked...
         let finished = [];
         let unfinished = [];
@@ -109,8 +110,6 @@ function AllTodos() {
       //this is evaluated true if drag isn't outside the draggable
       let initialPos = props.source.index;
       let finalPos = props.destination.index;
-      let initialPosAllTodos;
-      let finalPosAllTodos;
 
       let initialTaskPri = allTodos[initialPos].priority;
       let finalTaskPri = allTodos[finalPos].priority;
@@ -118,26 +117,11 @@ function AllTodos() {
       if (initialTaskPri == finalTaskPri) {
         //this condition ensures that item will be dropped only its interchanged with items of same priority
 
-        unfinishedTodos.splice(
-          finalPos,
-          0,
-          unfinishedTodos.splice(initialPos, 1)[0]
-        );
-        //splices removes the element from intial position and pastes it in new position
-
-        allTodos.forEach((each) => {
-          if (each.id == unfinishedTodos[finalPos].id) {
-            finalPosAllTodos = each.index[user.uid];
-          } else if (each.id == unfinishedTodos[initialPos].id) {
-            initialPosAllTodos = each.index[user.uid];
-          }
-        });
-
-        if (initialPosAllTodos < finalPosAllTodos) {
+        if (initialPos < finalPos) {
           allTodos.forEach((each, index) => {
             let indexDict = each.index;
-            if (index == initialPosAllTodos) {
-              indexDict[user.uid] = finalPosAllTodos;
+            if (index == initialPos) {
+              indexDict[user.uid] = finalPos;
               firebaseApp
                 .firestore()
                 .collection("todos")
@@ -147,7 +131,7 @@ function AllTodos() {
                 })
                 .catch((error) => console.error(error));
             }
-            if (index > initialPosAllTodos && index <= finalPosAllTodos) {
+            if (index > initialPos && index <= finalPos) {
               indexDict[user.uid] = indexDict[user.uid] - 1;
               firebaseApp
                 .firestore()
@@ -158,12 +142,17 @@ function AllTodos() {
                 })
                 .catch((error) => console.error(error));
             }
+
+            if (allTodos.length - 1 == index) {
+              console.log("loaded");
+              loadData();
+            }
           });
-        } else if (initialPosAllTodos > finalPosAllTodos) {
+        } else if (initialPos > finalPos) {
           allTodos.forEach((each, index) => {
             let indexDict = each.index;
-            if (index == initialPosAllTodos) {
-              indexDict[user.uid] = finalPosAllTodos;
+            if (index == initialPos) {
+              indexDict[user.uid] = finalPos;
               firebaseApp
                 .firestore()
                 .collection("todos")
@@ -173,7 +162,7 @@ function AllTodos() {
                 })
                 .catch((error) => console.error(error));
             }
-            if (index < initialPosAllTodos && index >= finalPosAllTodos) {
+            if (index < initialPos && index >= finalPos) {
               indexDict[user.uid] = indexDict[user.uid] + 1;
               firebaseApp
                 .firestore()
@@ -183,6 +172,11 @@ function AllTodos() {
                   index: indexDict,
                 })
                 .catch((error) => console.error(error));
+            }
+
+            if (allTodos.length - 1 == index) {
+              console.log("loaded");
+              loadData();
             }
           });
         }
