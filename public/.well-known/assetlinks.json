@@ -10,6 +10,16 @@
     }
   },
   {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.conquer_app",
+      "sha256_cert_fingerprints": [
+        "C4:C4:6D:10:27:A2:1C:3E:74:6D:5F:19:61:81:E9:AA:55:D4:05:16:C6:30:DA:30:C7:9B:29:B4:6E:BF:2F:AD"
+      ]
+    }
+  },
+  {
     "relation": ["delegate_permission/common.get_login_creds"],
     "target": {
       "namespace": "web",
@@ -23,6 +33,16 @@
       "package_name": "com.conquer_app",
       "sha256_cert_fingerprints": [
         "45:A6:A0:2E:13:7B:28:C1:4D:4B:58:15:B0:D5:46:7D:71:52:00:62:32:D1:E6:3D:85:8F:F1:FB:2F:E1:63:93"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.get_login_creds"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.conquer_app",
+      "sha256_cert_fingerprints": [
+        "C4:C4:6D:10:27:A2:1C:3E:74:6D:5F:19:61:81:E9:AA:55:D4:05:16:C6:30:DA:30:C7:9B:29:B4:6E:BF:2F:AD"
       ]
     }
   }

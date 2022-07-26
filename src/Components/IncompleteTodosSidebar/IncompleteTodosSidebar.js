@@ -50,7 +50,7 @@ function IncompleteTodosSidebar(props) {
     //later in func loadReqTodos i ve taken reqTodos as a parameter and sorts it by the time and in accordance of timeType(month, daily, week, year)
     let sortedTodos = arr;
     sortedTodos = arr.sort((a, b) => {
-      return a.index - b.index;
+      return a.index[user.uid] - b.index[user.uid];
     });
     sortedTodos = arr.sort((a, b) => {
       let temparr = [a.time, b.time];
@@ -144,8 +144,7 @@ function IncompleteTodosSidebar(props) {
             tparray.push(eachdict);
           }
         });
-        sortTodos(tparray);
-        setReqTodos(tparray);
+        setReqTodos(sortTodos(tparray));
         setLoading(false);
       });
   }
